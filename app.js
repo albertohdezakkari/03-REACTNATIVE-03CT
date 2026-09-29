@@ -167,7 +167,7 @@ export default function App() {
   useEffect(() => {
     async function cargarVideojuegos() {
       try {
-        const respuesta = await fetch(`${API_URL}/videojuegos`);
+        const respuesta = await fetch(API_URL + '/videojuegos');
 
         if (!respuesta.ok) {
           throw new Error('La API no ha respondido correctamente');
