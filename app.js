@@ -120,16 +120,46 @@ function codeFiles(e){
  };
  return (map[e.id]||[]).map(([name,path,role,source])=>({name,path,role,source}));
 }
+function conceptGuide(e){
+ const guides={
+  1:"<p><b>Persistencia:</b> los datos sobreviven al reinicio. <b>Entity:</b> describe la tabla. <b>Repository:</b> ofrece operaciones sobre esa Entity.</p>",
+  2:"<p><b>find()</b> recupera una colección de entidades. No escribimos SELECT manualmente: Repository pide los registros y TypeORM realiza la consulta.</p>",
+  3:"<p><b>Path Param:</b> el id forma parte de la URL. <b>findOneBy({ id })</b> busca una entidad que cumple esa condición. Si no existe, la API debe responder de forma controlada.</p>",
+  4:"<p><b>POST</b> crea un recurso. <b>@Body()</b> recupera el JSON enviado. <b>DTO</b> describe los datos de entrada. <b>create()</b> construye la Entity y <b>save()</b> la persiste.</p>",
+  5:"<p><b>PATCH</b> modifica parte de un recurso. Por eso UpdateViajeDto tiene propiedades opcionales: el cliente no está obligado a reenviar el objeto completo.</p>",
+  6:"<p><b>DELETE</b> elimina el registro persistente, pero React Native conserva su estado en memoria. Después de borrar debemos sincronizar la interfaz.</p>",
+  7:"<p><b>CRUD</b> reúne Create, Read, Update y Delete. Aquí no aparece un método HTTP nuevo: el reto consiste en integrar correctamente lo aprendido.</p>",
+  8:"<p><b>OneToMany:</b> una Playlist contiene muchas Canciones. <b>ManyToOne:</b> cada Canción pertenece a una Playlist. El lado ManyToOne mantiene la clave foránea.</p>",
+  9:"<p><b>Query Params</b> expresan filtros opcionales después de ?. Controller los recibe con @Query y Service construye el objeto <code>where</code> que TypeORM aplica en PostgreSQL.</p>",
+  10:"<p><b>Transferencia:</b> ya conoces las piezas. Ahora debes decidir cómo combinarlas para construir un CRUD persistente completo con mayor autonomía.</p>"
+ };
+ return guides[e.id]||"";
+}
+function testGuide(e){
+ const examples={
+  1:"GET http://localhost:3000/videojuegos",
+  2:"GET http://localhost:3000/peliculas",
+  3:"GET http://localhost:3000/mascotas/1",
+  4:"POST http://localhost:3000/restaurantes\nContent-Type: application/json\n\n{\n  \"nombre\": \"La Trattoria\",\n  \"tipo\": \"Italiano\",\n  \"ciudad\": \"Zaragoza\",\n  \"puntuacion\": 9,\n  \"precioMedio\": 25\n}",
+  5:"PATCH http://localhost:3000/viajes/1\nContent-Type: application/json\n\n{ \"estado\": \"REALIZADO\", \"fecha\": \"2027-04-10\" }",
+  6:"DELETE http://localhost:3000/libros/1",
+  7:"GET /sneakers\nPOST /sneakers\nGET /sneakers/1\nPATCH /sneakers/1\nDELETE /sneakers/1",
+  8:"GET http://localhost:3000/playlists/1\nPOST http://localhost:3000/playlists/canciones",
+  9:"GET http://localhost:3000/eventos?ciudad=Zaragoza&categoria=Tecnologia",
+  10:"GET /destinos\nGET /destinos/1\nPOST /destinos\nPATCH /destinos/1\nDELETE /destinos/1"
+ };
+ return examples[e.id]||e.route;
+}
 function exercise(e){
  const fs=codeFiles(e);
  return '<section class="hero"><div class="eyebrow">EJERCICIO '+String(e.id).padStart(2,"0")+' · '+e.focus.toUpperCase()+'</div><h1>'+e.icon+' '+e.title+'</h1><p>'+e.modify+'</p><div class="chips"><span class="chip">'+e.concept+'</span><span class="chip">'+e.route+'</span><span class="chip">'+e.db+'</span></div></section>'+
  '<div class="section-head"><small>FUNDAMENTOS</small><h2>Antes de tocar código</h2></div>'+
  '<div class="card recover"><h3>RECUPERAMOS</h3><p>HTTP, JSON, Controller y Service. Cada ejercicio conecta esos conocimientos con persistencia real.</p></div>'+
- '<div class="card concept"><h3>CONCEPTO NUEVO · '+e.concept+'</h3><p><b>Qué es:</b> la pieza técnica protagonista del ejercicio.</p><p><b>Qué problema resuelve:</b> '+e.focus.toLowerCase()+'.</p><p><b>Cómo encaja:</b> React Native nunca accede directamente a PostgreSQL. La comunicación pasa por la API y cada capa mantiene una responsabilidad.</p></div>'+
+ '<div class="card concept"><h3>CONCEPTO NUEVO · '+e.concept+'</h3>'+conceptGuide(e)+'<p><b>Cómo encaja:</b> React Native no accede directamente a PostgreSQL. Controller recibe HTTP, Service coordina y Repository trabaja con las Entities.</p></div>'+
  '<div class="section-head"><small>LEE</small><h2>Qué vas a construir</h2></div><div class="grid2"><div class="card"><b>OBJETIVO</b><p>Construir y comprobar <code>'+e.route+'</code> utilizando datos persistidos en <code>'+e.db+'</code>.</p></div><div class="card"><b>CONCEPTO NUEVO</b><p>'+e.concept+'</p></div></div>'+
  '<div class="section-head"><small>PREPARA LA ISLA</small><h2>Todo empieza en su carpeta</h2></div><div class="lab"><div class="terminal">cd C02-DATABRIDGE-TYPEORM-POSTGRESQL/EJERCICIO-'+String(e.id).padStart(2,"0")+'\nnest new backend\ncd backend\nnpm install @nestjs/typeorm typeorm pg\nnest g module '+e.resource+'\nnest g controller '+e.resource+'\nnest g service '+e.resource+'</div><div class="tree">EJERCICIO-'+String(e.id).padStart(2,"0")+'/\n├── backend/\n├── frontend/\n└── README.md</div></div>'+
  '<div class="section-head"><small>FASE 1</small><h2>CONSTRUYE BACKEND</h2></div><div class="card backend phase"><div class="phase-no">1</div><div><h3>NestJS + TypeORM + PostgreSQL</h3><p>Crea la base <code>'+e.db+'</code>. Configura TypeORM, registra la Entity en el módulo, inyecta Repository en Service y expón la operación desde Controller.</p></div></div>'+
- '<div class="section-head"><small>FASE 2</small><h2>PRUEBA BACKEND</h2></div><div class="card backend"><div class="terminal">npm run start:dev\n\n'+e.route+'\n→ Controller\n→ Service\n→ Repository\n→ TypeORM\n→ PostgreSQL\n→ JSON</div><p><b>No continúes</b> hasta que la API responda correctamente.</p></div>'+
+ '<div class="section-head"><small>FASE 2</small><h2>PRUEBA BACKEND</h2></div><div class="card backend"><p>Arranca NestJS y prueba exactamente la operación protagonista:</p><div class="terminal">npm run start:dev\n\n'+testGuide(e)+'</div><div class="flow"><span>Request</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span><b>→</b><span>JSON</span></div><p><b>No continúes</b> hasta que la API responda correctamente.</p></div>'+
  '<div class="section-head"><small>FASE 3</small><h2>CREA FRONTEND</h2></div><div class="card frontend phase"><div class="phase-no">3</div><div><h3>React Native · Expo</h3><div class="terminal">cd ..\nnpx create-expo-app@latest frontend --template blank-typescript\ncd frontend\nnpx expo start</div></div></div>'+
  '<div class="section-head"><small>FASE 4</small><h2>CONECTA FRONTEND / BACKEND</h2></div><div class="card connection"><div class="flow"><span>React Native</span><b>→</b><span>HTTP</span><b>→</b><span>'+e.route+'</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span></div><p>En un móvil físico, <code>localhost</code> representa el propio móvil. Utiliza la IP local del ordenador que ejecuta NestJS.</p></div>'+
  '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Primero observa el programa completo para familiarizarte con su estructura. Cada pestaña corresponde a UN archivo real.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="fileViewer"></div></section>'+
@@ -179,7 +209,7 @@ function wire(){
 
      try{
        // Cada pestaña descarga UN archivo físico independiente.
-       const response=await fetch(file.source+'?v=20260929-1435');
+       const response=await fetch(file.source+'?v=20260929-1510');
        if(!response.ok) throw new Error('No se pudo cargar el archivo');
        const code=await response.text();
        viewer.querySelector(".code").textContent=code;
