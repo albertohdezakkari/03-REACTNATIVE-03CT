@@ -29,3 +29,8 @@ button{font:inherit}
 .exercise-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}.exercise-tile{background:#fff;border:1px solid var(--border);border-radius:14px;padding:15px;cursor:pointer}.exercise-tile:hover{border-color:#B4C9E8}.exercise-tile b{display:block}.exercise-tile small{color:var(--text-secondary)}
 .bottom-nav{position:fixed;bottom:0;left:310px;right:0;height:64px;background:#fff;border-top:1px solid var(--border);display:flex;justify-content:center;align-items:center;gap:10px;z-index:20}.bottom-nav button{border:1px solid var(--border);background:#fff;border-radius:9px;padding:9px 15px;font-weight:800}.bottom-nav .complete{background:var(--primary);color:#fff;border-color:var(--primary)}
 @media(max-width:850px){.sidebar{transform:translateX(-100%);transition:.2s}.sidebar.open{transform:none}.workspace{margin-left:0}.bottom-nav{left:0}.menu{display:block}.content{padding-inline:16px}.grid2,.lab,.mod-grid,.exercise-list{grid-template-columns:1fr}.hero h1{font-size:36px}.under-row{grid-template-columns:1fr}}
+
+.file-panel{display:none}
+.file-panel.active{display:block}
+.file-panel .code-meta{padding:12px 0 14px;line-height:1.8}
+.file-panel .code{margin:0;max-height:none;overflow-x:auto}
