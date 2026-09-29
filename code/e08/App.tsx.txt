@@ -1,0 +1,12 @@
+import { useEffect,useState } from 'react';
+import { FlatList,SafeAreaView,Text,View } from 'react-native';
+type Cancion={id:number;titulo:string;artista:string};
+type Playlist={id:number;nombre:string;canciones:Cancion[]};
+const API_URL='http://TU_IP_LOCAL:3000';
+export default function App(){
+ const [playlist,setPlaylist]=useState<Playlist|null>(null);
+ useEffect(()=>{fetch(API_URL+'/playlists/1').then(r=>r.json()).then(setPlaylist);},[]);
+ if(!playlist)return <Text>Cargando...</Text>;
+ return <SafeAreaView><Text>🎵 {playlist.nombre}</Text><FlatList data={playlist.canciones} keyExtractor={x=>String(x.id)}
+ renderItem={({item})=><View><Text>{item.titulo}</Text><Text>{item.artista}</Text></View>}/></SafeAreaView>;
+}
