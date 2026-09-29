@@ -1,0 +1,25 @@
+// mascotas.service.ts
+// RESPONSABILIDAD: buscar una mascota concreta por su id.
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Mascota } from './mascota.entity';
+
+@Injectable()
+export class MascotasService {
+  constructor(
+    @InjectRepository(Mascota)
+    private readonly repository: Repository<Mascota>,
+  ) {}
+
+  async findOne(id: number): Promise<Mascota> {
+    // findOneBy busca la primera fila que cumple esta condición.
+    const mascota = await this.repository.findOneBy({ id });
+
+    if (!mascota) {
+      throw new NotFoundException('Mascota no encontrada');
+    }
+
+    return mascota;
+  }
+}
