@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="C02 DataBridge — React Native, NestJS, TypeORM y PostgreSQL" />
+  <title>C02 · DataBridge — Del móvil a PostgreSQL</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-badge">C02</div>
+      <div><strong>DataBridge</strong><small>RN · NestJS · TypeORM</small></div>
+    </div>
+    <div class="progress-box">
+      <div class="progress-head"><span>PROGRESO</span><b id="progressText">0%</b></div>
+      <div class="progress-track"><i id="progressBar"></i></div>
+    </div>
+    <nav id="sideNav"></nav>
+    <button class="reset" id="resetProgress">Reiniciar progreso</button>
+  </aside>
+
+  <section class="workspace">
+    <header class="topbar">
+      <button id="menuBtn" class="menu" aria-label="Abrir navegación">☰</button>
+      <div>
+        <small>CUADERNO DE APRENDIZAJE</small>
+        <strong id="pageTitle">C02 · DataBridge</strong>
+      </div>
+      <span class="saved">Guardado ✓</span>
+    </header>
+
+    <main id="content" class="content"></main>
+
+    <footer class="bottom-nav">
+      <button id="prevBtn">← ANTERIOR</button>
+      <button id="completeBtn" class="complete">✓ COMPLETADO</button>
+      <button id="nextBtn">SIGUIENTE →</button>
+    </footer>
+  </section>
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
