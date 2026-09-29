@@ -1,0 +1,21 @@
+// peliculas.service.ts
+// RESPONSABILIDAD: recuperar una colección completa desde PostgreSQL.
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Pelicula } from './pelicula.entity';
+
+@Injectable()
+export class PeliculasService {
+  constructor(
+    @InjectRepository(Pelicula)
+    private readonly repository: Repository<Pelicula>,
+  ) {}
+
+  // find() devuelve todas las filas como entidades Pelicula.
+  findAll(): Promise<Pelicula[]> {
+    return this.repository.find({
+      order: { puntuacion: 'DESC' },
+    });
+  }
+}
