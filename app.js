@@ -28,13 +28,309 @@ function home(){
  '<div class="section-head"><small>PROGRESIÓN</small><h2>Los 10 ejercicios</h2></div><div class="exercise-list">'+EXERCISES.map(e=>'<div class="exercise-tile" data-page="e'+e.id+'"><b>'+String(e.id).padStart(2,"0")+' · '+e.icon+' '+e.title+'</b><small>'+e.focus+' · '+e.concept+'</small></div>').join("")+'</div>';
 }
 function codeFiles(e){
+ if(e.id===1){
+  return [
+   {name:"app.module.ts",path:"backend/src/app.module.ts",role:"Configura la conexión de NestJS con PostgreSQL mediante TypeORM e importa el módulo de videojuegos.",code:`import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { VideojuegosModule } from './videojuegos/videojuegos.module';
+
+@Module({
+  imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'TU_PASSWORD_POSTGRES',
+      database: 'databridge_e01',
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    VideojuegosModule,
+  ],
+})
+export class AppModule {}`},
+   {name:"videojuego.entity.ts",path:"backend/src/videojuegos/videojuego.entity.ts",role:"Define cómo se representa un videojuego en TypeScript y qué columnas tendrá la tabla.",code:`import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+@Entity('videojuegos')
+export class Videojuego {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  titulo: string;
+
+  @Column()
+  plataforma: string;
+
+  @Column('decimal', { precision: 3, scale: 1 })
+  puntuacion: number;
+}`},
+   {name:"videojuegos.module.ts",path:"backend/src/videojuegos/videojuegos.module.ts",role:"Registra la Entity Videojuego y conecta Controller y Service dentro del módulo.",code:`import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Videojuego } from './videojuego.entity';
+import { VideojuegosController } from './videojuegos.controller';
+import { VideojuegosService } from './videojuegos.service';
+
+@Module({
+  imports: [TypeOrmModule.forFeature([Videojuego])],
+  controllers: [VideojuegosController],
+  providers: [VideojuegosService],
+})
+export class VideojuegosModule {}`},
+   {name:"videojuegos.service.ts",path:"backend/src/videojuegos/videojuegos.service.ts",role:"Utiliza Repository<Videojuego> para recuperar datos de PostgreSQL y crea datos iniciales si la tabla está vacía.",code:`import { Injectable, OnModuleInit } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Videojuego } from './videojuego.entity';
+
+@Injectable()
+export class VideojuegosService implements OnModuleInit {
+  constructor(
+    @InjectRepository(Videojuego)
+    private readonly videojuegosRepository: Repository<Videojuego>,
+  ) {}
+
+  async onModuleInit(): Promise<void> {
+    const total = await this.videojuegosRepository.count();
+
+    if (total === 0) {
+      await this.videojuegosRepository.save([
+        this.videojuegosRepository.create({
+          titulo: 'Hollow Knight',
+          plataforma: 'Nintendo Switch',
+          puntuacion: 9.4,
+        }),
+        this.videojuegosRepository.create({
+          titulo: 'Zelda: Tears of the Kingdom',
+          plataforma: 'Nintendo Switch',
+          puntuacion: 9.8,
+        }),
+        this.videojuegosRepository.create({
+          titulo: 'Forza Horizon 5',
+          plataforma: 'Xbox',
+          puntuacion: 9.1,
+        }),
+      ]);
+    }
+  }
+
+  findAll(): Promise<Videojuego[]> {
+    return this.videojuegosRepository.find({
+      order: { puntuacion: 'DESC' },
+    });
+  }
+}`},
+   {name:"videojuegos.controller.ts",path:"backend/src/videojuegos/videojuegos.controller.ts",role:"Recibe GET /videojuegos y delega la recuperación de datos en VideojuegosService.",code:`import { Controller, Get } from '@nestjs/common';
+import { Videojuego } from './videojuego.entity';
+import { VideojuegosService } from './videojuegos.service';
+
+@Controller('videojuegos')
+export class VideojuegosController {
+  constructor(
+    private readonly videojuegosService: VideojuegosService,
+  ) {}
+
+  @Get()
+  findAll(): Promise<Videojuego[]> {
+    return this.videojuegosService.findAll();
+  }
+}`},
+   {name:"App.tsx",path:"frontend/App.tsx",role:"Consulta GET /videojuegos, guarda el array en estado y muestra una colección visual en React Native.",code:`import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import {
+  ActivityIndicator,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+type Videojuego = {
+  id: number;
+  titulo: string;
+  plataforma: string;
+  puntuacion: number;
+};
+
+const API_URL = 'http://TU_IP_LOCAL:3000';
+
+export default function App() {
+  const [videojuegos, setVideojuegos] = useState<Videojuego[]>([]);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    async function cargarVideojuegos() {
+      try {
+        const respuesta = await fetch(`${API_URL}/videojuegos`);
+
+        if (!respuesta.ok) {
+          throw new Error('La API no ha respondido correctamente');
+        }
+
+        const datos: Videojuego[] = await respuesta.json();
+        setVideojuegos(datos);
+      } catch {
+        setError(
+          'No se ha podido conectar con NestJS. Revisa la IP y el puerto.',
+        );
+      } finally {
+        setCargando(false);
+      }
+    }
+
+    cargarVideojuegos();
+  }, []);
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar style="light" />
+
+      <View style={styles.header}>
+        <Text style={styles.eyebrow}>GAME VAULT</Text>
+        <Text style={styles.title}>Mi colección</Text>
+        <Text style={styles.subtitle}>
+          Datos reales recuperados desde PostgreSQL
+        </Text>
+      </View>
+
+      {cargando && (
+        <ActivityIndicator
+          size="large"
+          style={styles.center}
+        />
+      )}
+
+      {error !== '' && (
+        <Text style={styles.error}>{error}</Text>
+      )}
+
+      {!cargando && error === '' && (
+        <FlatList
+          data={videojuegos}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={styles.list}
+          renderItem={({ item }) => (
+            <View style={styles.card}>
+              <View style={styles.gameIcon}>
+                <Text style={styles.gameEmoji}>🎮</Text>
+              </View>
+
+              <View style={styles.cardContent}>
+                <Text style={styles.gameTitle}>
+                  {item.titulo}
+                </Text>
+                <Text style={styles.platform}>
+                  {item.plataforma}
+                </Text>
+              </View>
+
+              <View style={styles.score}>
+                <Text style={styles.scoreText}>
+                  ★ {Number(item.puntuacion).toFixed(1)}
+                </Text>
+              </View>
+            </View>
+          )}
+        />
+      )}
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0F172A',
+  },
+  header: {
+    paddingHorizontal: 24,
+    paddingTop: 28,
+    paddingBottom: 20,
+  },
+  eyebrow: {
+    color: '#38BDF8',
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 2,
+  },
+  title: {
+    color: '#FFFFFF',
+    fontSize: 32,
+    fontWeight: '800',
+    marginTop: 4,
+  },
+  subtitle: {
+    color: '#94A3B8',
+    marginTop: 6,
+  },
+  list: {
+    paddingHorizontal: 18,
+    paddingBottom: 24,
+  },
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1E293B',
+    borderRadius: 18,
+    padding: 16,
+    marginBottom: 12,
+  },
+  gameIcon: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
+    backgroundColor: '#334155',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  gameEmoji: {
+    fontSize: 24,
+  },
+  cardContent: {
+    flex: 1,
+    marginLeft: 14,
+  },
+  gameTitle: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  platform: {
+    color: '#94A3B8',
+    marginTop: 4,
+  },
+  score: {
+    backgroundColor: '#0F766E',
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  scoreText: {
+    color: '#CCFBF1',
+    fontWeight: '800',
+  },
+  center: {
+    marginTop: 80,
+  },
+  error: {
+    color: '#FCA5A5',
+    paddingHorizontal: 24,
+    marginTop: 30,
+    textAlign: 'center',
+  },
+});`}
+  ];
+ }
  const singular=e.resource.endsWith("s")?e.resource.slice(0,-1):e.resource;
  const ClassName=singular.charAt(0).toUpperCase()+singular.slice(1);
  return [
-  {name:singular+".entity.ts",path:"backend/src/"+e.resource+"/"+singular+".entity.ts",role:"Representa la entidad persistente.",code:'import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";\n\n@Entity()\nexport class '+ClassName+' {\n  @PrimaryGeneratedColumn()\n  id: number;\n\n  @Column()\n  nombre: string;\n}'},
-  {name:e.resource+".service.ts",path:"backend/src/"+e.resource+"/"+e.resource+".service.ts",role:"Aplica la lógica y utiliza Repository.",code:'import { Injectable } from "@nestjs/common";\nimport { InjectRepository } from "@nestjs/typeorm";\nimport { Repository } from "typeorm";\nimport { '+ClassName+' } from "./'+singular+'.entity";\n\n@Injectable()\nexport class '+ClassName+'Service {\n  constructor(\n    @InjectRepository('+ClassName+')\n    private readonly repository: Repository<'+ClassName+'>,\n  ) {}\n\n  findAll() {\n    return this.repository.find();\n  }\n}'},
-  {name:e.resource+".controller.ts",path:"backend/src/"+e.resource+"/"+e.resource+".controller.ts",role:"Recibe las peticiones HTTP y delega en Service.",code:'import { Controller, Get } from "@nestjs/common";\nimport { '+ClassName+'Service } from "./'+e.resource+'.service";\n\n@Controller("'+e.resource+'")\nexport class '+ClassName+'Controller {\n  constructor(private readonly service: '+ClassName+'Service) {}\n\n  @Get()\n  findAll() {\n    return this.service.findAll();\n  }\n}'},
-  {name:"App.tsx",path:"frontend/App.tsx",role:"Solicita la API y representa el resultado.",code:'const API_URL = "http://TU_IP:3000";\n\nuseEffect(() => {\n  fetch(API_URL + "/'+e.resource+'")\n    .then(response => response.json())\n    .then(setDatos);\n}, []);'}
+  {name:singular+".entity.ts",path:"backend/src/"+e.resource+"/"+singular+".entity.ts",role:"Archivo provisional: este ejercicio se completará después de aprobar E01.",code:"Este ejercicio se auditará después de aprobar E01."}
  ];
 }
 function exercise(e){
