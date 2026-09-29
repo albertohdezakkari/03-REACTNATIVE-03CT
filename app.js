@@ -30,12 +30,15 @@ function home(){
 function codeFiles(e){
  if(e.id===1){
   return [
-   {name:"app.module.ts",path:"backend/src/app.module.ts",role:"Configura TypeORM y conecta NestJS con PostgreSQL.",code:`import { Module } from '@nestjs/common';
+   {name:"app.module.ts",path:"backend/src/app.module.ts",role:"Configura TypeORM y conecta NestJS con PostgreSQL.",code:`// AppModule es el módulo raíz del backend.
+// Aquí configuramos la conexión general con PostgreSQL.
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VideojuegosModule } from './videojuegos/videojuegos.module';
 
 @Module({
   imports: [
+    // forRoot() crea la conexión que utilizará toda la aplicación.
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
@@ -43,7 +46,11 @@ import { VideojuegosModule } from './videojuegos/videojuegos.module';
       username: 'postgres',
       password: 'TU_PASSWORD_POSTGRES',
       database: 'databridge_e01',
+      // Carga automáticamente las Entities registradas con forFeature().
       autoLoadEntities: true,
+
+      // Solo para aprendizaje/desarrollo local: adapta las tablas a las Entities.
+      // En producción se suelen utilizar migraciones.
       synchronize: true,
     }),
     VideojuegosModule,
@@ -56,8 +63,10 @@ export class AppModule {}`},
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+// @Entity indica que esta clase representa una tabla persistente.
 @Entity('videojuegos')
 export class Videojuego {
+  // PostgreSQL generará automáticamente el identificador.
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -67,6 +76,7 @@ export class Videojuego {
   @Column()
   plataforma: string;
 
+  // Guardamos una puntuación con un decimal: por ejemplo 9.4.
   @Column('decimal', { precision: 3, scale: 1 })
   puntuacion: number;
 }`},
@@ -77,6 +87,8 @@ import { VideojuegosController } from './videojuegos.controller';
 import { VideojuegosService } from './videojuegos.service';
 
 @Module({
+  // forFeature() registra Videojuego dentro de ESTE módulo.
+  // Gracias a ello podremos inyectar Repository<Videojuego> en el Service.
   imports: [TypeOrmModule.forFeature([Videojuego])],
   controllers: [VideojuegosController],
   providers: [VideojuegosService],
@@ -90,13 +102,17 @@ import { Videojuego } from './videojuego.entity';
 @Injectable()
 export class VideojuegosService implements OnModuleInit {
   constructor(
+    // NestJS pide a TypeORM el Repository asociado a Videojuego.
     @InjectRepository(Videojuego)
     private readonly repository: Repository<Videojuego>,
   ) {}
 
+  // Este método se ejecuta cuando NestJS termina de crear el módulo.
+  // Lo usamos solo para disponer de datos iniciales en este primer ejercicio.
   async onModuleInit(): Promise<void> {
     const total = await this.repository.count();
 
+    // Evitamos duplicar datos cada vez que reiniciamos NestJS.
     if (total === 0) {
       await this.repository.save([
         this.repository.create({
@@ -118,6 +134,8 @@ export class VideojuegosService implements OnModuleInit {
     }
   }
 
+  // El Controller llamará a este método.
+  // find() consulta PostgreSQL y devuelve entidades Videojuego.
   findAll(): Promise<Videojuego[]> {
     return this.repository.find({
       order: { puntuacion: 'DESC' },
@@ -128,12 +146,15 @@ export class VideojuegosService implements OnModuleInit {
 import { Videojuego } from './videojuego.entity';
 import { VideojuegosService } from './videojuegos.service';
 
+// Todas las rutas de esta clase comienzan por /videojuegos.
 @Controller('videojuegos')
 export class VideojuegosController {
   constructor(
     private readonly videojuegosService: VideojuegosService,
   ) {}
 
+  // GET /videojuegos
+  // El Controller NO consulta PostgreSQL: delega en el Service.
   @Get()
   findAll(): Promise<Videojuego[]> {
     return this.videojuegosService.findAll();
@@ -150,6 +171,7 @@ import {
   View,
 } from 'react-native';
 
+// Este tipo describe el JSON que esperamos recibir desde NestJS.
 type Videojuego = {
   id: number;
   titulo: string;
@@ -157,6 +179,7 @@ type Videojuego = {
   puntuacion: number;
 };
 
+// En un móvil físico no usamos localhost: indicamos la IP del ordenador.
 const API_URL = 'http://TU_IP_LOCAL:3000';
 
 export default function App() {
@@ -164,15 +187,19 @@ export default function App() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState('');
 
+  // useEffect ejecuta la carga cuando se monta la pantalla por primera vez.
   useEffect(() => {
     async function cargarVideojuegos() {
       try {
+        // fetch realiza GET http://TU_IP_LOCAL:3000/videojuegos.
         const respuesta = await fetch(API_URL + '/videojuegos');
 
         if (!respuesta.ok) {
           throw new Error('La API no ha respondido correctamente');
         }
 
+        // Convertimos el JSON de la respuesta y lo guardamos en estado.
+        // Al cambiar el estado, React vuelve a renderizar la pantalla.
         const datos: Videojuego[] = await respuesta.json();
         setVideojuegos(datos);
       } catch {
@@ -208,6 +235,7 @@ export default function App() {
       )}
 
       {!cargando && error === '' && (
+        // FlatList recibe el array y crea una tarjeta por videojuego.
         <FlatList
           data={videojuegos}
           keyExtractor={(item) => item.id.toString()}
@@ -333,7 +361,7 @@ function exercise(e){
  '<div class="section-head"><small>PREPARA LA ISLA</small><h2>Todo empieza en su carpeta</h2></div><div class="lab"><div class="terminal">cd C02-DATABRIDGE-TYPEORM-POSTGRESQL/EJERCICIO-'+String(e.id).padStart(2,"0")+'\nnest new backend\ncd backend\nnpm install @nestjs/typeorm typeorm pg\nnest g module '+e.resource+'\nnest g controller '+e.resource+'\nnest g service '+e.resource+'</div><div class="tree">EJERCICIO-'+String(e.id).padStart(2,"0")+'/\n├── backend/\n├── frontend/\n└── README.md</div></div>'+
  '<div class="section-head"><small>FASE 1</small><h2>CONSTRUYE BACKEND</h2></div><div class="card backend phase"><div class="phase-no">1</div><div><h3>NestJS + TypeORM + PostgreSQL</h3><p>Crea la base <code>'+e.db+'</code>. Configura TypeORM, registra la Entity en el módulo, inyecta Repository en Service y expón la operación desde Controller.</p></div></div>'+
  '<div class="section-head"><small>FASE 2</small><h2>PRUEBA BACKEND</h2></div><div class="card backend"><div class="terminal">npm run start:dev\n\n'+e.route+'\n→ Controller\n→ Service\n→ Repository\n→ TypeORM\n→ PostgreSQL\n→ JSON</div><p><b>No continúes</b> hasta que la API responda correctamente.</p></div>'+
- '<div class="section-head"><small>FASE 3</small><h2>CREA FRONTEND</h2></div><div class="card frontend phase"><div class="phase-no">3</div><div><h3>React Native · Expo</h3><div class="terminal">cd ..\nnpx create-expo-app@latest frontend\ncd frontend\nnpx expo start</div></div></div>'+
+ '<div class="section-head"><small>FASE 3</small><h2>CREA FRONTEND</h2></div><div class="card frontend phase"><div class="phase-no">3</div><div><h3>React Native · Expo</h3><div class="terminal">cd ..\nnpx create-expo-app@latest frontend --template blank-typescript\ncd frontend\nnpx expo start</div></div></div>'+
  '<div class="section-head"><small>FASE 4</small><h2>CONECTA FRONTEND / BACKEND</h2></div><div class="card connection"><div class="flow"><span>React Native</span><b>→</b><span>HTTP</span><b>→</b><span>'+e.route+'</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span></div><p>En un móvil físico, <code>localhost</code> representa el propio móvil. Utiliza la IP local del ordenador que ejecuta NestJS.</p></div>'+
  '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Primero observa el programa completo para familiarizarte con su estructura. Cada pestaña corresponde a un archivo real.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="filePanels">'+fs.map((f,i)=>'<div class="file-panel '+(i===0?"active":"")+'" data-panel="'+i+'><div class="code-meta"><b>NOMBRE</b> '+f.name+'<br><b>RUTA</b> '+f.path+'<br><b>RESPONSABILIDAD</b> '+f.role+'</div><pre class="code">'+esc(f.code)+'</pre></div>').join("")+'</div></section>'+
  '<div class="section-head"><small>ENTIENDE</small><h2>Relaciona código y responsabilidad</h2></div><div class="card"><div class="under-row"><code>@InjectRepository(...)</code><span>Entrega al Service un Repository preparado para trabajar con esa Entity.</span></div><div class="under-row"><code>repository.find()</code><span>Solicita a TypeORM una colección de entidades recuperadas de PostgreSQL.</span></div><div class="under-row"><code>fetch(...)</code><span>React Native realiza una petición HTTP a la API; no accede a la base de datos directamente.</span></div></div>'+
