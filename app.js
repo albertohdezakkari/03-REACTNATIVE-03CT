@@ -28,17 +28,97 @@ function home(){
  '<div class="section-head"><small>PROGRESIÓN</small><h2>Los 10 ejercicios</h2></div><div class="exercise-list">'+EXERCISES.map(e=>'<div class="exercise-tile" data-page="e'+e.id+'"><b>'+String(e.id).padStart(2,"0")+' · '+e.icon+' '+e.title+'</b><small>'+e.focus+' · '+e.concept+'</small></div>').join("")+'</div>';
 }
 function codeFiles(e){
- if(e.id===1){
-  return [
-   {name:"app.module.ts",path:"backend/src/app.module.ts",role:"Configura la aplicación raíz y la conexión general con PostgreSQL.",source:"code/e01/app.module.ts.txt"},
-   {name:"videojuego.entity.ts",path:"backend/src/videojuegos/videojuego.entity.ts",role:"Describe cómo se guarda un videojuego en PostgreSQL.",source:"code/e01/videojuego.entity.ts.txt"},
-   {name:"videojuegos.module.ts",path:"backend/src/videojuegos/videojuegos.module.ts",role:"Agrupa Entity, Controller y Service y habilita Repository<Videojuego>.",source:"code/e01/videojuegos.module.ts.txt"},
-   {name:"videojuegos.service.ts",path:"backend/src/videojuegos/videojuegos.service.ts",role:"Trabaja con los datos mediante Repository<Videojuego>.",source:"code/e01/videojuegos.service.ts.txt"},
-   {name:"videojuegos.controller.ts",path:"backend/src/videojuegos/videojuegos.controller.ts",role:"Recibe GET /videojuegos y delega en el Service.",source:"code/e01/videojuegos.controller.ts.txt"},
-   {name:"App.tsx",path:"frontend/App.tsx",role:"Pide los videojuegos a NestJS y los representa en React Native.",source:"code/e01/App.tsx.txt"}
-  ];
- }
- return [{name:"Pendiente",path:"",role:"Este ejercicio se auditará después de aprobar E01.",source:null}];
+ const map={
+  1:[
+   ["app.module.ts","backend/src/app.module.ts","Configura la aplicación raíz y PostgreSQL.","code/e01/app.module.ts.txt"],
+   ["videojuego.entity.ts","backend/src/videojuegos/videojuego.entity.ts","Describe cómo se guarda un videojuego.","code/e01/videojuego.entity.ts.txt"],
+   ["videojuegos.module.ts","backend/src/videojuegos/videojuegos.module.ts","Agrupa el dominio y habilita Repository.","code/e01/videojuegos.module.ts.txt"],
+   ["videojuegos.service.ts","backend/src/videojuegos/videojuegos.service.ts","Trabaja con Repository<Videojuego>.","code/e01/videojuegos.service.ts.txt"],
+   ["videojuegos.controller.ts","backend/src/videojuegos/videojuegos.controller.ts","Expone GET /videojuegos.","code/e01/videojuegos.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Consume la API y representa la colección.","code/e01/App.tsx.txt"]
+  ],
+  2:[
+   ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e02.","code/e02/app.module.ts.txt"],
+   ["pelicula.entity.ts","backend/src/peliculas/pelicula.entity.ts","Define la película persistente.","code/e02/pelicula.entity.ts.txt"],
+   ["peliculas.module.ts","backend/src/peliculas/peliculas.module.ts","Registra Entity, Controller y Service.","code/e02/peliculas.module.ts.txt"],
+   ["peliculas.service.ts","backend/src/peliculas/peliculas.service.ts","Recupera la colección con find().","code/e02/peliculas.service.ts.txt"],
+   ["peliculas.controller.ts","backend/src/peliculas/peliculas.controller.ts","Expone GET /peliculas.","code/e02/peliculas.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Muestra la cartelera recibida.","code/e02/App.tsx.txt"]
+  ],
+  3:[
+   ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e03.","code/e03/app.module.ts.txt"],
+   ["mascota.entity.ts","backend/src/mascotas/mascota.entity.ts","Define la mascota persistente.","code/e03/mascota.entity.ts.txt"],
+   ["mascotas.module.ts","backend/src/mascotas/mascotas.module.ts","Registra el dominio mascotas.","code/e03/mascotas.module.ts.txt"],
+   ["mascotas.service.ts","backend/src/mascotas/mascotas.service.ts","Busca un registro con findOneBy().","code/e03/mascotas.service.ts.txt"],
+   ["mascotas.controller.ts","backend/src/mascotas/mascotas.controller.ts","Lee el Path Param :id.","code/e03/mascotas.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Muestra la ficha de una mascota.","code/e03/App.tsx.txt"]
+  ],
+  4:[
+   ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e04.","code/e04/app.module.ts.txt"],
+   ["restaurante.entity.ts","backend/src/restaurantes/restaurante.entity.ts","Define la Entity persistente.","code/e04/restaurante.entity.ts.txt"],
+   ["create-restaurante.dto.ts","backend/src/restaurantes/create-restaurante.dto.ts","Describe el Body de creación.","code/e04/create-restaurante.dto.ts.txt"],
+   ["restaurantes.module.ts","backend/src/restaurantes/restaurantes.module.ts","Registra el dominio restaurantes.","code/e04/restaurantes.module.ts.txt"],
+   ["restaurantes.service.ts","backend/src/restaurantes/restaurantes.service.ts","Crea y guarda mediante Repository.","code/e04/restaurantes.service.ts.txt"],
+   ["restaurantes.controller.ts","backend/src/restaurantes/restaurantes.controller.ts","Recibe POST y @Body().","code/e04/restaurantes.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Formulario que envía POST.","code/e04/App.tsx.txt"]
+  ],
+  5:[
+   ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e05.","code/e05/app.module.ts.txt"],
+   ["viaje.entity.ts","backend/src/viajes/viaje.entity.ts","Define la Entity Viaje.","code/e05/viaje.entity.ts.txt"],
+   ["update-viaje.dto.ts","backend/src/viajes/update-viaje.dto.ts","Define campos opcionales de PATCH.","code/e05/update-viaje.dto.ts.txt"],
+   ["viajes.module.ts","backend/src/viajes/viajes.module.ts","Registra el dominio viajes.","code/e05/viajes.module.ts.txt"],
+   ["viajes.service.ts","backend/src/viajes/viajes.service.ts","Busca, mezcla cambios y guarda.","code/e05/viajes.service.ts.txt"],
+   ["viajes.controller.ts","backend/src/viajes/viajes.controller.ts","Expone PATCH /viajes/:id.","code/e05/viajes.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Edita estado y fecha.","code/e05/App.tsx.txt"]
+  ],
+  6:[
+   ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e06.","code/e06/app.module.ts.txt"],
+   ["libro.entity.ts","backend/src/libros/libro.entity.ts","Define Libro.","code/e06/libro.entity.ts.txt"],
+   ["libros.module.ts","backend/src/libros/libros.module.ts","Registra el dominio libros.","code/e06/libros.module.ts.txt"],
+   ["libros.service.ts","backend/src/libros/libros.service.ts","Lee, elimina y marca como leído.","code/e06/libros.service.ts.txt"],
+   ["libros.controller.ts","backend/src/libros/libros.controller.ts","Expone GET, DELETE y PATCH.","code/e06/libros.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Confirma DELETE y sincroniza estado.","code/e06/App.tsx.txt"]
+  ],
+  7:[
+   ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e07.","code/e07/app.module.ts.txt"],
+   ["sneaker.entity.ts","backend/src/sneakers/sneaker.entity.ts","Define Sneaker y stock.","code/e07/sneaker.entity.ts.txt"],
+   ["create-sneaker.dto.ts","backend/src/sneakers/create-sneaker.dto.ts","Datos de creación.","code/e07/create-sneaker.dto.ts.txt"],
+   ["update-sneaker.dto.ts","backend/src/sneakers/update-sneaker.dto.ts","Datos parciales de edición.","code/e07/update-sneaker.dto.ts.txt"],
+   ["sneakers.module.ts","backend/src/sneakers/sneakers.module.ts","Registra el dominio.","code/e07/sneakers.module.ts.txt"],
+   ["sneakers.service.ts","backend/src/sneakers/sneakers.service.ts","Implementa CRUD con Repository.","code/e07/sneakers.service.ts.txt"],
+   ["sneakers.controller.ts","backend/src/sneakers/sneakers.controller.ts","Expone CRUD REST.","code/e07/sneakers.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Integra operaciones CRUD.","code/e07/App.tsx.txt"]
+  ],
+  8:[
+   ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e08.","code/e08/app.module.ts.txt"],
+   ["playlist.entity.ts","backend/src/playlists/playlist.entity.ts","Lado OneToMany.","code/e08/playlist.entity.ts.txt"],
+   ["cancion.entity.ts","backend/src/playlists/cancion.entity.ts","Lado ManyToOne y clave foránea.","code/e08/cancion.entity.ts.txt"],
+   ["create-cancion.dto.ts","backend/src/playlists/create-cancion.dto.ts","Datos para asociar una canción.","code/e08/create-cancion.dto.ts.txt"],
+   ["playlists.module.ts","backend/src/playlists/playlists.module.ts","Registra ambas Entities.","code/e08/playlists.module.ts.txt"],
+   ["playlists.service.ts","backend/src/playlists/playlists.service.ts","Carga relaciones y añade canciones.","code/e08/playlists.service.ts.txt"],
+   ["playlists.controller.ts","backend/src/playlists/playlists.controller.ts","Expone detalle y alta de canción.","code/e08/playlists.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Muestra playlist y canciones.","code/e08/App.tsx.txt"]
+  ],
+  9:[
+   ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e09.","code/e09/app.module.ts.txt"],
+   ["evento.entity.ts","backend/src/eventos/evento.entity.ts","Define Evento.","code/e09/evento.entity.ts.txt"],
+   ["eventos.module.ts","backend/src/eventos/eventos.module.ts","Registra el dominio eventos.","code/e09/eventos.module.ts.txt"],
+   ["eventos.service.ts","backend/src/eventos/eventos.service.ts","Construye filtros where.","code/e09/eventos.service.ts.txt"],
+   ["eventos.controller.ts","backend/src/eventos/eventos.controller.ts","Lee @Query ciudad/categoria.","code/e09/eventos.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Solicita una consulta filtrada.","code/e09/App.tsx.txt"]
+  ],
+  10:[
+   ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e10.","code/e10/app.module.ts.txt"],
+   ["destino.entity.ts","backend/src/destinos/destino.entity.ts","Define Destino.","code/e10/destino.entity.ts.txt"],
+   ["create-destino.dto.ts","backend/src/destinos/create-destino.dto.ts","Datos de creación.","code/e10/create-destino.dto.ts.txt"],
+   ["update-destino.dto.ts","backend/src/destinos/update-destino.dto.ts","Datos parciales de edición.","code/e10/update-destino.dto.ts.txt"],
+   ["destinos.module.ts","backend/src/destinos/destinos.module.ts","Registra el dominio.","code/e10/destinos.module.ts.txt"],
+   ["destinos.service.ts","backend/src/destinos/destinos.service.ts","CRUD completo con Repository.","code/e10/destinos.service.ts.txt"],
+   ["destinos.controller.ts","backend/src/destinos/destinos.controller.ts","CRUD REST completo.","code/e10/destinos.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Referencia móvil del challenge.","code/e10/App.tsx.txt"]
+  ]
+ };
+ return (map[e.id]||[]).map(([name,path,role,source])=>({name,path,role,source}));
 }
 function exercise(e){
  const fs=codeFiles(e);
