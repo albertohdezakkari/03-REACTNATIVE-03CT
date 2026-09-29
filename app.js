@@ -227,7 +227,7 @@ function exercise(e){
  '<section class="card modify"><div class="mod-grid"><div><h2>MODIFÍCALO</h2><p><b>'+e.modify+'</b></p><div class="step"><b>1</b><span>Identifica qué capas debe atravesar el dato.</span></div><div class="step"><b>2</b><span>Modifica primero el backend y vuelve a probar la API.</span></div><div class="step"><b>3</b><span>Actualiza React Native y comprueba el recorrido completo.</span></div></div><div class="phone"><div class="screen"><small>'+e.title.toUpperCase()+'</small><h3>'+e.focus+'</h3><div class="mock"><b>'+e.icon+' '+e.mock+'</b><br><small>'+e.mock2+'</small></div><div class="mock">PostgreSQL conectado ✓</div></div></div></div></section>'+
  '<div class="section-head"><small>CHECKPOINTS</small><h2>Localiza problemas antes de seguir</h2></div><div class="card checks">☐ NestJS arranca y PostgreSQL conecta.<br>'+checkpointGuide(e)+'<br>☐ Puedo explicar el recorrido del dato sin mirar el código.</div>'+
  '<div class="section-head"><small>COMPRUEBA</small><h2>¿Lo entiendes?</h2></div>'+(()=>{const q=quizGuide(e);return '<div class="card"><p><b>'+q[0]+'</b></p><div class="quiz-options"><button class="quiz-option" data-correct="1">'+q[1]+'</button><button class="quiz-option">'+q[2]+'</button><button class="quiz-option">'+q[3]+'</button><button class="quiz-option">'+q[4]+'</button></div><p class="quiz-feedback"></p></div>';})()+
- '<section class="card github"><h2>GITHUB</h2><div class="terminal">git add .\ngit commit -m "Ejercicio '+String(e.id).padStart(2,"0")+' - '+e.title+'"\ngit push</div><p>Antes de pasar al siguiente ejercicio, comprueba que <b>EJERCICIO-'+String(e.id).padStart(2,"0")+'</b> está subido.</p></section>'+
+ '<section class="card github"><h2>GITHUB</h2><p>Ejecuta estos comandos desde la raíz del repositorio <code>C02-DATABRIDGE-TYPEORM-POSTGRESQL</code>, no desde <code>backend</code> ni desde <code>frontend</code>.</p><div class="terminal">git status\ngit add EJERCICIO-'+String(e.id).padStart(2,"0")+'\ngit commit -m "Ejercicio '+String(e.id).padStart(2,"0")+' - '+e.title+'"\ngit push</div><p>Abre GitHub y comprueba que <b>EJERCICIO-'+String(e.id).padStart(2,"0")+'/backend</b>, <b>frontend</b> y <b>README.md</b> están visibles antes de continuar.</p></section>'+
  '<section class="card success"><h2>HE APRENDIDO</h2><p>✓ '+e.focus+'<br>✓ '+e.concept+'<br>✓ seguir el dato entre móvil, API y PostgreSQL.</p><b>¿Podrías explicar este ejercicio sin mirar el código?</b></section>';
 }
 const reviewQuestions=[
@@ -269,7 +269,7 @@ function wire(){
 
      try{
        // Cada pestaña descarga UN archivo físico independiente.
-       const response=await fetch(file.source+'?v=20260929-1540');
+       const response=await fetch(file.source+'?v=20260929-1605');
        if(!response.ok) throw new Error('No se pudo cargar el archivo');
        const code=await response.text();
        viewer.querySelector(".code").textContent=code;
