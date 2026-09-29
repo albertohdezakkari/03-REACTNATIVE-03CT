@@ -180,6 +180,21 @@ function checkpointGuide(e){
  };
  return (specific[e.id]||[]).map(x=>"☐ "+x).join("<br>");
 }
+function quizGuide(e){
+ const quizzes={
+  1:["¿Por qué utilizamos Repository?","Porque permite al Service trabajar con la Entity sin que Controller acceda directamente a PostgreSQL.","Porque dibuja las tarjetas.","Porque sustituye a NestJS.","Porque React Native necesita SQL."],
+  2:["¿Qué devuelve conceptualmente repository.find()?","Una colección de entidades recuperadas de la base de datos.","Una sola entidad obligatoriamente.","Un componente React Native.","El texto de una consulta SQL."],
+  3:["¿De dónde obtiene el Controller el id?","Del Path Param :id de la URL.","Del Body de un GET.","De Expo automáticamente.","De la contraseña de PostgreSQL."],
+  4:["¿Por qué usamos un DTO en POST?","Para describir los datos que aceptamos en la entrada de la API.","Para crear una tabla automáticamente.","Para sustituir la Entity.","Para diseñar el formulario."],
+  5:["¿Qué diferencia hay entre POST y PATCH?","POST crea un recurso; PATCH modifica parte de uno existente.","PATCH crea y POST elimina.","Ambos significan exactamente lo mismo.","POST solo puede leer."],
+  6:["¿Por qué actualizamos el estado después de DELETE?","Porque borrar en PostgreSQL no modifica el array que React ya tiene en memoria.","Porque DELETE cierra Expo.","Porque TypeORM modifica FlatList.","No es necesario."],
+  7:["¿Qué significa CRUD?","Create, Read, Update, Delete.","Controller, Repository, UI, DTO.","Create, React, URL, Database.","Code, Run, Upload, Deploy."],
+  8:["¿Qué expresa OneToMany aquí?","Una Playlist puede tener muchas Canciones.","Una Canción pertenece a muchas bases de datos.","Una Playlist solo puede tener una Canción.","React Native crea muchas APIs."],
+  9:["¿Por qué filtrar en la API?","Porque podemos pedir solo los registros necesarios y trasladar el filtro a la consulta.","Porque fetch no admite arrays.","Porque Query Params sustituyen PostgreSQL.","Porque React Native no puede mostrar listas."],
+  10:["¿Cuál es el recorrido correcto?","React Native → HTTP → Controller → Service → Repository → TypeORM → PostgreSQL.","React Native → PostgreSQL directamente.","Controller → Expo → SQL.","Repository → pantalla sin API."]
+ };
+ return quizzes[e.id];
+}
 function exercise(e){
  const fs=codeFiles(e);
  return '<section class="hero"><div class="eyebrow">EJERCICIO '+String(e.id).padStart(2,"0")+' · '+e.focus.toUpperCase()+'</div><h1>'+e.icon+' '+e.title+'</h1><p>'+e.modify+'</p><div class="chips"><span class="chip">'+e.concept+'</span><span class="chip">'+e.route+'</span><span class="chip">'+e.db+'</span></div></section>'+
@@ -196,7 +211,7 @@ function exercise(e){
  '<div class="section-head"><small>ENTIENDE</small><h2>Relaciona el código nuevo con su responsabilidad</h2></div><div class="card">'+understandGuide(e)+'</div>'+
  '<section class="card modify"><div class="mod-grid"><div><h2>MODIFÍCALO</h2><p><b>'+e.modify+'</b></p><div class="step"><b>1</b><span>Identifica qué capas debe atravesar el dato.</span></div><div class="step"><b>2</b><span>Modifica primero el backend y vuelve a probar la API.</span></div><div class="step"><b>3</b><span>Actualiza React Native y comprueba el recorrido completo.</span></div></div><div class="phone"><div class="screen"><small>'+e.title.toUpperCase()+'</small><h3>'+e.focus+'</h3><div class="mock"><b>'+e.icon+' '+e.mock+'</b><br><small>'+e.mock2+'</small></div><div class="mock">PostgreSQL conectado ✓</div></div></div></div></section>'+
  '<div class="section-head"><small>CHECKPOINTS</small><h2>Localiza problemas antes de seguir</h2></div><div class="card checks">☐ NestJS arranca y PostgreSQL conecta.<br>'+checkpointGuide(e)+'<br>☐ Puedo explicar el recorrido del dato sin mirar el código.</div>'+
- '<div class="section-head"><small>COMPRUEBA</small><h2>¿Lo entiendes?</h2></div><div class="card"><p><b>'+e.question+'</b></p><div class="quiz-options"><button class="quiz-option" data-correct="1">La opción coherente con Controller → Service → Repository y el recorrido trabajado.</button><button class="quiz-option">React Native accede directamente a PostgreSQL.</button><button class="quiz-option">Repository se encarga de dibujar la pantalla.</button><button class="quiz-option">Todas las capas tienen la misma responsabilidad.</button></div><p class="quiz-feedback"></p></div>'+
+ '<div class="section-head"><small>COMPRUEBA</small><h2>¿Lo entiendes?</h2></div>'+(()=>{const q=quizGuide(e);return '<div class="card"><p><b>'+q[0]+'</b></p><div class="quiz-options"><button class="quiz-option" data-correct="1">'+q[1]+'</button><button class="quiz-option">'+q[2]+'</button><button class="quiz-option">'+q[3]+'</button><button class="quiz-option">'+q[4]+'</button></div><p class="quiz-feedback"></p></div>';})()+
  '<section class="card github"><h2>GITHUB</h2><div class="terminal">git add .\ngit commit -m "Ejercicio '+String(e.id).padStart(2,"0")+' - '+e.title+'"\ngit push</div><p>Antes de pasar al siguiente ejercicio, comprueba que <b>EJERCICIO-'+String(e.id).padStart(2,"0")+'</b> está subido.</p></section>'+
  '<section class="card success"><h2>HE APRENDIDO</h2><p>✓ '+e.focus+'<br>✓ '+e.concept+'<br>✓ seguir el dato entre móvil, API y PostgreSQL.</p><b>¿Podrías explicar este ejercicio sin mirar el código?</b></section>';
 }
