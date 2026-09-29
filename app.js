@@ -150,6 +150,36 @@ function testGuide(e){
  };
  return examples[e.id]||e.route;
 }
+function understandGuide(e){
+ const rows={
+  1:[["@Entity","Convierte la clase en una Entity conocida por TypeORM."],["@InjectRepository","Entrega al Service el Repository de Videojuego."],["repository.find()","Lee los videojuegos persistidos."],["fetch()","Solicita GET /videojuegos desde React Native."]],
+  2:[["repository.find()","Recupera una colección completa."],["order","Pide a TypeORM que ordene el resultado."],["FlatList","Representa el array recibido sin conocer su tamaño de antemano."]],
+  3:[["@Get(':id')","Declara una ruta con un segmento variable."],["@Param('id')","Extrae el id de la URL."],["ParseIntPipe","Convierte y valida el id como número."],["findOneBy({ id })","Busca una entidad concreta."]],
+  4:[["@Body()","Obtiene el JSON enviado por React Native."],["CreateRestauranteDto","Describe la forma de los datos de entrada."],["repository.create(dto)","Construye una Entity en memoria."],["repository.save(...)","Persiste esa Entity en PostgreSQL."],["JSON.stringify","Convierte el objeto del formulario en JSON para el POST."]],
+  5:[["@Patch(':id')","Modifica parcialmente un recurso existente."],["propiedad?","El signo ? hace opcional cada campo del DTO."],["repository.merge","Aplica al objeto existente solo los cambios recibidos."],["repository.save","Persiste el resultado actualizado."]],
+  6:[["@Delete(':id')","Asocia DELETE con un recurso concreto."],["repository.delete(id)","Elimina la fila persistente."],["filter(...)","Elimina también el libro del estado local de React."],["Alert.alert","Pide confirmación antes de una acción destructiva."]],
+  7:[["POST","Create."],["GET","Read."],["PATCH","Update."],["DELETE","Delete."],["cargar()","Vuelve a sincronizar la UI después de cada operación."]],
+  8:[["@OneToMany","Una Playlist referencia muchas Canciones."],["@ManyToOne","Muchas Canciones pueden apuntar a una Playlist."],["relations:{canciones:true}","Pide a TypeORM que cargue también la relación."],["playlistId","Identifica a qué Playlist se asociará la nueva Canción."]],
+  9:[["@Query","Lee parámetros opcionales de la URL."],["FindOptionsWhere","Tipa el objeto de condiciones."],["where.ciudad","Añade el filtro solo cuando ciudad existe."],["repository.find({where})","Traduce las condiciones a la consulta de PostgreSQL."]],
+  10:[["findAll / findOne","Recuperan colección y detalle."],["create","Crea un nuevo destino."],["update","Modifica parcialmente uno existente."],["remove","Elimina el recurso."],["Tu mejora","Debe reutilizar conscientemente estas piezas, no ser solo estética."]]
+ };
+ return (rows[e.id]||[]).map(([code,text])=>'<div class="under-row"><code>'+code+'</code><span>'+text+'</span></div>').join("");
+}
+function checkpointGuide(e){
+ const specific={
+  1:["La tabla videojuegos existe","GET /videojuegos devuelve registros","React Native muestra la colección"],
+  2:["GET /peliculas devuelve un array ordenado","Comprendo qué devuelve find()","favorita llega desde PostgreSQL"],
+  3:["GET /mascotas/1 devuelve una sola mascota","Un id inexistente produce 404","La ficha muestra nivelEnergia"],
+  4:["POST devuelve el restaurante creado","El registro aparece en PostgreSQL","precioMedio viaja desde formulario hasta tabla"],
+  5:["PATCH cambia solo los campos enviados","La fecha persiste tras reiniciar","Un id inexistente se controla"],
+  6:["DELETE elimina la fila","La tarjeta desaparece sin reiniciar","Marcar como leído utiliza PATCH"],
+  7:["GET/POST/PATCH/DELETE funcionan","stock=0 muestra AGOTADO","La UI se resincroniza tras cada cambio"],
+  8:["La Playlist devuelve canciones relacionadas","POST crea una canción asociada","Comprendo dónde vive la clave foránea"],
+  9:["El filtro por ciudad funciona","El filtro por categoría funciona","Ambos filtros funcionan combinados"],
+  10:["CRUD backend completo","CRUD móvil conectado","La mejora propia modifica comportamiento o datos"]
+ };
+ return (specific[e.id]||[]).map(x=>"☐ "+x).join("<br>");
+}
 function exercise(e){
  const fs=codeFiles(e);
  return '<section class="hero"><div class="eyebrow">EJERCICIO '+String(e.id).padStart(2,"0")+' · '+e.focus.toUpperCase()+'</div><h1>'+e.icon+' '+e.title+'</h1><p>'+e.modify+'</p><div class="chips"><span class="chip">'+e.concept+'</span><span class="chip">'+e.route+'</span><span class="chip">'+e.db+'</span></div></section>'+
@@ -163,9 +193,9 @@ function exercise(e){
  '<div class="section-head"><small>FASE 3</small><h2>CREA FRONTEND</h2></div><div class="card frontend phase"><div class="phase-no">3</div><div><h3>React Native · Expo</h3><div class="terminal">cd ..\nnpx create-expo-app@latest frontend --template blank-typescript\ncd frontend\nnpx expo start</div></div></div>'+
  '<div class="section-head"><small>FASE 4</small><h2>CONECTA FRONTEND / BACKEND</h2></div><div class="card connection"><div class="flow"><span>React Native</span><b>→</b><span>HTTP</span><b>→</b><span>'+e.route+'</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span></div><p>En un móvil físico, <code>localhost</code> representa el propio móvil. Utiliza la IP local del ordenador que ejecuta NestJS.</p></div>'+
  '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Primero observa el programa completo para familiarizarte con su estructura. Cada pestaña corresponde a UN archivo real.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="fileViewer"></div></section>'+
- '<div class="section-head"><small>ENTIENDE</small><h2>Relaciona código y responsabilidad</h2></div><div class="card"><div class="under-row"><code>@InjectRepository(...)</code><span>Entrega al Service un Repository preparado para trabajar con esa Entity.</span></div><div class="under-row"><code>repository.find()</code><span>Solicita a TypeORM una colección de entidades recuperadas de PostgreSQL.</span></div><div class="under-row"><code>fetch(...)</code><span>React Native realiza una petición HTTP a la API; no accede a la base de datos directamente.</span></div></div>'+
+ '<div class="section-head"><small>ENTIENDE</small><h2>Relaciona el código nuevo con su responsabilidad</h2></div><div class="card">'+understandGuide(e)+'</div>'+
  '<section class="card modify"><div class="mod-grid"><div><h2>MODIFÍCALO</h2><p><b>'+e.modify+'</b></p><div class="step"><b>1</b><span>Identifica qué capas debe atravesar el dato.</span></div><div class="step"><b>2</b><span>Modifica primero el backend y vuelve a probar la API.</span></div><div class="step"><b>3</b><span>Actualiza React Native y comprueba el recorrido completo.</span></div></div><div class="phone"><div class="screen"><small>'+e.title.toUpperCase()+'</small><h3>'+e.focus+'</h3><div class="mock"><b>'+e.icon+' '+e.mock+'</b><br><small>'+e.mock2+'</small></div><div class="mock">PostgreSQL conectado ✓</div></div></div></div></section>'+
- '<div class="section-head"><small>CHECKPOINTS</small><h2>Localiza problemas antes de seguir</h2></div><div class="card checks">☐ El proyecto arranca.<br>☐ PostgreSQL conecta.<br>☐ '+e.route+' responde.<br>☐ React Native recibe la respuesta.<br>☐ La modificación funciona.<br>☐ Puedo explicar el recorrido.</div>'+
+ '<div class="section-head"><small>CHECKPOINTS</small><h2>Localiza problemas antes de seguir</h2></div><div class="card checks">☐ NestJS arranca y PostgreSQL conecta.<br>'+checkpointGuide(e)+'<br>☐ Puedo explicar el recorrido del dato sin mirar el código.</div>'+
  '<div class="section-head"><small>COMPRUEBA</small><h2>¿Lo entiendes?</h2></div><div class="card"><p><b>'+e.question+'</b></p><div class="quiz-options"><button class="quiz-option" data-correct="1">La opción coherente con Controller → Service → Repository y el recorrido trabajado.</button><button class="quiz-option">React Native accede directamente a PostgreSQL.</button><button class="quiz-option">Repository se encarga de dibujar la pantalla.</button><button class="quiz-option">Todas las capas tienen la misma responsabilidad.</button></div><p class="quiz-feedback"></p></div>'+
  '<section class="card github"><h2>GITHUB</h2><div class="terminal">git add .\ngit commit -m "Ejercicio '+String(e.id).padStart(2,"0")+' - '+e.title+'"\ngit push</div><p>Antes de pasar al siguiente ejercicio, comprueba que <b>EJERCICIO-'+String(e.id).padStart(2,"0")+'</b> está subido.</p></section>'+
  '<section class="card success"><h2>HE APRENDIDO</h2><p>✓ '+e.focus+'<br>✓ '+e.concept+'<br>✓ seguir el dato entre móvil, API y PostgreSQL.</p><b>¿Podrías explicar este ejercicio sin mirar el código?</b></section>';
