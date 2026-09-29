@@ -30,7 +30,7 @@ function home(){
 function codeFiles(e){
  if(e.id===1){
   return [
-   {name:"app.module.ts",path:"backend/src/app.module.ts",role:"Configura la conexión de NestJS con PostgreSQL mediante TypeORM e importa el módulo de videojuegos.",code:`import { Module } from '@nestjs/common';
+   {name:"app.module.ts",path:"backend/src/app.module.ts",role:"Configura TypeORM y conecta NestJS con PostgreSQL.",code:`import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VideojuegosModule } from './videojuegos/videojuegos.module';
 
@@ -50,7 +50,7 @@ import { VideojuegosModule } from './videojuegos/videojuegos.module';
   ],
 })
 export class AppModule {}`},
-   {name:"videojuego.entity.ts",path:"backend/src/videojuegos/videojuego.entity.ts",role:"Define cómo se representa un videojuego en TypeScript y qué columnas tendrá la tabla.",code:`import {
+   {name:"videojuego.entity.ts",path:"backend/src/videojuegos/videojuego.entity.ts",role:"Define la entidad persistente y las columnas de la tabla videojuegos.",code:`import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
@@ -70,7 +70,7 @@ export class Videojuego {
   @Column('decimal', { precision: 3, scale: 1 })
   puntuacion: number;
 }`},
-   {name:"videojuegos.module.ts",path:"backend/src/videojuegos/videojuegos.module.ts",role:"Registra la Entity Videojuego y conecta Controller y Service dentro del módulo.",code:`import { Module } from '@nestjs/common';
+   {name:"videojuegos.module.ts",path:"backend/src/videojuegos/videojuegos.module.ts",role:"Registra Videojuego para que TypeORM pueda proporcionar su Repository.",code:`import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Videojuego } from './videojuego.entity';
 import { VideojuegosController } from './videojuegos.controller';
@@ -82,7 +82,7 @@ import { VideojuegosService } from './videojuegos.service';
   providers: [VideojuegosService],
 })
 export class VideojuegosModule {}`},
-   {name:"videojuegos.service.ts",path:"backend/src/videojuegos/videojuegos.service.ts",role:"Utiliza Repository<Videojuego> para recuperar datos de PostgreSQL y crea datos iniciales si la tabla está vacía.",code:`import { Injectable, OnModuleInit } from '@nestjs/common';
+   {name:"videojuegos.service.ts",path:"backend/src/videojuegos/videojuegos.service.ts",role:"Utiliza Repository<Videojuego> para leer PostgreSQL e inserta datos iniciales si la tabla está vacía.",code:`import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Videojuego } from './videojuego.entity';
@@ -91,25 +91,25 @@ import { Videojuego } from './videojuego.entity';
 export class VideojuegosService implements OnModuleInit {
   constructor(
     @InjectRepository(Videojuego)
-    private readonly videojuegosRepository: Repository<Videojuego>,
+    private readonly repository: Repository<Videojuego>,
   ) {}
 
   async onModuleInit(): Promise<void> {
-    const total = await this.videojuegosRepository.count();
+    const total = await this.repository.count();
 
     if (total === 0) {
-      await this.videojuegosRepository.save([
-        this.videojuegosRepository.create({
+      await this.repository.save([
+        this.repository.create({
           titulo: 'Hollow Knight',
           plataforma: 'Nintendo Switch',
           puntuacion: 9.4,
         }),
-        this.videojuegosRepository.create({
+        this.repository.create({
           titulo: 'Zelda: Tears of the Kingdom',
           plataforma: 'Nintendo Switch',
           puntuacion: 9.8,
         }),
-        this.videojuegosRepository.create({
+        this.repository.create({
           titulo: 'Forza Horizon 5',
           plataforma: 'Xbox',
           puntuacion: 9.1,
@@ -119,12 +119,12 @@ export class VideojuegosService implements OnModuleInit {
   }
 
   findAll(): Promise<Videojuego[]> {
-    return this.videojuegosRepository.find({
+    return this.repository.find({
       order: { puntuacion: 'DESC' },
     });
   }
 }`},
-   {name:"videojuegos.controller.ts",path:"backend/src/videojuegos/videojuegos.controller.ts",role:"Recibe GET /videojuegos y delega la recuperación de datos en VideojuegosService.",code:`import { Controller, Get } from '@nestjs/common';
+   {name:"videojuegos.controller.ts",path:"backend/src/videojuegos/videojuegos.controller.ts",role:"Recibe GET /videojuegos y delega la operación en VideojuegosService.",code:`import { Controller, Get } from '@nestjs/common';
 import { Videojuego } from './videojuego.entity';
 import { VideojuegosService } from './videojuegos.service';
 
@@ -139,7 +139,7 @@ export class VideojuegosController {
     return this.videojuegosService.findAll();
   }
 }`},
-   {name:"App.tsx",path:"frontend/App.tsx",role:"Consulta GET /videojuegos, guarda el array en estado y muestra una colección visual en React Native.",code:`import { StatusBar } from 'expo-status-bar';
+   {name:"App.tsx",path:"frontend/App.tsx",role:"Solicita GET /videojuegos, guarda el JSON en estado y muestra una colección visual.",code:`import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -200,10 +200,7 @@ export default function App() {
       </View>
 
       {cargando && (
-        <ActivityIndicator
-          size="large"
-          style={styles.center}
-        />
+        <ActivityIndicator size="large" style={styles.center} />
       )}
 
       {error !== '' && (
@@ -222,12 +219,8 @@ export default function App() {
               </View>
 
               <View style={styles.cardContent}>
-                <Text style={styles.gameTitle}>
-                  {item.titulo}
-                </Text>
-                <Text style={styles.platform}>
-                  {item.plataforma}
-                </Text>
+                <Text style={styles.gameTitle}>{item.titulo}</Text>
+                <Text style={styles.platform}>{item.plataforma}</Text>
               </View>
 
               <View style={styles.score}>
@@ -328,10 +321,7 @@ const styles = StyleSheet.create({
   ];
  }
  const singular=e.resource.endsWith("s")?e.resource.slice(0,-1):e.resource;
- const ClassName=singular.charAt(0).toUpperCase()+singular.slice(1);
- return [
-  {name:singular+".entity.ts",path:"backend/src/"+e.resource+"/"+singular+".entity.ts",role:"Archivo provisional: este ejercicio se completará después de aprobar E01.",code:"Este ejercicio se auditará después de aprobar E01."}
- ];
+ return [{name:singular+".entity.ts",path:"backend/src/"+e.resource+"/"+singular+".entity.ts",role:"Pendiente de auditoría tras aprobar E01.",code:"Este ejercicio se completará después de aprobar E01."}];
 }
 function exercise(e){
  const fs=codeFiles(e);
