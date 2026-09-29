@@ -1,0 +1,23 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Libro } from './libro.entity';
+
+@Injectable()
+export class LibrosService {
+ constructor(@InjectRepository(Libro) private readonly repository:Repository<Libro>){}
+
+ findAll():Promise<Libro[]>{
+   return this.repository.find({order:{titulo:'ASC'}});
+ }
+
+ async remove(id:number):Promise<void>{
+   // delete() elimina directamente la fila cuyo id coincide.
+   await this.repository.delete(id);
+ }
+
+ async marcarLeido(id:number):Promise<void>{
+   // update() modifica solo las columnas indicadas.
+   await this.repository.update(id,{leido:true});
+ }
+}
