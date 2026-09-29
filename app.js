@@ -30,326 +30,15 @@ function home(){
 function codeFiles(e){
  if(e.id===1){
   return [
-   {name:"app.module.ts",path:"backend/src/app.module.ts",role:"Configura TypeORM y conecta NestJS con PostgreSQL.",code:`// AppModule es el módulo raíz del backend.
-// Aquí configuramos la conexión general con PostgreSQL.
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { VideojuegosModule } from './videojuegos/videojuegos.module';
-
-@Module({
-  imports: [
-    // forRoot() crea la conexión que utilizará toda la aplicación.
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'TU_PASSWORD_POSTGRES',
-      database: 'databridge_e01',
-      // Carga automáticamente las Entities registradas con forFeature().
-      autoLoadEntities: true,
-
-      // Solo para aprendizaje/desarrollo local: adapta las tablas a las Entities.
-      // En producción se suelen utilizar migraciones.
-      synchronize: true,
-    }),
-    VideojuegosModule,
-  ],
-})
-export class AppModule {}`},
-   {name:"videojuego.entity.ts",path:"backend/src/videojuegos/videojuego.entity.ts",role:"Define la entidad persistente y las columnas de la tabla videojuegos.",code:`import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-
-// @Entity indica que esta clase representa una tabla persistente.
-@Entity('videojuegos')
-export class Videojuego {
-  // PostgreSQL generará automáticamente el identificador.
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
-  titulo: string;
-
-  @Column()
-  plataforma: string;
-
-  // Guardamos una puntuación con un decimal: por ejemplo 9.4.
-  @Column('decimal', { precision: 3, scale: 1 })
-  puntuacion: number;
-}`},
-   {name:"videojuegos.module.ts",path:"backend/src/videojuegos/videojuegos.module.ts",role:"Registra Videojuego para que TypeORM pueda proporcionar su Repository.",code:`import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Videojuego } from './videojuego.entity';
-import { VideojuegosController } from './videojuegos.controller';
-import { VideojuegosService } from './videojuegos.service';
-
-@Module({
-  // forFeature() registra Videojuego dentro de ESTE módulo.
-  // Gracias a ello podremos inyectar Repository<Videojuego> en el Service.
-  imports: [TypeOrmModule.forFeature([Videojuego])],
-  controllers: [VideojuegosController],
-  providers: [VideojuegosService],
-})
-export class VideojuegosModule {}`},
-   {name:"videojuegos.service.ts",path:"backend/src/videojuegos/videojuegos.service.ts",role:"Utiliza Repository<Videojuego> para leer PostgreSQL e inserta datos iniciales si la tabla está vacía.",code:`import { Injectable, OnModuleInit } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Videojuego } from './videojuego.entity';
-
-@Injectable()
-export class VideojuegosService implements OnModuleInit {
-  constructor(
-    // NestJS pide a TypeORM el Repository asociado a Videojuego.
-    @InjectRepository(Videojuego)
-    private readonly repository: Repository<Videojuego>,
-  ) {}
-
-  // Este método se ejecuta cuando NestJS termina de crear el módulo.
-  // Lo usamos solo para disponer de datos iniciales en este primer ejercicio.
-  async onModuleInit(): Promise<void> {
-    const total = await this.repository.count();
-
-    // Evitamos duplicar datos cada vez que reiniciamos NestJS.
-    if (total === 0) {
-      await this.repository.save([
-        this.repository.create({
-          titulo: 'Hollow Knight',
-          plataforma: 'Nintendo Switch',
-          puntuacion: 9.4,
-        }),
-        this.repository.create({
-          titulo: 'Zelda: Tears of the Kingdom',
-          plataforma: 'Nintendo Switch',
-          puntuacion: 9.8,
-        }),
-        this.repository.create({
-          titulo: 'Forza Horizon 5',
-          plataforma: 'Xbox',
-          puntuacion: 9.1,
-        }),
-      ]);
-    }
-  }
-
-  // El Controller llamará a este método.
-  // find() consulta PostgreSQL y devuelve entidades Videojuego.
-  findAll(): Promise<Videojuego[]> {
-    return this.repository.find({
-      order: { puntuacion: 'DESC' },
-    });
-  }
-}`},
-   {name:"videojuegos.controller.ts",path:"backend/src/videojuegos/videojuegos.controller.ts",role:"Recibe GET /videojuegos y delega la operación en VideojuegosService.",code:`import { Controller, Get } from '@nestjs/common';
-import { Videojuego } from './videojuego.entity';
-import { VideojuegosService } from './videojuegos.service';
-
-// Todas las rutas de esta clase comienzan por /videojuegos.
-@Controller('videojuegos')
-export class VideojuegosController {
-  constructor(
-    private readonly videojuegosService: VideojuegosService,
-  ) {}
-
-  // GET /videojuegos
-  // El Controller NO consulta PostgreSQL: delega en el Service.
-  @Get()
-  findAll(): Promise<Videojuego[]> {
-    return this.videojuegosService.findAll();
-  }
-}`},
-   {name:"App.tsx",path:"frontend/App.tsx",role:"Solicita GET /videojuegos, guarda el JSON en estado y muestra una colección visual.",code:`import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-
-// Este tipo describe el JSON que esperamos recibir desde NestJS.
-type Videojuego = {
-  id: number;
-  titulo: string;
-  plataforma: string;
-  puntuacion: number;
-};
-
-// En un móvil físico no usamos localhost: indicamos la IP del ordenador.
-const API_URL = 'http://TU_IP_LOCAL:3000';
-
-export default function App() {
-  const [videojuegos, setVideojuegos] = useState<Videojuego[]>([]);
-  const [cargando, setCargando] = useState(true);
-  const [error, setError] = useState('');
-
-  // useEffect ejecuta la carga cuando se monta la pantalla por primera vez.
-  useEffect(() => {
-    async function cargarVideojuegos() {
-      try {
-        // fetch realiza GET http://TU_IP_LOCAL:3000/videojuegos.
-        const respuesta = await fetch(API_URL + '/videojuegos');
-
-        if (!respuesta.ok) {
-          throw new Error('La API no ha respondido correctamente');
-        }
-
-        // Convertimos el JSON de la respuesta y lo guardamos en estado.
-        // Al cambiar el estado, React vuelve a renderizar la pantalla.
-        const datos: Videojuego[] = await respuesta.json();
-        setVideojuegos(datos);
-      } catch {
-        setError(
-          'No se ha podido conectar con NestJS. Revisa la IP y el puerto.',
-        );
-      } finally {
-        setCargando(false);
-      }
-    }
-
-    cargarVideojuegos();
-  }, []);
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar style="light" />
-
-      <View style={styles.header}>
-        <Text style={styles.eyebrow}>GAME VAULT</Text>
-        <Text style={styles.title}>Mi colección</Text>
-        <Text style={styles.subtitle}>
-          Datos reales recuperados desde PostgreSQL
-        </Text>
-      </View>
-
-      {cargando && (
-        <ActivityIndicator size="large" style={styles.center} />
-      )}
-
-      {error !== '' && (
-        <Text style={styles.error}>{error}</Text>
-      )}
-
-      {!cargando && error === '' && (
-        // FlatList recibe el array y crea una tarjeta por videojuego.
-        <FlatList
-          data={videojuegos}
-          keyExtractor={(item) => item.id.toString()}
-          contentContainerStyle={styles.list}
-          renderItem={({ item }) => (
-            <View style={styles.card}>
-              <View style={styles.gameIcon}>
-                <Text style={styles.gameEmoji}>🎮</Text>
-              </View>
-
-              <View style={styles.cardContent}>
-                <Text style={styles.gameTitle}>{item.titulo}</Text>
-                <Text style={styles.platform}>{item.plataforma}</Text>
-              </View>
-
-              <View style={styles.score}>
-                <Text style={styles.scoreText}>
-                  ★ {Number(item.puntuacion).toFixed(1)}
-                </Text>
-              </View>
-            </View>
-          )}
-        />
-      )}
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0F172A',
-  },
-  header: {
-    paddingHorizontal: 24,
-    paddingTop: 28,
-    paddingBottom: 20,
-  },
-  eyebrow: {
-    color: '#38BDF8',
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 2,
-  },
-  title: {
-    color: '#FFFFFF',
-    fontSize: 32,
-    fontWeight: '800',
-    marginTop: 4,
-  },
-  subtitle: {
-    color: '#94A3B8',
-    marginTop: 6,
-  },
-  list: {
-    paddingHorizontal: 18,
-    paddingBottom: 24,
-  },
-  card: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#1E293B',
-    borderRadius: 18,
-    padding: 16,
-    marginBottom: 12,
-  },
-  gameIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 14,
-    backgroundColor: '#334155',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  gameEmoji: {
-    fontSize: 24,
-  },
-  cardContent: {
-    flex: 1,
-    marginLeft: 14,
-  },
-  gameTitle: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '700',
-  },
-  platform: {
-    color: '#94A3B8',
-    marginTop: 4,
-  },
-  score: {
-    backgroundColor: '#0F766E',
-    borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-  },
-  scoreText: {
-    color: '#CCFBF1',
-    fontWeight: '800',
-  },
-  center: {
-    marginTop: 80,
-  },
-  error: {
-    color: '#FCA5A5',
-    paddingHorizontal: 24,
-    marginTop: 30,
-    textAlign: 'center',
-  },
-});`}
+   {name:"app.module.ts",path:"backend/src/app.module.ts",role:"Configura la aplicación raíz y la conexión general con PostgreSQL.",source:"code/e01/app.module.ts.txt"},
+   {name:"videojuego.entity.ts",path:"backend/src/videojuegos/videojuego.entity.ts",role:"Describe cómo se guarda un videojuego en PostgreSQL.",source:"code/e01/videojuego.entity.ts.txt"},
+   {name:"videojuegos.module.ts",path:"backend/src/videojuegos/videojuegos.module.ts",role:"Agrupa Entity, Controller y Service y habilita Repository<Videojuego>.",source:"code/e01/videojuegos.module.ts.txt"},
+   {name:"videojuegos.service.ts",path:"backend/src/videojuegos/videojuegos.service.ts",role:"Trabaja con los datos mediante Repository<Videojuego>.",source:"code/e01/videojuegos.service.ts.txt"},
+   {name:"videojuegos.controller.ts",path:"backend/src/videojuegos/videojuegos.controller.ts",role:"Recibe GET /videojuegos y delega en el Service.",source:"code/e01/videojuegos.controller.ts.txt"},
+   {name:"App.tsx",path:"frontend/App.tsx",role:"Pide los videojuegos a NestJS y los representa en React Native.",source:"code/e01/App.tsx.txt"}
   ];
  }
- const singular=e.resource.endsWith("s")?e.resource.slice(0,-1):e.resource;
- return [{name:singular+".entity.ts",path:"backend/src/"+e.resource+"/"+singular+".entity.ts",role:"Pendiente de auditoría tras aprobar E01.",code:"Este ejercicio se completará después de aprobar E01."}];
+ return [{name:"Pendiente",path:"",role:"Este ejercicio se auditará después de aprobar E01.",source:null}];
 }
 function exercise(e){
  const fs=codeFiles(e);
@@ -388,26 +77,42 @@ function wire(){
      : null;
    const files=codeFiles(exerciseData);
 
-   const showFile=(index)=>{
+   const showFile=async(index)=>{
      const file=files[index];
+
+     document.querySelectorAll(".tab").forEach((tab,i)=>{
+       tab.classList.toggle("active",i===index);
+     });
+
      viewer.innerHTML=
        '<div class="code-meta">'+
        '<b>NOMBRE</b> '+file.name+'<br>'+
        '<b>RUTA</b> '+file.path+'<br>'+
        '<b>RESPONSABILIDAD</b> '+file.role+
        '</div>'+
-       '<pre class="code">'+esc(file.code)+'</pre>';
+       '<pre class="code">Cargando archivo…</pre>';
 
-     document.querySelectorAll(".tab").forEach((tab,i)=>{
-       tab.classList.toggle("active",i===index);
-     });
+     if(!file.source){
+       viewer.querySelector(".code").textContent="Pendiente de auditoría.";
+       return;
+     }
+
+     try{
+       // Cada pestaña descarga UN archivo físico independiente.
+       const response=await fetch(file.source+'?v=20260929-1435');
+       if(!response.ok) throw new Error('No se pudo cargar el archivo');
+       const code=await response.text();
+       viewer.querySelector(".code").textContent=code;
+     }catch(error){
+       viewer.querySelector(".code").textContent=
+         'Error al cargar '+file.name+'. Recarga la página.';
+     }
    };
 
    document.querySelectorAll(".tab").forEach((tab,index)=>{
      tab.onclick=()=>showFile(index);
    });
 
-   // Al entrar en OBSERVA mostramos únicamente el primer archivo.
    showFile(0);
  }
  document.querySelectorAll(".quiz-option").forEach(b=>b.onclick=()=>{const card=b.closest(".card");card.querySelectorAll(".quiz-option").forEach(x=>x.classList.remove("correct","wrong"));b.classList.add(b.dataset.correct?"correct":"wrong");card.querySelector(".quiz-feedback").textContent=b.dataset.correct?"✓ Correcto. Relaciona siempre cada capa con su responsabilidad.":"✕ Revisa el recorrido del dato y las responsabilidades.";});
