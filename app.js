@@ -209,7 +209,7 @@ function wire(){
 
      try{
        // Cada pestaña descarga UN archivo físico independiente.
-       const response=await fetch(file.source+'?v=20260929-1510');
+       const response=await fetch(file.source+'?v=20260929-1525');
        if(!response.ok) throw new Error('No se pudo cargar el archivo');
        const code=await response.text();
        viewer.querySelector(".code").textContent=code;
