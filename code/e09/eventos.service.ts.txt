@@ -1,0 +1,17 @@
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { FindOptionsWhere,Repository } from 'typeorm';
+import { Evento } from './evento.entity';
+
+@Injectable()
+export class EventosService {
+ constructor(@InjectRepository(Evento) private readonly repository:Repository<Evento>){}
+
+ findAll(ciudad?:string,categoria?:string):Promise<Evento[]>{
+   const where:FindOptionsWhere<Evento>={};
+   // Solo añadimos condiciones cuando el Query Param existe.
+   if(ciudad) where.ciudad=ciudad;
+   if(categoria) where.categoria=categoria;
+   return this.repository.find({where,order:{fecha:'ASC'}});
+ }
+}
