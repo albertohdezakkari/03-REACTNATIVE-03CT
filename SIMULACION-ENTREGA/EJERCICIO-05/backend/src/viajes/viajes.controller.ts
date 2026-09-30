@@ -1,0 +1,1 @@
+@Patch(':id') update(@Param('id',ParseIntPipe) id:number,@Body() dto:UpdateViajeDto){return this.service.update(id,dto);}
