@@ -1,0 +1,1 @@
+@Entity('libros') export class Libro{@PrimaryGeneratedColumn() id:number; @Column() titulo:string; @Column({default:false}) leido:boolean;}
