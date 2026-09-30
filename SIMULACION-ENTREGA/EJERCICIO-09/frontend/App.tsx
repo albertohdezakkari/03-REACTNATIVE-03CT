@@ -1,0 +1,1 @@
+fetch(API+'/eventos?ciudad=Zaragoza&categoria=Tecnologia').then(r=>r.json()).then(setEventos);
