@@ -1,0 +1,1 @@
+@Get() all(){return this.s.findAll();} @Delete(':id') remove(@Param('id',ParseIntPipe) id:number){return this.s.remove(id);} @Patch(':id/leido') leido(@Param('id',ParseIntPipe) id:number){return this.s.marcarLeido(id);}
