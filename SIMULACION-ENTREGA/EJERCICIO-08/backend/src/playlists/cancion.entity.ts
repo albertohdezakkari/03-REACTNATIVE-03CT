@@ -1,0 +1,1 @@
+@Entity('canciones') export class Cancion{@PrimaryGeneratedColumn() id:number; @Column() titulo:string; @ManyToOne(()=>Playlist,p=>p.canciones) playlist:Playlist;}
