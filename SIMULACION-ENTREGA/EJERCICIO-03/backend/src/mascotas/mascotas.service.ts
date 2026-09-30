@@ -1,0 +1,1 @@
+async findOne(id:number){const mascota=await this.repository.findOneBy({id}); if(!mascota) throw new Error('Mascota no encontrada'); return mascota;}
