@@ -1,0 +1,1 @@
+create(dto:CreateRestauranteDto){return this.repository.save(this.repository.create(dto));}
