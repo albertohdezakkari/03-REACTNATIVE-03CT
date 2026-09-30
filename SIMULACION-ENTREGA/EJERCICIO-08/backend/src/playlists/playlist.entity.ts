@@ -1,0 +1,1 @@
+@Entity('playlists') export class Playlist{@PrimaryGeneratedColumn() id:number; @Column() nombre:string; @OneToMany(()=>Cancion,c=>c.playlist) canciones:Cancion[];}
