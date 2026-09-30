@@ -1,0 +1,1 @@
+findOne(id){return this.playlists.findOne({where:{id},relations:{canciones:true}});} async addSong(dto){const playlist=await this.playlists.findOneBy({id:dto.playlistId});return this.canciones.save(this.canciones.create({...dto,playlist}));}
