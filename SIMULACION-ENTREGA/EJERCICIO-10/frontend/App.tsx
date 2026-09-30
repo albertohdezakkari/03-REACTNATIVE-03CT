@@ -1,0 +1,2 @@
+// Integración CRUD: GET colección, POST creación, PATCH visitado/prioridad y DELETE.
+fetch(API+'/destinos'); fetch(API+'/destinos',{method:'POST'}); fetch(API+'/destinos/1',{method:'PATCH'}); fetch(API+'/destinos/1',{method:'DELETE'});
