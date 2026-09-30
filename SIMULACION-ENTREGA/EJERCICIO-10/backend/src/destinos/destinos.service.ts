@@ -1,0 +1,1 @@
+findAll(){return this.r.find();} findOne(id){return this.r.findOneBy({id});} create(dto){return this.r.save(this.r.create(dto));} async update(id,dto){const x=await this.findOne(id);this.r.merge(x,dto);return this.r.save(x);} remove(id){return this.r.delete(id);}
