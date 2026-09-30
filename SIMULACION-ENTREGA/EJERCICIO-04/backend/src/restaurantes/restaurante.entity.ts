@@ -1,0 +1,1 @@
+@Entity('restaurantes') export class Restaurante{@PrimaryGeneratedColumn() id:number; @Column() nombre:string; @Column('decimal') precioMedio:number;}
