@@ -1,0 +1,1 @@
+fetch(API_URL+'/viajes/1',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({estado,fecha})});
