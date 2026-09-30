@@ -1,0 +1,1 @@
+@Get() all(){} @Get(':id') one(){} @Post() create(){} @Patch(':id') update(){} @Delete(':id') remove(){}
