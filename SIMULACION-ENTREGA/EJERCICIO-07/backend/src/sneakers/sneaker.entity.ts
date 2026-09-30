@@ -1,0 +1,1 @@
+@Entity('sneakers') export class Sneaker{@PrimaryGeneratedColumn() id:number; @Column() marca:string; @Column() modelo:string; @Column() stock:number;}
