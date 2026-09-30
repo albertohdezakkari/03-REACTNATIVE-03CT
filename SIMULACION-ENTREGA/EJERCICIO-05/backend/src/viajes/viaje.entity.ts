@@ -1,0 +1,1 @@
+@Entity('viajes') export class Viaje{@PrimaryGeneratedColumn() id:number; @Column() destino:string; @Column() fecha:string; @Column() estado:string;}
