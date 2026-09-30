@@ -1,0 +1,1 @@
+findAll(){return this.repository.find();} async remove(id:number){await this.repository.delete(id);} async marcarLeido(id:number){await this.repository.update(id,{leido:true});}
