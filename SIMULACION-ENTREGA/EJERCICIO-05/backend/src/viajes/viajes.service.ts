@@ -1,0 +1,1 @@
+async update(id:number,dto:UpdateViajeDto){const v=await this.repository.findOneBy({id}); this.repository.merge(v,dto); return this.repository.save(v);}
