@@ -1,0 +1,1 @@
+async function eliminar(id:number){await fetch(API+'/libros/'+id,{method:'DELETE'}); setLibros(xs=>xs.filter(x=>x.id!==id));} // Alert de confirmación y estado leído/pendiente
