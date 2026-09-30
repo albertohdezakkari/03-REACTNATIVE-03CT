@@ -1,1 +1,21 @@
-@Get() all(){return this.s.findAll();} @Delete(':id') remove(@Param('id',ParseIntPipe) id:number){return this.s.remove(id);} @Patch(':id/leido') leido(@Param('id',ParseIntPipe) id:number){return this.s.marcarLeido(id);}
+import { Controller, Delete, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
+import { Libro } from './libro.entity';
+import { LibrosService } from './libros.service';
+
+@Controller('libros')
+export class LibrosController {
+ constructor(private readonly service:LibrosService){}
+
+ @Get()
+ findAll():Promise<Libro[]>{ return this.service.findAll(); }
+
+ @Delete(':id')
+ remove(@Param('id',ParseIntPipe) id:number):Promise<void>{
+   return this.service.remove(id);
+ }
+
+ @Patch(':id/leido')
+ marcarLeido(@Param('id',ParseIntPipe) id:number):Promise<void>{
+   return this.service.marcarLeido(id);
+ }
+}

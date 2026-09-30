@@ -26,7 +26,7 @@ export class Videojuego {
   @Column('decimal', { precision: 3, scale: 1 })
   puntuacion: number;
 
-  // Modificación del ejercicio: género persistente.
+  // Modificación: género persistente.
   @Column()
   genero: string;
 }
