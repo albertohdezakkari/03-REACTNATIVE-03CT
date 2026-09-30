@@ -1,0 +1,1 @@
+@Entity('eventos') export class Evento{@PrimaryGeneratedColumn() id:number; @Column() nombre:string; @Column() ciudad:string; @Column() categoria:string; @Column() fecha:string;}
