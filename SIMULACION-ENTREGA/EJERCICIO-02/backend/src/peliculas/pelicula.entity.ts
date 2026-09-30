@@ -1,0 +1,1 @@
+import {Column,Entity,PrimaryGeneratedColumn} from 'typeorm'; @Entity('peliculas') export class Pelicula{@PrimaryGeneratedColumn() id:number; @Column() titulo:string; @Column() genero:string; @Column() anio:number; @Column({default:false}) favorita:boolean;}
