@@ -1,0 +1,1 @@
+findAll(ciudad?:string,categoria?:string){const where:any={};if(ciudad)where.ciudad=ciudad;if(categoria)where.categoria=categoria;return this.r.find({where});}
