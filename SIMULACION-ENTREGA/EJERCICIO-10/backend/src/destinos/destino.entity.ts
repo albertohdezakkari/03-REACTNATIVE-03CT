@@ -1,0 +1,1 @@
+@Entity('destinos') export class Destino{@PrimaryGeneratedColumn() id:number; @Column() ciudad:string; @Column() pais:string; @Column() descripcion:string; @Column() prioridad:string; @Column({default:false}) visitado:boolean;}
