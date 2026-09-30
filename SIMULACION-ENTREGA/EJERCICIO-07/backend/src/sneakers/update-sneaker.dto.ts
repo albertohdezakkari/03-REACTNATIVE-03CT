@@ -1,0 +1,1 @@
+export class UpdateSneakerDto{marca?:string;modelo?:string;stock?:number;}
