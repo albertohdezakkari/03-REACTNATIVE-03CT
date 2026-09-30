@@ -1,0 +1,1 @@
+@Get() all(@Query('ciudad') ciudad?:string,@Query('categoria') categoria?:string){return this.s.findAll(ciudad,categoria);}
