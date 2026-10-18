@@ -1,0 +1,73 @@
+name: Auditoria tecnica DataBridge
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  web:
+    name: Web docente
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Comprobar JavaScript
+        run: |
+          node --check data.js
+          node --check app.js
+      - name: Comprobar archivos GitHub Pages
+        run: |
+          test -f index.html
+          test -f styles.css
+          test -f app.js
+          test -f data.js
+          test -f .nojekyll
+          test -f PREPARACION-DESDE-CERO.md
+          test -f setup/crear-bases.sql
+
+  backend:
+    name: Backend E${{ matrix.exercise }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        exercise: ["01","02","03","04","05","06","07","08","09","10"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: EJERCICIO-${{ matrix.exercise }}/backend/package.json
+      - name: Instalar
+        working-directory: EJERCICIO-${{ matrix.exercise }}/backend
+        run: npm install
+      - name: Compilar NestJS
+        working-directory: EJERCICIO-${{ matrix.exercise }}/backend
+        run: npm run build
+
+  frontend:
+    name: Frontend E${{ matrix.exercise }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        exercise: ["01","02","03","04","05","06","07","08","09","10"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: EJERCICIO-${{ matrix.exercise }}/frontend/package.json
+      - name: Instalar
+        working-directory: EJERCICIO-${{ matrix.exercise }}/frontend
+        run: npm install
+      - name: Validar TypeScript
+        working-directory: EJERCICIO-${{ matrix.exercise }}/frontend
+        run: npx tsc --noEmit
