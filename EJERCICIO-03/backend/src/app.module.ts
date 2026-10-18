@@ -11,7 +11,7 @@ import { MascotasModule } from './mascotas/mascotas.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'TU_PASSWORD_POSTGRES',
+      password: 'postgres',
       database: 'databridge_e03',
       autoLoadEntities: true,
       synchronize: true,
