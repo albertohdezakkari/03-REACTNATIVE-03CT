@@ -213,6 +213,28 @@ function exerciseDestinationGuide(e){
  '<div class="card"><p>Compara esta isla con la anterior: reutilizamos la arquitectura y cambiamos únicamente el concepto protagonista. Identifica qué archivos genera el CLI y cuáles debes crear o modificar.</p><div class="tree">'+trees[e.id]+'</div></div>';
 }
 
+function backendVisualGuide(e){
+ if(e.id!==1) return "";
+ return '<div class="section-head"><small>MAPA VISUAL</small><h2>Cómo funciona tu backend</h2></div>'+
+ '<div class="backend-visual">'+
+   '<div class="backend-layer backend-entry"><span class="backend-icon">🌐</span><b>GET /videojuegos</b><small>La petición entra por HTTP</small></div>'+
+   '<div class="backend-arrow">↓</div>'+
+   '<div class="backend-layer"><span class="backend-icon">🎮</span><b>VideojuegosController</b><small>Recibe la petición y delega</small></div>'+
+   '<div class="backend-arrow">↓</div>'+
+   '<div class="backend-layer"><span class="backend-icon">⚙️</span><b>VideojuegosService</b><small>Coordina la lógica</small></div>'+
+   '<div class="backend-arrow">↓</div>'+
+   '<div class="backend-layer"><span class="backend-icon">📦</span><b>Repository&lt;Videojuego&gt;</b><small>Consulta la Entity con TypeORM</small></div>'+
+   '<div class="backend-arrow">↓</div>'+
+   '<div class="backend-layer backend-db"><span class="backend-icon">🐘</span><b>PostgreSQL</b><small>databridge_e01 · tabla videojuegos</small></div>'+
+ '</div>'+
+ '<div class="backend-module-map">'+
+   '<div class="module-box module-root"><b>AppModule</b><small>Aplicación raíz</small></div>'+
+   '<div class="module-link">→</div>'+
+   '<div class="module-box module-feature"><b>VideojuegosModule</b><small>agrupa Controller · Service · Entity</small></div>'+
+ '</div>'+
+ '<p class="visual-caption"><b>Idea clave:</b> React Native nunca habla directamente con PostgreSQL. Siempre atraviesa Controller → Service → Repository → TypeORM.</p>';
+}
+
 function codeViewerSection(e,fs){
  return '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Lee ruta, responsabilidad y código. Mostramos la <b>solución base</b> del ejercicio, todavía sin resolver MODIFÍCALO. La carpeta EJERCICIO-XX del profesor conserva el resultado final.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="fileViewer"></div></section>';
 }
@@ -269,7 +291,7 @@ function exercise(e){
  '<div class="section-head"><small>FUNDAMENTOS</small><h2>Antes de tocar código</h2></div>'+
  '<div class="card recover"><h3>RECUPERAMOS</h3><p>HTTP, JSON, Controller y Service. Cada ejercicio conecta esos conocimientos con persistencia real.</p></div>'+
  '<div class="card concept"><h3>CONCEPTO NUEVO · '+e.concept+'</h3>'+conceptGuide(e)+'<p><b>Cómo encaja:</b> React Native no accede directamente a PostgreSQL. Controller recibe HTTP, Service coordina y Repository trabaja con las Entities.</p></div>'+
- '<div class="section-head"><small>LEE</small><h2>Qué vas a construir</h2></div><div class="grid2"><div class="card"><b>OBJETIVO</b><p>Construir y comprobar <code>'+e.route+'</code> utilizando datos persistidos en <code>'+e.db+'</code>.</p></div><div class="card"><b>CONCEPTO NUEVO</b><p>'+e.concept+'</p></div></div>'+exerciseDestinationGuide(e)+
+ '<div class="section-head"><small>LEE</small><h2>Qué vas a construir</h2></div><div class="grid2"><div class="card"><b>OBJETIVO</b><p>Construir y comprobar <code>'+e.route+'</code> utilizando datos persistidos en <code>'+e.db+'</code>.</p></div><div class="card"><b>CONCEPTO NUEVO</b><p>'+e.concept+'</p></div></div>'+exerciseDestinationGuide(e)+backendVisualGuide(e)+
  '<div class="section-head"><small>PREPARA LA ISLA</small><h2>Cierra instalación, base de datos y dependencias</h2></div>'+
  '<div class="card"><h3>STOP 1 · herramientas</h3><div class="terminal">node --version\nnpm --version\nnest --version\npsql --version\ngit --version</div><p>No continúes si alguno falla.</p></div>'+
  '<div class="card"><h3>STOP 2 · crea la base de datos de esta isla</h3><div class="terminal">psql -U postgres\nCREATE DATABASE '+e.db+';\n\\l\n\\q</div><p>Debes ver <code>'+e.db+'</code> en la lista antes de arrancar NestJS.</p></div>'+
