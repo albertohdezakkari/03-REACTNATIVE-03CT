@@ -32,11 +32,11 @@ function codeFiles(e){
  const map={
   1:[
    ["app.module.ts","backend/src/app.module.ts","Configura la aplicación raíz y PostgreSQL.","code/e01/app.module.ts.txt"],
-   ["videojuego.entity.ts","backend/src/videojuegos/videojuego.entity.ts","Describe cómo se guarda un videojuego.","code/e01/videojuego.entity.ts.txt"],
+   ["videojuego.entity.ts","backend/src/videojuegos/videojuego.entity.ts","Describe cómo se guarda un videojuego.","code/e01/base/videojuego.entity.ts.txt"],
    ["videojuegos.module.ts","backend/src/videojuegos/videojuegos.module.ts","Agrupa el dominio y habilita Repository.","code/e01/videojuegos.module.ts.txt"],
-   ["videojuegos.service.ts","backend/src/videojuegos/videojuegos.service.ts","Trabaja con Repository<Videojuego>.","code/e01/videojuegos.service.ts.txt"],
+   ["videojuegos.service.ts","backend/src/videojuegos/videojuegos.service.ts","Trabaja con Repository<Videojuego>.","code/e01/base/videojuegos.service.ts.txt"],
    ["videojuegos.controller.ts","backend/src/videojuegos/videojuegos.controller.ts","Expone GET /videojuegos.","code/e01/videojuegos.controller.ts.txt"],
-   ["App.tsx","frontend/App.tsx","Consume la API y representa la colección.","code/e01/App.tsx.txt"]
+   ["App.tsx","frontend/App.tsx","Consume la API y representa la colección.","code/e01/base/App.tsx.txt"]
   ],
   2:[
    ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e02.","code/e02/app.module.ts.txt"],
@@ -124,7 +124,7 @@ function codeFiles(e){
 }
 function conceptGuide(e){
  const guides={
-  1:"<p><b>Persistencia:</b> los datos sobreviven al reinicio. <b>Entity:</b> describe la tabla. <b>Repository:</b> ofrece operaciones sobre esa Entity.</p>",
+  1:"<p><b>Persistencia:</b> los datos sobreviven al reinicio. <b>Entity:</b> describe cómo un objeto se representa en una tabla. <b>Repository:</b> ofrece operaciones para consultar y guardar esa Entity sin escribir SQL en Controller. <b>find():</b> recupera una colección. Primero construiremos una versión base sin <code>genero</code>; después el reto hará viajar ese nuevo campo por todas las capas.</p>",
   2:"<p><b>find()</b> recupera una colección de entidades. No escribimos SELECT manualmente: Repository pide los registros y TypeORM realiza la consulta.</p>",
   3:"<p><b>Path Param:</b> el id forma parte de la URL. <b>findOneBy({ id })</b> busca una entidad que cumple esa condición. Si no existe, la API debe responder de forma controlada.</p>",
   4:"<p><b>POST</b> crea un recurso. <b>@Body()</b> recupera el JSON enviado. <b>DTO</b> describe los datos de entrada. <b>create()</b> construye la Entity y <b>save()</b> la persiste.</p>",
@@ -197,6 +197,16 @@ function quizGuide(e){
  };
  return quizzes[e.id];
 }
+function exerciseExtraGuide(e){
+ if(e.id!==1) return "";
+ return '<div class="section-head"><small>COMPRUEBA LA PERSISTENCIA</small><h2>Mira PostgreSQL directamente</h2></div>'+
+ '<div class="card"><p>Antes de crear React Native, demuestra que los datos están realmente en PostgreSQL. NestJS debe seguir ejecutándose en otra terminal.</p>'+
+ '<div class="terminal">psql -U postgres -d databridge_e01\n\\dt\nSELECT * FROM videojuegos;\n\\q</div>'+
+ '<p><b>Debes ver:</b> la tabla <code>videojuegos</code> y tres filas iniciales. Si GET funciona pero aquí no aparecen, detente y revisa la conexión/configuración.</p></div>'+
+ '<div class="card concept"><h3>RECUPERAMOS · datos iniciales</h3><p><code>OnModuleInit</code> se utiliza aquí únicamente para preparar tres videojuegos de ejemplo cuando la tabla está vacía. No es el concepto principal del ejercicio: nos permite concentrarnos en <b>Entity → Repository → find()</b> sin introducir todavía POST.</p></div>'+
+ '<div class="card"><h3>PRUEBA DE PERSISTENCIA</h3><p>Detén NestJS con <code>Ctrl+C</code>, vuelve a ejecutar <code>npm run start:dev</code> y repite <code>SELECT * FROM videojuegos;</code>. Los registros deben seguir allí y no deben duplicarse.</p></div>';
+}
+
 function manualFilesGuide(e){
  const files={
   1:["videojuego.entity.ts"],
@@ -226,6 +236,7 @@ function exercise(e){
  '<div class="card"><h3>SI ESTÁS PROBANDO LA SOLUCIÓN DEL PROFESOR</h3><div class="terminal">cd EJERCICIO-'+String(e.id).padStart(2,"0")+'/backend\nnpm install\nnpm run build\nnpm run start:dev</div><p>La solución guardada en este repositorio es un proyecto NestJS completo. <code>npm run build</code> debe terminar sin errores antes de probar la API.</p></div>'+
  '<div class="section-head"><small>FASE 1</small><h2>CONSTRUYE BACKEND</h2></div><div class="card backend phase"><div class="phase-no">1</div><div><h3>NestJS + TypeORM + PostgreSQL</h3><p>Crea la base <code>'+e.db+'</code>. Configura TypeORM, registra la Entity en el módulo, inyecta Repository en Service y expón la operación desde Controller.</p><p><b>El CLI no crea estos archivos por ti. Créalo(s) manualmente dentro del módulo:</b><br>'+manualFilesGuide(e)+'</p><p>Después compara tu estructura con las rutas que aparecen en <b>OBSERVA LOS ARCHIVOS COMPLETOS</b>.</p></div></div>'+
  '<div class="section-head"><small>FASE 2</small><h2>PRUEBA BACKEND</h2></div><div class="card backend"><p>Arranca NestJS y prueba exactamente la operación protagonista:</p><div class="terminal">npm run start:dev\n\n'+testGuide(e)+'</div><div class="flow"><span>Request</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span><b>→</b><span>JSON</span></div><p><b>No continúes</b> hasta que la API responda correctamente.</p></div>'+
+ exerciseExtraGuide(e)+
  '<div class="section-head"><small>FASE 3</small><h2>CREA Y PRUEBA FRONTEND</h2></div><div class="card frontend phase"><div class="phase-no">3</div><div><h3>React Native · Expo</h3><div class="terminal">cd ..\nnpx create-expo-app@latest frontend --template blank-typescript\ncd frontend\nnpx expo start</div><p>Instala Expo Go en el móvil y comprueba primero que la app base abre. Solo después conecta la API.</p><h4>Si pruebas la solución</h4><div class="terminal">cd frontend\nnpm install\nnpm start</div></div></div>'+
  '<div class="section-head"><small>FASE 4</small><h2>CONECTA FRONTEND / BACKEND</h2></div><div class="card connection"><div class="flow"><span>React Native</span><b>→</b><span>HTTP</span><b>→</b><span>'+e.route+'</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span></div><p>En un móvil físico, <code>localhost</code> es el propio móvil. En Windows ejecuta <code>ipconfig</code>, localiza la dirección IPv4 y sustituye <code>TU_IP_LOCAL</code> en <code>App.tsx</code>. PC y móvil deben estar en la misma red. Si Windows pregunta por Firewall para Node.js, permite el acceso en la red privada.</p><div class="terminal">ipconfig\n# Ejemplo: IPv4 192.168.1.37\n# App.tsx → http://192.168.1.37:3000</div></div>'+
  '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Primero observa el programa completo para familiarizarte con su estructura. Cada pestaña corresponde a UN archivo real.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="fileViewer"></div></section>'+
