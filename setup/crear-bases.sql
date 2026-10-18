@@ -1,0 +1,10 @@
+CREATE DATABASE databridge_e01;
+CREATE DATABASE databridge_e02;
+CREATE DATABASE databridge_e03;
+CREATE DATABASE databridge_e04;
+CREATE DATABASE databridge_e05;
+CREATE DATABASE databridge_e06;
+CREATE DATABASE databridge_e07;
+CREATE DATABASE databridge_e08;
+CREATE DATABASE databridge_e09;
+CREATE DATABASE databridge_e10;

@@ -11,7 +11,7 @@ import { SneakersModule } from './sneakers/sneakers.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'TU_PASSWORD_POSTGRES',
+      password: 'postgres',
       database: 'databridge_e07',
       autoLoadEntities: true,
       synchronize: true,
