@@ -124,7 +124,7 @@ function codeFiles(e){
 }
 function conceptGuide(e){
  const guides={
-  1:"<p><b>Persistencia:</b> los datos sobreviven al reinicio. <b>Entity:</b> describe cómo un objeto se representa en una tabla. <b>Repository:</b> ofrece operaciones para consultar y guardar esa Entity sin escribir SQL en Controller. <b>find():</b> recupera una colección. Primero construiremos una versión base sin <code>genero</code>; después el reto hará viajar ese nuevo campo por todas las capas.</p>",
+  1:"<p><b>Persistencia:</b> los datos sobreviven al reinicio. <b>Entity:</b> describe cómo un objeto se representa en una tabla. <b>Repository:</b> ofrece operaciones para consultar y guardar esa Entity sin escribir SQL en Controller. <b>find():</b> recupera una colección. <b>OnModuleInit:</b> lo usamos solo para insertar tres datos de ejemplo al arrancar si la tabla está vacía; todavía no estamos aprendiendo POST. Primero construiremos una versión base sin <code>genero</code>; después el reto hará viajar ese nuevo campo por todas las capas.</p>",
   2:"<p><b>find()</b> recupera una colección de entidades. No escribimos SELECT manualmente: Repository pide los registros y TypeORM realiza la consulta.</p>",
   3:"<p><b>Path Param:</b> el id forma parte de la URL. <b>findOneBy({ id })</b> busca una entidad que cumple esa condición. Si no existe, la API debe responder de forma controlada.</p>",
   4:"<p><b>POST</b> crea un recurso. <b>@Body()</b> recupera el JSON enviado. <b>DTO</b> describe los datos de entrada. <b>create()</b> construye la Entity y <b>save()</b> la persiste.</p>",
@@ -139,7 +139,7 @@ function conceptGuide(e){
 }
 function testGuide(e){
  const examples={
-  1:"GET http://localhost:3000/videojuegos",
+  1:"curl -i http://localhost:3000/videojuegos",
   2:"GET http://localhost:3000/peliculas",
   3:"GET http://localhost:3000/mascotas/1",
   4:"POST http://localhost:3000/restaurantes\nContent-Type: application/json\n\n{\n  \"nombre\": \"La Trattoria\",\n  \"tipo\": \"Italiano\",\n  \"ciudad\": \"Zaragoza\",\n  \"puntuacion\": 9,\n  \"precioMedio\": 25\n}",
@@ -197,6 +197,17 @@ function quizGuide(e){
  };
  return quizzes[e.id];
 }
+function exerciseDestinationGuide(e){
+ if(e.id!==1) return "";
+ return '<div class="section-head"><small>ANTES DE CONSTRUIR · MIRA EL DESTINO</small><h2>Así quedará Game Vault</h2></div>'+
+ '<div class="card"><p>Distingue lo que genera Nest CLI de lo que crearás tú. No empieces a escribir hasta reconocer esta estructura.</p>'+
+ '<div class="tree">EJERCICIO-01/\n├── backend/                         ← nest new backend\n│   ├── src/\n│   │   ├── main.ts                  ← generado; añadiremos CORS/red\n│   │   ├── app.module.ts            ← configurarás TypeORM\n│   │   └── videojuegos/             ← nest g ...\n│   │       ├── videojuego.entity.ts ← LO CREAS TÚ\n│   │       ├── videojuegos.module.ts\n│   │       ├── videojuegos.service.ts\n│   │       └── videojuegos.controller.ts\n│   └── package.json\n├── frontend/                        ← create-expo-app\n│   └── App.tsx\n└── README.md</div></div>';
+}
+
+function codeViewerSection(e,fs){
+ return '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Lee primero la ruta y responsabilidad. En E01 mostramos la <b>solución base</b> sin <code>genero</code>; el reto MODIFÍCALO se realiza después.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="fileViewer"></div></section>';
+}
+
 function exerciseExtraGuide(e){
  if(e.id!==1) return "";
  return '<div class="section-head"><small>COMPRUEBA LA PERSISTENCIA</small><h2>Mira PostgreSQL directamente</h2></div>'+
@@ -228,18 +239,20 @@ function exercise(e){
  '<div class="section-head"><small>FUNDAMENTOS</small><h2>Antes de tocar código</h2></div>'+
  '<div class="card recover"><h3>RECUPERAMOS</h3><p>HTTP, JSON, Controller y Service. Cada ejercicio conecta esos conocimientos con persistencia real.</p></div>'+
  '<div class="card concept"><h3>CONCEPTO NUEVO · '+e.concept+'</h3>'+conceptGuide(e)+'<p><b>Cómo encaja:</b> React Native no accede directamente a PostgreSQL. Controller recibe HTTP, Service coordina y Repository trabaja con las Entities.</p></div>'+
- '<div class="section-head"><small>LEE</small><h2>Qué vas a construir</h2></div><div class="grid2"><div class="card"><b>OBJETIVO</b><p>Construir y comprobar <code>'+e.route+'</code> utilizando datos persistidos en <code>'+e.db+'</code>.</p></div><div class="card"><b>CONCEPTO NUEVO</b><p>'+e.concept+'</p></div></div>'+
+ '<div class="section-head"><small>LEE</small><h2>Qué vas a construir</h2></div><div class="grid2"><div class="card"><b>OBJETIVO</b><p>Construir y comprobar <code>'+e.route+'</code> utilizando datos persistidos en <code>'+e.db+'</code>.</p></div><div class="card"><b>CONCEPTO NUEVO</b><p>'+e.concept+'</p></div></div>'+exerciseDestinationGuide(e)+
  '<div class="section-head"><small>PREPARA LA ISLA</small><h2>Cierra instalación, base de datos y dependencias</h2></div>'+
  '<div class="card"><h3>STOP 1 · herramientas</h3><div class="terminal">node --version\nnpm --version\nnest --version\npsql --version\ngit --version</div><p>No continúes si alguno falla.</p></div>'+
  '<div class="card"><h3>STOP 2 · crea la base de datos de esta isla</h3><div class="terminal">psql -U postgres\nCREATE DATABASE '+e.db+';\n\\l\n\\q</div><p>Debes ver <code>'+e.db+'</code> en la lista antes de arrancar NestJS.</p></div>'+
  '<div class="lab"><div><h3>CONSTRUCCIÓN DESDE CERO</h3><div class="terminal">cd C02-DATABRIDGE-TYPEORM-POSTGRESQL/EJERCICIO-'+String(e.id).padStart(2,"0")+'\nnest new backend\ncd backend\nnpm install @nestjs/typeorm typeorm pg\nnest g module '+e.resource+'\nnest g controller '+e.resource+'\nnest g service '+e.resource+'\n\n# Comprueba las librerías\nnpm list @nestjs/typeorm typeorm pg</div></div><div class="tree">EJERCICIO-'+String(e.id).padStart(2,"0")+'/\n├── backend/\n├── frontend/\n└── README.md</div></div>'+
  '<div class="card"><h3>SI ESTÁS PROBANDO LA SOLUCIÓN DEL PROFESOR</h3><div class="terminal">cd EJERCICIO-'+String(e.id).padStart(2,"0")+'/backend\nnpm install\nnpm run build\nnpm run start:dev</div><p>La solución guardada en este repositorio es un proyecto NestJS completo. <code>npm run build</code> debe terminar sin errores antes de probar la API.</p></div>'+
- '<div class="section-head"><small>FASE 1</small><h2>CONSTRUYE BACKEND</h2></div><div class="card backend phase"><div class="phase-no">1</div><div><h3>NestJS + TypeORM + PostgreSQL</h3><p>Crea la base <code>'+e.db+'</code>. Configura TypeORM, registra la Entity en el módulo, inyecta Repository en Service y expón la operación desde Controller.</p><p><b>El CLI no crea estos archivos por ti. Créalo(s) manualmente dentro del módulo:</b><br>'+manualFilesGuide(e)+'</p><p>Después compara tu estructura con las rutas que aparecen en <b>OBSERVA LOS ARCHIVOS COMPLETOS</b>.</p></div></div>'+
+ '<div class="section-head"><small>FASE 1</small><h2>CONSTRUYE BACKEND</h2></div><div class="card backend phase"><div class="phase-no">1</div><div><h3>NestJS + TypeORM + PostgreSQL</h3><p>Crea la base <code>'+e.db+'</code>. Configura TypeORM, registra la Entity en el módulo, inyecta Repository en Service y expón la operación desde Controller.</p><p><b>El CLI no crea estos archivos por ti. Créalo(s) manualmente dentro del módulo:</b><br>'+manualFilesGuide(e)+'</p><p>Después compara tu estructura con las rutas que aparecen en <b>OBSERVA LOS ARCHIVOS COMPLETOS</b>.</p></div></div>'+(e.id===1?codeViewerSection(e,fs):"")+
+
  '<div class="section-head"><small>FASE 2</small><h2>PRUEBA BACKEND</h2></div><div class="card backend"><p>Arranca NestJS y prueba exactamente la operación protagonista:</p><div class="terminal">npm run start:dev\n\n'+testGuide(e)+'</div><div class="flow"><span>Request</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span><b>→</b><span>JSON</span></div><p><b>No continúes</b> hasta que la API responda correctamente.</p></div>'+
  exerciseExtraGuide(e)+
  '<div class="section-head"><small>FASE 3</small><h2>CREA Y PRUEBA FRONTEND</h2></div><div class="card frontend phase"><div class="phase-no">3</div><div><h3>React Native · Expo</h3><div class="terminal">cd ..\nnpx create-expo-app@latest frontend --template blank-typescript\ncd frontend\nnpx expo start</div><p>Instala Expo Go en el móvil y comprueba primero que la app base abre. Solo después conecta la API.</p><h4>Si pruebas la solución</h4><div class="terminal">cd frontend\nnpm install\nnpm start</div></div></div>'+
  '<div class="section-head"><small>FASE 4</small><h2>CONECTA FRONTEND / BACKEND</h2></div><div class="card connection"><div class="flow"><span>React Native</span><b>→</b><span>HTTP</span><b>→</b><span>'+e.route+'</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span></div><p>En un móvil físico, <code>localhost</code> es el propio móvil. En Windows ejecuta <code>ipconfig</code>, localiza la dirección IPv4 y sustituye <code>TU_IP_LOCAL</code> en <code>App.tsx</code>. PC y móvil deben estar en la misma red. Si Windows pregunta por Firewall para Node.js, permite el acceso en la red privada.</p><div class="terminal">ipconfig\n# Ejemplo: IPv4 192.168.1.37\n# App.tsx → http://192.168.1.37:3000</div></div>'+
- '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Primero observa el programa completo para familiarizarte con su estructura. Cada pestaña corresponde a UN archivo real.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="fileViewer"></div></section>'+
+ (e.id===1?"":codeViewerSection(e,fs))+
+
  '<div class="section-head"><small>ENTIENDE</small><h2>Relaciona el código nuevo con su responsabilidad</h2></div><div class="card">'+understandGuide(e)+'</div>'+
  '<section class="card modify"><div class="mod-grid"><div><h2>MODIFÍCALO</h2><p><b>'+e.modify+'</b></p><div class="step"><b>1</b><span>Identifica qué capas debe atravesar el dato.</span></div><div class="step"><b>2</b><span>Modifica primero el backend y vuelve a probar la API.</span></div><div class="step"><b>3</b><span>Actualiza React Native y comprueba el recorrido completo.</span></div></div><div class="phone"><div class="screen"><small>'+e.title.toUpperCase()+'</small><h3>'+e.focus+'</h3><div class="mock"><b>'+e.icon+' '+e.mock+'</b><br><small>'+e.mock2+'</small></div><div class="mock">PostgreSQL conectado ✓</div></div></div></div></section>'+
  '<div class="section-head"><small>CHECKPOINTS</small><h2>Localiza problemas antes de seguir</h2></div><div class="card checks">☐ NestJS arranca y PostgreSQL conecta.<br>'+checkpointGuide(e)+'<br>☐ Puedo explicar el recorrido del dato sin mirar el código.</div>'+
