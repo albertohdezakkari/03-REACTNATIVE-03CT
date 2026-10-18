@@ -1,0 +1,100 @@
+name: Prueba E01 Game Vault
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "EJERCICIO-01/**"
+      - ".github/workflows/prueba-e01.yml"
+  workflow_dispatch:
+
+jobs:
+  e01-integracion:
+    name: E01 integración real
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: databridge_e01
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U postgres -d databridge_e01"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=20
+
+    env:
+      PGPASSWORD: postgres
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar backend
+        working-directory: EJERCICIO-01/backend
+        run: npm install
+
+      - name: Compilar backend
+        working-directory: EJERCICIO-01/backend
+        run: npm run build
+
+      - name: Arrancar NestJS
+        working-directory: EJERCICIO-01/backend
+        run: |
+          npm run start:dev > /tmp/e01-nest.log 2>&1 &
+          echo $! > /tmp/e01-nest.pid
+
+      - name: Esperar a la API
+        run: |
+          for i in {1..30}; do
+            if curl -fsS http://localhost:3000/videojuegos > /tmp/videojuegos.json; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/e01-nest.log
+          exit 1
+
+      - name: Comprobar GET /videojuegos
+        run: |
+          cat /tmp/videojuegos.json
+          test "$(jq 'length' /tmp/videojuegos.json)" -eq 3
+          jq -e 'all(.[]; has("id") and has("titulo") and has("plataforma") and has("puntuacion") and has("genero"))' /tmp/videojuegos.json
+
+      - name: Comprobar PostgreSQL
+        run: |
+          psql -h localhost -U postgres -d databridge_e01 -c "\dt"
+          psql -h localhost -U postgres -d databridge_e01 -c "SELECT id,titulo,plataforma,puntuacion,genero FROM videojuegos ORDER BY id;"
+          test "$(psql -h localhost -U postgres -d databridge_e01 -Atc "SELECT COUNT(*) FROM videojuegos;")" -eq 3
+
+      - name: Reiniciar NestJS y comprobar persistencia
+        working-directory: EJERCICIO-01/backend
+        run: |
+          kill "$(cat /tmp/e01-nest.pid)" || true
+          sleep 2
+          npm run start:dev > /tmp/e01-nest-restart.log 2>&1 &
+          echo $! > /tmp/e01-nest.pid
+          for i in {1..30}; do
+            if curl -fsS http://localhost:3000/videojuegos > /tmp/videojuegos-restart.json; then
+              break
+            fi
+            sleep 2
+          done
+          test "$(jq 'length' /tmp/videojuegos-restart.json)" -eq 3
+          test "$(psql -h localhost -U postgres -d databridge_e01 -Atc "SELECT COUNT(*) FROM videojuegos;")" -eq 3
+
+      - name: Instalar frontend
+        working-directory: EJERCICIO-01/frontend
+        run: npm install
+
+      - name: Validar TypeScript frontend
+        working-directory: EJERCICIO-01/frontend
+        run: npx tsc --noEmit
