@@ -48,3 +48,18 @@ button{font:inherit}
 .module-root{border-color:#93C5FD}.module-feature{border-color:#C4B5FD}
 .module-link{font-size:24px;color:var(--violet);font-weight:900}
 .visual-caption{text-align:center;color:var(--text-secondary);max-width:760px;margin:10px auto 22px}
+
+/* Vista previa móvil al inicio de E01 */
+.mobile-preview-wrap{display:grid;grid-template-columns:1fr 330px;gap:28px;align-items:center;margin:18px 0 28px;padding:26px;background:linear-gradient(135deg,#F8FBFF,#EEF6FF);border:1px solid #CFE0F7;border-radius:20px}
+.mobile-preview-copy h2{margin:6px 0 8px;font-size:30px;line-height:1.1}
+.mobile-preview-copy p{color:var(--text-secondary);max-width:620px}
+.mini-flow{justify-content:flex-start;margin-top:18px}
+.phone-preview{max-width:310px}
+.game-screen{background:#0F172A;color:#fff;min-height:430px}
+.game-screen>small{color:#38BDF8;font-weight:900;letter-spacing:.14em}
+.game-screen h3{font-size:25px;margin:5px 0 2px}
+.game-screen>p{margin:0 0 14px;color:#94A3B8;font-size:12px}
+.game-card{position:relative;background:#1E293B;border-color:#334155;color:#fff;padding-right:74px}
+.game-card small{color:#94A3B8}
+.game-card span{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:#0F766E;color:#CCFBF1;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:900}
+@media(max-width:850px){.mobile-preview-wrap{grid-template-columns:1fr}.phone-preview{margin:auto}.mobile-preview-copy{text-align:center}.mini-flow{justify-content:center}}
