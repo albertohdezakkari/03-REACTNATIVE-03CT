@@ -11,7 +11,7 @@ import { EventosModule } from './eventos/eventos.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'TU_PASSWORD_POSTGRES',
+      password: 'postgres',
       database: 'databridge_e09',
       autoLoadEntities: true,
       synchronize: true,
