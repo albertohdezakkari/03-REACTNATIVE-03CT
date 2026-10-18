@@ -48,75 +48,73 @@ function codeFiles(e){
   ],
   3:[
    ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e03.","code/e03/app.module.ts.txt"],
-   ["mascota.entity.ts","backend/src/mascotas/mascota.entity.ts","Define la mascota persistente.","code/e03/mascota.entity.ts.txt"],
+   ["mascota.entity.ts","backend/src/mascotas/mascota.entity.ts","Define la mascota persistente.","code/e03/base/mascota.entity.ts.txt"],
    ["mascotas.module.ts","backend/src/mascotas/mascotas.module.ts","Registra el dominio mascotas.","code/e03/mascotas.module.ts.txt"],
-   ["mascotas.service.ts","backend/src/mascotas/mascotas.service.ts","Busca un registro con findOneBy().","code/e03/mascotas.service.ts.txt"],
+   ["mascotas.service.ts","backend/src/mascotas/mascotas.service.ts","Busca un registro con findOneBy().","code/e03/base/mascotas.service.ts.txt"],
    ["mascotas.controller.ts","backend/src/mascotas/mascotas.controller.ts","Lee el Path Param :id.","code/e03/mascotas.controller.ts.txt"],
-   ["App.tsx","frontend/App.tsx","Muestra la ficha de una mascota.","code/e03/App.tsx.txt"]
+   ["App.tsx","frontend/App.tsx","Muestra la ficha de una mascota.","code/e03/base/App.tsx.txt"]
   ],
   4:[
    ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e04.","code/e04/app.module.ts.txt"],
-   ["restaurante.entity.ts","backend/src/restaurantes/restaurante.entity.ts","Define la Entity persistente.","code/e04/restaurante.entity.ts.txt"],
-   ["create-restaurante.dto.ts","backend/src/restaurantes/create-restaurante.dto.ts","Describe el Body de creación.","code/e04/create-restaurante.dto.ts.txt"],
+   ["restaurante.entity.ts","backend/src/restaurantes/restaurante.entity.ts","Define la Entity persistente.","code/e04/base/restaurante.entity.ts.txt"],
+   ["create-restaurante.dto.ts","backend/src/restaurantes/create-restaurante.dto.ts","Describe el Body de creación.","code/e04/base/create-restaurante.dto.ts.txt"],
    ["restaurantes.module.ts","backend/src/restaurantes/restaurantes.module.ts","Registra el dominio restaurantes.","code/e04/restaurantes.module.ts.txt"],
    ["restaurantes.service.ts","backend/src/restaurantes/restaurantes.service.ts","Crea y guarda mediante Repository.","code/e04/restaurantes.service.ts.txt"],
    ["restaurantes.controller.ts","backend/src/restaurantes/restaurantes.controller.ts","Recibe POST y @Body().","code/e04/restaurantes.controller.ts.txt"],
-   ["App.tsx","frontend/App.tsx","Formulario que envía POST.","code/e04/App.tsx.txt"]
+   ["App.tsx","frontend/App.tsx","Formulario que envía POST.","code/e04/base/App.tsx.txt"]
   ],
   5:[
    ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e05.","code/e05/app.module.ts.txt"],
    ["viaje.entity.ts","backend/src/viajes/viaje.entity.ts","Define la Entity Viaje.","code/e05/viaje.entity.ts.txt"],
-   ["update-viaje.dto.ts","backend/src/viajes/update-viaje.dto.ts","Define campos opcionales de PATCH.","code/e05/update-viaje.dto.ts.txt"],
+   ["update-viaje.dto.ts","backend/src/viajes/update-viaje.dto.ts","Define campos opcionales de PATCH.","code/e05/base/update-viaje.dto.ts.txt"],
    ["viajes.module.ts","backend/src/viajes/viajes.module.ts","Registra el dominio viajes.","code/e05/viajes.module.ts.txt"],
    ["viajes.service.ts","backend/src/viajes/viajes.service.ts","Busca, mezcla cambios y guarda.","code/e05/viajes.service.ts.txt"],
    ["viajes.controller.ts","backend/src/viajes/viajes.controller.ts","Expone PATCH /viajes/:id.","code/e05/viajes.controller.ts.txt"],
-   ["App.tsx","frontend/App.tsx","Edita estado y fecha.","code/e05/App.tsx.txt"]
+   ["App.tsx","frontend/App.tsx","Edita estado y fecha.","code/e05/base/App.tsx.txt"]
   ],
   6:[
    ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e06.","code/e06/app.module.ts.txt"],
-   ["libro.entity.ts","backend/src/libros/libro.entity.ts","Define Libro.","code/e06/libro.entity.ts.txt"],
+   ["libro.entity.ts","backend/src/libros/libro.entity.ts","Define Libro.","code/e06/base/libro.entity.ts.txt"],
    ["libros.module.ts","backend/src/libros/libros.module.ts","Registra el dominio libros.","code/e06/libros.module.ts.txt"],
-   ["libros.service.ts","backend/src/libros/libros.service.ts","Lee, elimina y marca como leído.","code/e06/libros.service.ts.txt"],
-   ["libros.controller.ts","backend/src/libros/libros.controller.ts","Expone GET, DELETE y PATCH.","code/e06/libros.controller.ts.txt"],
-   ["App.tsx","frontend/App.tsx","Confirma DELETE y sincroniza estado.","code/e06/App.tsx.txt"]
+   ["libros.service.ts","backend/src/libros/libros.service.ts","Lee, elimina y marca como leído.","code/e06/base/libros.service.ts.txt"],
+   ["libros.controller.ts","backend/src/libros/libros.controller.ts","Expone GET, DELETE y PATCH.","code/e06/base/libros.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Confirma DELETE y sincroniza estado.","code/e06/base/App.tsx.txt"]
   ],
   7:[
    ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e07.","code/e07/app.module.ts.txt"],
-   ["sneaker.entity.ts","backend/src/sneakers/sneaker.entity.ts","Define Sneaker y stock.","code/e07/sneaker.entity.ts.txt"],
-   ["create-sneaker.dto.ts","backend/src/sneakers/create-sneaker.dto.ts","Datos de creación.","code/e07/create-sneaker.dto.ts.txt"],
-   ["update-sneaker.dto.ts","backend/src/sneakers/update-sneaker.dto.ts","Datos parciales de edición.","code/e07/update-sneaker.dto.ts.txt"],
+   ["sneaker.entity.ts","backend/src/sneakers/sneaker.entity.ts","Define Sneaker y stock.","code/e07/base/sneaker.entity.ts.txt"],
+   ["create-sneaker.dto.ts","backend/src/sneakers/create-sneaker.dto.ts","Datos de creación.","code/e07/base/create-sneaker.dto.ts.txt"],
+   ["update-sneaker.dto.ts","backend/src/sneakers/update-sneaker.dto.ts","Datos parciales de edición.","code/e07/base/update-sneaker.dto.ts.txt"],
    ["sneakers.module.ts","backend/src/sneakers/sneakers.module.ts","Registra el dominio.","code/e07/sneakers.module.ts.txt"],
    ["sneakers.service.ts","backend/src/sneakers/sneakers.service.ts","Implementa CRUD con Repository.","code/e07/sneakers.service.ts.txt"],
    ["sneakers.controller.ts","backend/src/sneakers/sneakers.controller.ts","Expone CRUD REST.","code/e07/sneakers.controller.ts.txt"],
-   ["App.tsx","frontend/App.tsx","Integra operaciones CRUD.","code/e07/App.tsx.txt"]
+   ["App.tsx","frontend/App.tsx","Integra operaciones CRUD.","code/e07/base/App.tsx.txt"]
   ],
   8:[
    ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e08.","code/e08/app.module.ts.txt"],
    ["playlist.entity.ts","backend/src/playlists/playlist.entity.ts","Lado OneToMany.","code/e08/playlist.entity.ts.txt"],
-   ["cancion.entity.ts","backend/src/playlists/cancion.entity.ts","Lado ManyToOne y clave foránea.","code/e08/cancion.entity.ts.txt"],
-   ["create-cancion.dto.ts","backend/src/playlists/create-cancion.dto.ts","Datos para asociar una canción.","code/e08/create-cancion.dto.ts.txt"],
-   ["playlists.module.ts","backend/src/playlists/playlists.module.ts","Registra ambas Entities.","code/e08/playlists.module.ts.txt"],
-   ["playlists.service.ts","backend/src/playlists/playlists.service.ts","Carga relaciones y añade canciones.","code/e08/playlists.service.ts.txt"],
-   ["playlists.controller.ts","backend/src/playlists/playlists.controller.ts","Expone detalle y alta de canción.","code/e08/playlists.controller.ts.txt"],
-   ["App.tsx","frontend/App.tsx","Muestra playlist y canciones.","code/e08/App.tsx.txt"]
+   ["cancion.entity.ts","backend/src/playlists/cancion.entity.ts","Lado ManyToOne y clave foránea.","code/e08/cancion.entity.ts.txt"],   ["playlists.module.ts","backend/src/playlists/playlists.module.ts","Registra ambas Entities.","code/e08/playlists.module.ts.txt"],
+   ["playlists.service.ts","backend/src/playlists/playlists.service.ts","Carga relaciones y añade canciones.","code/e08/base/playlists.service.ts.txt"],
+   ["playlists.controller.ts","backend/src/playlists/playlists.controller.ts","Expone detalle y alta de canción.","code/e08/base/playlists.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Muestra playlist y canciones.","code/e08/base/App.tsx.txt"]
   ],
   9:[
    ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e09.","code/e09/app.module.ts.txt"],
    ["evento.entity.ts","backend/src/eventos/evento.entity.ts","Define Evento.","code/e09/evento.entity.ts.txt"],
    ["eventos.module.ts","backend/src/eventos/eventos.module.ts","Registra el dominio eventos.","code/e09/eventos.module.ts.txt"],
-   ["eventos.service.ts","backend/src/eventos/eventos.service.ts","Construye filtros where.","code/e09/eventos.service.ts.txt"],
-   ["eventos.controller.ts","backend/src/eventos/eventos.controller.ts","Lee @Query ciudad/categoria.","code/e09/eventos.controller.ts.txt"],
-   ["App.tsx","frontend/App.tsx","Solicita una consulta filtrada.","code/e09/App.tsx.txt"]
+   ["eventos.service.ts","backend/src/eventos/eventos.service.ts","Construye filtros where.","code/e09/base/eventos.service.ts.txt"],
+   ["eventos.controller.ts","backend/src/eventos/eventos.controller.ts","Lee @Query ciudad/categoria.","code/e09/base/eventos.controller.ts.txt"],
+   ["App.tsx","frontend/App.tsx","Solicita una consulta filtrada.","code/e09/base/App.tsx.txt"]
   ],
   10:[
    ["app.module.ts","backend/src/app.module.ts","Conecta esta isla con databridge_e10.","code/e10/app.module.ts.txt"],
-   ["destino.entity.ts","backend/src/destinos/destino.entity.ts","Define Destino.","code/e10/destino.entity.ts.txt"],
-   ["create-destino.dto.ts","backend/src/destinos/create-destino.dto.ts","Datos de creación.","code/e10/create-destino.dto.ts.txt"],
-   ["update-destino.dto.ts","backend/src/destinos/update-destino.dto.ts","Datos parciales de edición.","code/e10/update-destino.dto.ts.txt"],
+   ["destino.entity.ts","backend/src/destinos/destino.entity.ts","Define Destino.","code/e10/base/destino.entity.ts.txt"],
+   ["create-destino.dto.ts","backend/src/destinos/create-destino.dto.ts","Datos de creación.","code/e10/base/create-destino.dto.ts.txt"],
+   ["update-destino.dto.ts","backend/src/destinos/update-destino.dto.ts","Datos parciales de edición.","code/e10/base/update-destino.dto.ts.txt"],
    ["destinos.module.ts","backend/src/destinos/destinos.module.ts","Registra el dominio.","code/e10/destinos.module.ts.txt"],
    ["destinos.service.ts","backend/src/destinos/destinos.service.ts","CRUD completo con Repository.","code/e10/destinos.service.ts.txt"],
    ["destinos.controller.ts","backend/src/destinos/destinos.controller.ts","CRUD REST completo.","code/e10/destinos.controller.ts.txt"],
-   ["App.tsx","frontend/App.tsx","Referencia móvil del challenge.","code/e10/App.tsx.txt"]
+   ["App.tsx","frontend/App.tsx","Referencia móvil del challenge.","code/e10/base/App.tsx.txt"]
   ]
  };
  const files=[["main.ts","backend/src/main.ts","Arranca NestJS, habilita CORS y escucha en la red.","code/common/main.ts.txt"],...(map[e.id]||[])];
@@ -126,13 +124,13 @@ function conceptGuide(e){
  const guides={
   1:"<p><b>Persistencia:</b> los datos sobreviven al reinicio. <b>Entity:</b> describe cómo un objeto se representa en una tabla. <b>Repository:</b> ofrece operaciones para consultar y guardar esa Entity sin escribir SQL en Controller. <b>find():</b> recupera una colección. <b>OnModuleInit:</b> lo usamos solo para insertar tres datos de ejemplo al arrancar si la tabla está vacía; todavía no estamos aprendiendo POST. Primero construiremos una versión base sin <code>genero</code>; después el reto hará viajar ese nuevo campo por todas las capas.</p>",
   2:"<p><b>RECUPERAMOS:</b> Entity, Repository y persistencia del ejercicio anterior. <b>CONCEPTO NUEVO:</b> <code>repository.find()</code> recupera una colección de entidades. El objeto <code>order</code> permite pedir a TypeORM que devuelva la colección ordenada. Primero construiremos CineBox sin <code>favorita</code>; después el reto añadirá ese dato persistente desde PostgreSQL hasta la interfaz.</p>",
-  3:"<p><b>Path Param:</b> el id forma parte de la URL. <b>findOneBy({ id })</b> busca una entidad que cumple esa condición. Si no existe, la API debe responder de forma controlada.</p>",
-  4:"<p><b>POST</b> crea un recurso. <b>@Body()</b> recupera el JSON enviado. <b>DTO</b> describe los datos de entrada. <b>create()</b> construye la Entity y <b>save()</b> la persiste.</p>",
-  5:"<p><b>PATCH</b> modifica parte de un recurso. Por eso UpdateViajeDto tiene propiedades opcionales: el cliente no está obligado a reenviar el objeto completo.</p>",
-  6:"<p><b>DELETE</b> elimina el registro persistente, pero React Native conserva su estado en memoria. Después de borrar debemos sincronizar la interfaz.</p>",
-  7:"<p><b>CRUD</b> reúne Create, Read, Update y Delete. Aquí no aparece un método HTTP nuevo: el reto consiste en integrar correctamente lo aprendido.</p>",
-  8:"<p><b>OneToMany:</b> una Playlist contiene muchas Canciones. <b>ManyToOne:</b> cada Canción pertenece a una Playlist. El lado ManyToOne mantiene la clave foránea.</p>",
-  9:"<p><b>Query Params</b> expresan filtros opcionales después de ?. Controller los recibe con @Query y Service construye el objeto <code>where</code> que TypeORM aplica en PostgreSQL.</p>",
+  3:"<p><b>RECUPERAMOS:</b> GET, Controller, Repository y persistencia. <b>Path Param:</b> el identificador forma parte de la URL, por ejemplo <code>/mascotas/1</code>. <b>@Param</b> lo recupera, <b>ParseIntPipe</b> valida y convierte a número, y <b>findOneBy({ id })</b> busca una única Entity. Si no existe, devolvemos 404 con <code>NotFoundException</code>. La solución base no incluye <code>nivelEnergia</code>; ese será el reto.</p>",
+  4:"<p><b>RECUPERAMOS:</b> lectura de datos persistentes. <b>POST</b> crea un recurso. <b>@Body()</b> recupera el JSON enviado; el <b>DTO</b> describe la forma de entrada; <b>repository.create()</b> construye una Entity en memoria y <b>repository.save()</b> la persiste. La base no incluye <code>precioMedio</code>; el reto hará viajar ese dato desde el formulario hasta PostgreSQL.</p>",
+  5:"<p><b>RECUPERAMOS:</b> POST y DTO. <b>PATCH</b> modifica solo parte de un recurso existente. Por eso las propiedades del DTO son opcionales. <b>repository.merge()</b> aplica los cambios al objeto cargado y <b>save()</b> persiste el resultado. La base modifica solo <code>estado</code>; el reto añadirá también <code>fecha</code>.</p>",
+  6:"<p><b>DELETE</b> elimina un recurso persistente. El punto clave Full Stack es que PostgreSQL y el estado de React Native son memorias distintas: después de borrar en la base, la interfaz debe sincronizarse. La solución base solo elimina; el reto incorporará <b>Marcar como leído</b> mediante PATCH.</p>",
+  7:"<p><b>CRUD</b> integra Create, Read, Update y Delete usando POST, GET, PATCH y DELETE. Ya conoces las piezas por separado; ahora debes coordinarlas y resincronizar la interfaz tras cada cambio. La solución base no tiene <code>stock</code>; el reto añadirá ese dato y el estado AGOTADO.</p>",
+  8:"<p><b>OneToMany:</b> una Playlist puede relacionarse con muchas Canciones. <b>ManyToOne:</b> cada Canción pertenece a una Playlist; ese lado mantiene la clave foránea. Primero aprenderás a <b>leer la relación</b> con <code>relations</code>. El reto será crear una canción y asociarla a una playlist concreta.</p>",
+  9:"<p><b>Query Params</b> expresan filtros opcionales después de <code>?</code>. Controller los recibe con <code>@Query</code> y Service construye un <code>where</code> para TypeORM. La base filtra solo por <code>ciudad</code>; el reto combinará <code>ciudad + categoria</code>.</p>",
   10:"<p><b>Transferencia:</b> ya conoces las piezas. Ahora debes decidir cómo combinarlas para construir un CRUD persistente completo con mayor autonomía.</p>"
  };
  return guides[e.id]||"";
@@ -141,17 +139,18 @@ function testGuide(e){
  const examples={
   1:"curl -i http://localhost:3000/videojuegos",
   2:"curl -i http://localhost:3000/peliculas",
-  3:"GET http://localhost:3000/mascotas/1",
-  4:"POST http://localhost:3000/restaurantes\nContent-Type: application/json\n\n{\n  \"nombre\": \"La Trattoria\",\n  \"tipo\": \"Italiano\",\n  \"ciudad\": \"Zaragoza\",\n  \"puntuacion\": 9,\n  \"precioMedio\": 25\n}",
-  5:"PATCH http://localhost:3000/viajes/1\nContent-Type: application/json\n\n{ \"estado\": \"REALIZADO\", \"fecha\": \"2027-04-10\" }",
-  6:"DELETE http://localhost:3000/libros/1",
-  7:"GET /sneakers\nPOST /sneakers\nGET /sneakers/1\nPATCH /sneakers/1\nDELETE /sneakers/1",
-  8:"GET http://localhost:3000/playlists/1\nPOST http://localhost:3000/playlists/canciones",
-  9:"GET http://localhost:3000/eventos?ciudad=Zaragoza&categoria=Tecnologia",
-  10:"GET /destinos\nGET /destinos/1\nPOST /destinos\nPATCH /destinos/1\nDELETE /destinos/1"
+  3:"curl -i http://localhost:3000/mascotas/1\n\n# Comprueba también el 404:\ncurl -i http://localhost:3000/mascotas/999",
+  4:"curl -i -X POST http://localhost:3000/restaurantes \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"nombre\":\"La Trattoria\",\"tipo\":\"Italiano\",\"ciudad\":\"Zaragoza\",\"puntuacion\":9}'",
+  5:"curl -i -X PATCH http://localhost:3000/viajes/1 \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"estado\":\"REALIZADO\"}'\n\n# Comprueba también un id inexistente:\ncurl -i -X PATCH http://localhost:3000/viajes/999 -H \"Content-Type: application/json\" -d '{\"estado\":\"REALIZADO\"}'",
+  6:"curl -i http://localhost:3000/libros\ncurl -i -X DELETE http://localhost:3000/libros/1\ncurl -i http://localhost:3000/libros",
+  7:"curl -i -X POST http://localhost:3000/sneakers -H \"Content-Type: application/json\" -d '{\"marca\":\"Nike\",\"modelo\":\"Air Max 1\",\"precio\":149.99,\"talla\":42}'\ncurl -i http://localhost:3000/sneakers\ncurl -i http://localhost:3000/sneakers/1\ncurl -i -X PATCH http://localhost:3000/sneakers/1 -H \"Content-Type: application/json\" -d '{\"precio\":139.99}'\ncurl -i -X DELETE http://localhost:3000/sneakers/1",
+  8:"curl -i http://localhost:3000/playlists/1\n\n# La respuesta debe incluir canciones[].",
+  9:"curl -i \"http://localhost:3000/eventos?ciudad=Zaragoza\"",
+  10:"curl -i -X POST http://localhost:3000/destinos -H \"Content-Type: application/json\" -d '{\"ciudad\":\"Reikiavik\",\"pais\":\"Islandia\",\"descripcion\":\"Auroras\"}'\ncurl -i http://localhost:3000/destinos\ncurl -i http://localhost:3000/destinos/1\ncurl -i -X PATCH http://localhost:3000/destinos/1 -H \"Content-Type: application/json\" -d '{\"descripcion\":\"Auroras y termas\"}'\ncurl -i -X DELETE http://localhost:3000/destinos/1"
  };
  return examples[e.id]||e.route;
 }
+
 function understandGuide(e){
  const rows={
   1:[["@Entity","Convierte la clase en una Entity conocida por TypeORM."],["@InjectRepository","Entrega al Service el Repository de Videojuego."],["repository.find()","Lee los videojuegos persistidos."],["fetch()","Solicita GET /videojuegos desde React Native."]],
@@ -159,7 +158,7 @@ function understandGuide(e){
   3:[["@Get(':id')","Declara una ruta con un segmento variable."],["@Param('id')","Extrae el id de la URL."],["ParseIntPipe","Convierte y valida el id como número."],["findOneBy({ id })","Busca una entidad concreta."]],
   4:[["@Body()","Obtiene el JSON enviado por React Native."],["CreateRestauranteDto","Describe la forma de los datos de entrada."],["repository.create(dto)","Construye una Entity en memoria."],["repository.save(...)","Persiste esa Entity en PostgreSQL."],["JSON.stringify","Convierte el objeto del formulario en JSON para el POST."]],
   5:[["@Patch(':id')","Modifica parcialmente un recurso existente."],["propiedad?","El signo ? hace opcional cada campo del DTO."],["repository.merge","Aplica al objeto existente solo los cambios recibidos."],["repository.save","Persiste el resultado actualizado."]],
-  6:[["@Delete(':id')","Asocia DELETE con un recurso concreto."],["repository.delete(id)","Elimina la fila persistente."],["filter(...)","Elimina también el libro del estado local de React."],["Alert.alert","Pide confirmación antes de una acción destructiva."]],
+  6:[["@Delete(':id')","Asocia DELETE con un recurso concreto."],["repository.remove(libro)","Elimina la Entity cargada y permite controlar antes si existe."],["filter(...)","Elimina también el libro del estado local de React."],["Alert.alert","Pide confirmación antes de una acción destructiva."]],
   7:[["POST","Create."],["GET","Read."],["PATCH","Update."],["DELETE","Delete."],["cargar()","Vuelve a sincronizar la UI después de cada operación."]],
   8:[["@OneToMany","Una Playlist referencia muchas Canciones."],["@ManyToOne","Muchas Canciones pueden apuntar a una Playlist."],["relations:{canciones:true}","Pide a TypeORM que cargue también la relación."],["playlistId","Identifica a qué Playlist se asociará la nueva Canción."]],
   9:[["@Query","Lee parámetros opcionales de la URL."],["FindOptionsWhere","Tipa el objeto de condiciones."],["where.ciudad","Añade el filtro solo cuando ciudad existe."],["repository.find({where})","Traduce las condiciones a la consulta de PostgreSQL."]],
@@ -198,37 +197,55 @@ function quizGuide(e){
  return quizzes[e.id];
 }
 function exerciseDestinationGuide(e){
- if(e.id===2) {
-  return '<div class="section-head"><small>ANTES DE CONSTRUIR · MIRA EL DESTINO</small><h2>Así quedará CineBox</h2></div>'+
-  '<div class="card"><p>La estructura se parece a E01, pero el protagonista cambia: ahora queremos comprender <code>repository.find()</code> como lectura de una colección.</p>'+
-  '<div class="tree">EJERCICIO-02/\n├── backend/\n│   ├── src/\n│   │   ├── main.ts\n│   │   ├── app.module.ts\n│   │   └── peliculas/\n│   │       ├── pelicula.entity.ts      ← LO CREAS TÚ\n│   │       ├── peliculas.module.ts\n│   │       ├── peliculas.service.ts    ← find()\n│   │       └── peliculas.controller.ts ← GET /peliculas\n│   └── package.json\n├── frontend/\n│   └── App.tsx\n└── README.md</div></div>';
- }
- if(e.id!==1) return "";
- return '<div class="section-head"><small>ANTES DE CONSTRUIR · MIRA EL DESTINO</small><h2>Así quedará Game Vault</h2></div>'+
- '<div class="card"><p>Distingue lo que genera Nest CLI de lo que crearás tú. No empieces a escribir hasta reconocer esta estructura.</p>'+
- '<div class="tree">EJERCICIO-01/\n├── backend/                         ← nest new backend\n│   ├── src/\n│   │   ├── main.ts                  ← generado; añadiremos CORS/red\n│   │   ├── app.module.ts            ← configurarás TypeORM\n│   │   └── videojuegos/             ← nest g ...\n│   │       ├── videojuego.entity.ts ← LO CREAS TÚ\n│   │       ├── videojuegos.module.ts\n│   │       ├── videojuegos.service.ts\n│   │       └── videojuegos.controller.ts\n│   └── package.json\n├── frontend/                        ← create-expo-app\n│   └── App.tsx\n└── README.md</div></div>';
+ const trees={
+  1:"EJERCICIO-01/\n├── backend/\n│   ├── src/\n│   │   ├── main.ts\n│   │   ├── app.module.ts\n│   │   └── videojuegos/\n│   │       ├── videojuego.entity.ts\n│   │       ├── videojuegos.module.ts\n│   │       ├── videojuegos.service.ts\n│   │       └── videojuegos.controller.ts\n│   └── package.json\n├── frontend/\n│   └── App.tsx\n└── README.md",
+  2:"EJERCICIO-02/\n├── backend/src/peliculas/\n│   ├── pelicula.entity.ts\n│   ├── peliculas.module.ts\n│   ├── peliculas.service.ts    ← find()\n│   └── peliculas.controller.ts ← GET /peliculas\n├── frontend/App.tsx\n└── README.md",
+  3:"EJERCICIO-03/\n├── backend/src/mascotas/\n│   ├── mascota.entity.ts\n│   ├── mascotas.module.ts\n│   ├── mascotas.service.ts     ← findOneBy() + 404\n│   └── mascotas.controller.ts  ← @Param + ParseIntPipe\n├── frontend/App.tsx\n└── README.md",
+  4:"EJERCICIO-04/\n├── backend/src/restaurantes/\n│   ├── restaurante.entity.ts\n│   ├── create-restaurante.dto.ts ← Body de entrada\n│   ├── restaurantes.service.ts   ← create() + save()\n│   └── restaurantes.controller.ts← POST + @Body()\n├── frontend/App.tsx              ← formulario\n└── README.md",
+  5:"EJERCICIO-05/\n├── backend/src/viajes/\n│   ├── viaje.entity.ts\n│   ├── update-viaje.dto.ts     ← propiedades opcionales\n│   ├── viajes.service.ts       ← merge() + save()\n│   └── viajes.controller.ts    ← PATCH /viajes/:id\n├── frontend/App.tsx\n└── README.md",
+  6:"EJERCICIO-06/\n├── backend/src/libros/\n│   ├── libro.entity.ts\n│   ├── libros.service.ts       ← remove()\n│   └── libros.controller.ts    ← DELETE /libros/:id\n├── frontend/App.tsx            ← sincroniza array local\n└── README.md",
+  7:"EJERCICIO-07/\n├── backend/src/sneakers/\n│   ├── sneaker.entity.ts\n│   ├── create-sneaker.dto.ts\n│   ├── update-sneaker.dto.ts\n│   ├── sneakers.service.ts     ← CRUD Repository\n│   └── sneakers.controller.ts  ← GET/POST/PATCH/DELETE\n├── frontend/App.tsx\n└── README.md",
+  8:"EJERCICIO-08/\n├── backend/src/playlists/\n│   ├── playlist.entity.ts      ← OneToMany\n│   ├── cancion.entity.ts       ← ManyToOne / FK\n│   ├── playlists.service.ts    ← relations\n│   └── playlists.controller.ts ← GET /playlists/:id\n├── frontend/App.tsx\n└── README.md",
+  9:"EJERCICIO-09/\n├── backend/src/eventos/\n│   ├── evento.entity.ts\n│   ├── eventos.service.ts      ← where dinámico\n│   └── eventos.controller.ts   ← @Query\n├── frontend/App.tsx\n└── README.md",
+  10:"EJERCICIO-10/\n├── backend/src/destinos/\n│   ├── destino.entity.ts\n│   ├── create-destino.dto.ts\n│   ├── update-destino.dto.ts\n│   ├── destinos.service.ts     ← CRUD completo\n│   └── destinos.controller.ts\n├── frontend/App.tsx\n└── README.md"
+ };
+ return '<div class="section-head"><small>ANTES DE CONSTRUIR · MIRA EL DESTINO</small><h2>Mapa de '+e.title+'</h2></div>'+
+ '<div class="card"><p>Compara esta isla con la anterior: reutilizamos la arquitectura y cambiamos únicamente el concepto protagonista. Identifica qué archivos genera el CLI y cuáles debes crear o modificar.</p><div class="tree">'+trees[e.id]+'</div></div>';
 }
 
 function codeViewerSection(e,fs){
- return '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Lee primero la ruta y responsabilidad. En E01/E02 mostramos la <b>solución base</b> antes del reto MODIFÍCALO, para que la modificación siga siendo trabajo del alumno.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="fileViewer"></div></section>';
+ return '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Lee ruta, responsabilidad y código. Mostramos la <b>solución base</b> del ejercicio, todavía sin resolver MODIFÍCALO. La carpeta EJERCICIO-XX del profesor conserva el resultado final.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="fileViewer"></div></section>';
 }
 
 function exerciseExtraGuide(e){
- if(e.id===2) {
-  return '<div class="section-head"><small>COMPRUEBA LA COLECCIÓN</small><h2>Verifica que find() lee PostgreSQL</h2></div>'+
-  '<div class="card"><p>Después del GET, entra directamente en la base de datos. Queremos demostrar que la colección procede de la tabla <code>peliculas</code>.</p>'+
-  '<div class="terminal">psql -U postgres -d databridge_e02\n\\dt\nSELECT * FROM peliculas ORDER BY puntuacion DESC;\n\\q</div>'+
-  '<p><b>Debes poder relacionar:</b> las filas de PostgreSQL → el array JSON de GET /peliculas → las tarjetas de React Native.</p></div>'+
-  '<div class="card concept"><h3>RECUPERAMOS · datos iniciales</h3><p><code>OnModuleInit</code> solo prepara Interstellar y Coco cuando la tabla está vacía. El aprendizaje nuevo de este ejercicio es <code>repository.find()</code> y la lectura de una colección.</p></div>'+
-  '<div class="card"><h3>PRUEBA DE PERSISTENCIA</h3><p>Reinicia NestJS y vuelve a ejecutar GET /peliculas. Las películas deben permanecer y no duplicarse.</p></div>';
- }
- if(e.id!==1) return "";
- return '<div class="section-head"><small>COMPRUEBA LA PERSISTENCIA</small><h2>Mira PostgreSQL directamente</h2></div>'+
- '<div class="card"><p>Antes de crear React Native, demuestra que los datos están realmente en PostgreSQL. NestJS debe seguir ejecutándose en otra terminal.</p>'+
- '<div class="terminal">psql -U postgres -d databridge_e01\n\\dt\nSELECT * FROM videojuegos;\n\\q</div>'+
- '<p><b>Debes ver:</b> la tabla <code>videojuegos</code> y tres filas iniciales. Si GET funciona pero aquí no aparecen, detente y revisa la conexión/configuración.</p></div>'+
- '<div class="card concept"><h3>RECUPERAMOS · datos iniciales</h3><p><code>OnModuleInit</code> se utiliza aquí únicamente para preparar tres videojuegos de ejemplo cuando la tabla está vacía. No es el concepto principal del ejercicio: nos permite concentrarnos en <b>Entity → Repository → find()</b> sin introducir todavía POST.</p></div>'+
- '<div class="card"><h3>PRUEBA DE PERSISTENCIA</h3><p>Detén NestJS con <code>Ctrl+C</code>, vuelve a ejecutar <code>npm run start:dev</code> y repite <code>SELECT * FROM videojuegos;</code>. Los registros deben seguir allí y no deben duplicarse.</p></div>';
+ const table={1:"videojuegos",2:"peliculas",3:"mascotas",4:"restaurantes",5:"viajes",6:"libros",7:"sneakers",8:"playlists",9:"eventos",10:"destinos"}[e.id];
+ const sql={
+  1:"SELECT * FROM videojuegos;",
+  2:"SELECT * FROM peliculas ORDER BY puntuacion DESC;",
+  3:"SELECT * FROM mascotas;",
+  4:"SELECT * FROM restaurantes;",
+  5:"SELECT * FROM viajes;",
+  6:"SELECT * FROM libros;",
+  7:"SELECT * FROM sneakers ORDER BY id;",
+  8:"SELECT * FROM playlists;\nSELECT * FROM canciones;",
+  9:"SELECT * FROM eventos ORDER BY fecha;",
+  10:"SELECT * FROM destinos ORDER BY id;"
+ }[e.id];
+ const note={
+  1:"Relaciona las tres filas con el JSON de GET /videojuegos.",
+  2:"Relaciona las filas ordenadas con el array de GET /peliculas.",
+  3:"Comprueba que el id consultado existe y que /mascotas/999 devuelve 404.",
+  4:"Después del POST debe aparecer una fila nueva. Repite el SELECT tras reiniciar NestJS.",
+  5:"Ejecuta SELECT antes y después del PATCH para observar qué columna cambia.",
+  6:"Ejecuta SELECT antes y después de DELETE y comprueba también que la UI elimina la tarjeta.",
+  7:"Observa la tabla después de POST, PATCH y DELETE. Cada operación HTTP debe tener un efecto persistente coherente.",
+  8:"Observa ambas tablas y localiza la clave foránea de canciones hacia playlists.",
+  9:"Compara todas las filas con el resultado filtrado por ciudad.",
+  10:"Comprueba el ciclo completo Create → Read → Update → Delete directamente en PostgreSQL."
+ }[e.id];
+ return '<div class="section-head"><small>COMPRUEBA POSTGRESQL</small><h2>No confíes solo en la pantalla</h2></div>'+
+ '<div class="card"><p>'+note+'</p><div class="terminal">psql -U postgres -d '+e.db+'\n\\dt\n'+sql+'\n\\q</div></div>'+
+ '<div class="card"><h3>PRUEBA DE PERSISTENCIA</h3><p>Cuando el ejercicio tenga datos persistentes, reinicia NestJS y repite la consulta. Reiniciar el backend no debe borrar ni duplicar datos inesperadamente.</p></div>';
 }
 
 function manualFilesGuide(e){
@@ -258,14 +275,14 @@ function exercise(e){
  '<div class="card"><h3>STOP 2 · crea la base de datos de esta isla</h3><div class="terminal">psql -U postgres\nCREATE DATABASE '+e.db+';\n\\l\n\\q</div><p>Debes ver <code>'+e.db+'</code> en la lista antes de arrancar NestJS.</p></div>'+
  '<div class="lab"><div><h3>CONSTRUCCIÓN DESDE CERO</h3><div class="terminal">cd C02-DATABRIDGE-TYPEORM-POSTGRESQL/EJERCICIO-'+String(e.id).padStart(2,"0")+'\nnest new backend\ncd backend\nnpm install @nestjs/typeorm typeorm pg\nnest g module '+e.resource+'\nnest g controller '+e.resource+'\nnest g service '+e.resource+'\n\n# Comprueba las librerías\nnpm list @nestjs/typeorm typeorm pg</div></div><div class="tree">EJERCICIO-'+String(e.id).padStart(2,"0")+'/\n├── backend/\n├── frontend/\n└── README.md</div></div>'+
  '<div class="card"><h3>SI ESTÁS PROBANDO LA SOLUCIÓN DEL PROFESOR</h3><div class="terminal">cd EJERCICIO-'+String(e.id).padStart(2,"0")+'/backend\nnpm install\nnpm run build\nnpm run start:dev</div><p>La solución guardada en este repositorio es un proyecto NestJS completo. <code>npm run build</code> debe terminar sin errores antes de probar la API.</p></div>'+
- '<div class="section-head"><small>FASE 1</small><h2>CONSTRUYE BACKEND</h2></div><div class="card backend phase"><div class="phase-no">1</div><div><h3>NestJS + TypeORM + PostgreSQL</h3><p>Crea la base <code>'+e.db+'</code>. Configura TypeORM, registra la Entity en el módulo, inyecta Repository en Service y expón la operación desde Controller.</p><p><b>El CLI no crea estos archivos por ti. Créalo(s) manualmente dentro del módulo:</b><br>'+manualFilesGuide(e)+'</p><p>Después compara tu estructura con las rutas que aparecen en <b>OBSERVA LOS ARCHIVOS COMPLETOS</b>.</p></div></div>'+((e.id===1||e.id===2)?codeViewerSection(e,fs):"")+
+ '<div class="section-head"><small>FASE 1</small><h2>CONSTRUYE BACKEND</h2></div><div class="card backend phase"><div class="phase-no">1</div><div><h3>NestJS + TypeORM + PostgreSQL</h3><p>Crea la base <code>'+e.db+'</code>. Configura TypeORM, registra la Entity en el módulo, inyecta Repository en Service y expón la operación desde Controller.</p><p><b>El CLI no crea estos archivos por ti. Créalo(s) manualmente dentro del módulo:</b><br>'+manualFilesGuide(e)+'</p><p>Después compara tu estructura con las rutas que aparecen en <b>OBSERVA LOS ARCHIVOS COMPLETOS</b>.</p></div></div>'+(codeViewerSection(e,fs))+
 
 
  '<div class="section-head"><small>FASE 2</small><h2>PRUEBA BACKEND</h2></div><div class="card backend"><p>Arranca NestJS y prueba exactamente la operación protagonista:</p><div class="terminal">npm run start:dev\n\n'+testGuide(e)+'</div><div class="flow"><span>Request</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span><b>→</b><span>JSON</span></div><p><b>No continúes</b> hasta que la API responda correctamente.</p></div>'+
  exerciseExtraGuide(e)+
  '<div class="section-head"><small>FASE 3</small><h2>CREA Y PRUEBA FRONTEND</h2></div><div class="card frontend phase"><div class="phase-no">3</div><div><h3>React Native · Expo</h3><div class="terminal">cd ..\nnpx create-expo-app@latest frontend --template blank-typescript\ncd frontend\nnpx expo start</div><p>Instala Expo Go en el móvil y comprueba primero que la app base abre. Solo después conecta la API.</p><h4>Si pruebas la solución</h4><div class="terminal">cd frontend\nnpm install\nnpm start</div></div></div>'+
  '<div class="section-head"><small>FASE 4</small><h2>CONECTA FRONTEND / BACKEND</h2></div><div class="card connection"><div class="flow"><span>React Native</span><b>→</b><span>HTTP</span><b>→</b><span>'+e.route+'</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span></div><p>En un móvil físico, <code>localhost</code> es el propio móvil. En Windows ejecuta <code>ipconfig</code>, localiza la dirección IPv4 y sustituye <code>TU_IP_LOCAL</code> en <code>App.tsx</code>. PC y móvil deben estar en la misma red. Si Windows pregunta por Firewall para Node.js, permite el acceso en la red privada.</p><div class="terminal">ipconfig\n# Ejemplo: IPv4 192.168.1.37\n# App.tsx → http://192.168.1.37:3000</div></div>'+
- ((e.id===1||e.id===2)?"":codeViewerSection(e,fs))+
+ ("")+
 
 
  '<div class="section-head"><small>ENTIENDE</small><h2>Relaciona el código nuevo con su responsabilidad</h2></div><div class="card">'+understandGuide(e)+'</div>'+
