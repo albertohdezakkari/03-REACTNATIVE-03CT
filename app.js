@@ -214,40 +214,97 @@ function exerciseDestinationGuide(e){
 }
 
 function mobilePreviewGuide(e){
- if(e.id!==1) return "";
+ const previews={
+  1:{title:"Game Vault",subtitle:"Mi colección",items:[
+    ["🎮 Hollow Knight","Metroidvania · Nintendo Switch","★ 9.4"],
+    ["🎮 Zelda: Tears of the Kingdom","Aventura · Nintendo Switch","★ 9.8"],
+    ["🎮 Forza Horizon 5","Conducción · Xbox","★ 9.1"]
+  ]},
+  2:{title:"CineBox",subtitle:"Cartelera",items:[
+    ["🎬 Interstellar","Ciencia ficción · 2014","★ 9.2 ♥"],
+    ["🎬 Coco","Animación · 2017","★ 8.8 ♡"]
+  ]},
+  3:{title:"Pet Profile",subtitle:"Ficha de mascota",items:[
+    ["🐶 Nala","Golden Retriever · 4 años","⚡ Energía alta"]
+  ]},
+  4:{title:"Food Spots",subtitle:"Nuevo restaurante",items:[
+    ["🍜 La Trattoria","Italiano · Zaragoza","Precio medio 25 €"],
+    ["＋ Guardar restaurante","POST /restaurantes","✓ Persistido"]
+  ]},
+  5:{title:"Travel Book",subtitle:"Editar viaje",items:[
+    ["✈️ Tokio","Japón · RESERVADO","2027-04-10"],
+    ["Guardar cambios","PATCH /viajes/1","✓ Actualizado"]
+  ]},
+  6:{title:"My Library",subtitle:"Biblioteca",items:[
+    ["📚 1984","George Orwell","Pendiente"],
+    ["📚 Dune","Frank Herbert","Leído ✓"],
+    ["Eliminar / Marcar leído","DELETE + PATCH","UI sincronizada"]
+  ]},
+  7:{title:"Sneaker Vault",subtitle:"Inventario",items:[
+    ["👟 Air Max 1","Nike · Talla 42","Stock 4"],
+    ["👟 Forum Low","Adidas · Talla 43","AGOTADO"],
+    ["CRUD completo","GET · POST · PATCH · DELETE","✓"]
+  ]},
+  8:{title:"My Playlists",subtitle:"Entrenamiento",items:[
+    ["🎵 Run Boy Run","Woodkid","Playlist 1"],
+    ["🎵 Nueva canción","Artista","＋ Añadir"]
+  ]},
+  9:{title:"Event Radar",subtitle:"Eventos filtrados",items:[
+    ["🎟️ Tech Meetup","Zaragoza · Tecnología","2027-03-12"],
+    ["Filtro","ciudad + categoría","Query Params"]
+  ]},
+  10:{title:"Wander",subtitle:"Destinos",items:[
+    ["🌍 Reikiavik","Islandia","Prioridad alta"],
+    ["🌍 Lisboa","Portugal","Visitado ✓"],
+    ["CRUD + mejora","Full Stack","✓"]
+  ]}
+ };
+ const p=previews[e.id];
+ if(!p) return "";
  return '<div class="mobile-preview-wrap">'+
-   '<div class="mobile-preview-copy"><div class="eyebrow">VISTA FINAL</div><h2>Esto es lo que vas a construir</h2><p>Al terminar, los videojuegos almacenados en PostgreSQL aparecerán en una app React Native como esta.</p><div class="flow mini-flow"><span>PostgreSQL</span><b>→</b><span>API NestJS</span><b>→</b><span>React Native</span></div></div>'+
+   '<div class="mobile-preview-copy"><div class="eyebrow">VISTA FINAL</div><h2>Esto es lo que vas a construir</h2><p>Antes de empezar, mira el resultado final. Después construiremos las piezas que hacen posible esta pantalla.</p><div class="flow mini-flow"><span>PostgreSQL</span><b>→</b><span>API NestJS</span><b>→</b><span>React Native</span></div></div>'+
    '<div class="phone phone-preview"><div class="screen game-screen">'+
-     '<small>GAME VAULT</small>'+
-     '<h3>Mi colección</h3>'+
-     '<p>Datos reales desde PostgreSQL</p>'+
-     '<div class="mock game-card"><b>🎮 Hollow Knight</b><br><small>Metroidvania · Nintendo Switch</small><span>★ 9.4</span></div>'+
-     '<div class="mock game-card"><b>🎮 Zelda: Tears of the Kingdom</b><br><small>Aventura · Nintendo Switch</small><span>★ 9.8</span></div>'+
-     '<div class="mock game-card"><b>🎮 Forza Horizon 5</b><br><small>Conducción · Xbox</small><span>★ 9.1</span></div>'+
+     '<small>'+p.title.toUpperCase()+'</small>'+
+     '<h3>'+p.subtitle+'</h3>'+
+     '<p>Resultado esperado del ejercicio</p>'+
+     p.items.map(x=>'<div class="mock game-card"><b>'+x[0]+'</b><br><small>'+x[1]+'</small><span>'+x[2]+'</span></div>').join("")+
    '</div></div>'+
  '</div>';
 }
 
 function backendVisualGuide(e){
- if(e.id!==1) return "";
+ const maps={
+  1:["GET /videojuegos","VideojuegosController","VideojuegosService","Repository<Videojuego>","PostgreSQL · videojuegos"],
+  2:["GET /peliculas","PeliculasController","PeliculasService · find()","Repository<Pelicula>","PostgreSQL · peliculas"],
+  3:["GET /mascotas/:id","MascotasController · @Param","MascotasService · findOneBy()","Repository<Mascota>","PostgreSQL · mascotas"],
+  4:["POST /restaurantes","RestaurantesController · @Body","RestaurantesService · create/save","Repository<Restaurante>","PostgreSQL · restaurantes"],
+  5:["PATCH /viajes/:id","ViajesController · @Param/@Body","ViajesService · merge/save","Repository<Viaje>","PostgreSQL · viajes"],
+  6:["DELETE /libros/:id","LibrosController","LibrosService · remove","Repository<Libro>","PostgreSQL · libros"],
+  7:["CRUD /sneakers","SneakersController","SneakersService","Repository<Sneaker>","PostgreSQL · sneakers"],
+  8:["GET /playlists/:id","PlaylistsController","PlaylistsService · relations","Repository<Playlist/Cancion>","PostgreSQL · playlists/canciones"],
+  9:["GET /eventos?...","EventosController · @Query","EventosService · where","Repository<Evento>","PostgreSQL · eventos"],
+  10:["CRUD /destinos","DestinosController","DestinosService","Repository<Destino>","PostgreSQL · destinos"]
+ };
+ const m=maps[e.id];
+ if(!m) return "";
  return '<div class="section-head"><small>MAPA VISUAL</small><h2>Cómo funciona tu backend</h2></div>'+
  '<div class="backend-visual">'+
-   '<div class="backend-layer backend-entry"><span class="backend-icon">🌐</span><b>GET /videojuegos</b><small>La petición entra por HTTP</small></div>'+
+   '<div class="backend-layer backend-entry"><span class="backend-icon">🌐</span><b>'+m[0]+'</b><small>La petición entra por HTTP</small></div>'+
    '<div class="backend-arrow">↓</div>'+
-   '<div class="backend-layer"><span class="backend-icon">🎮</span><b>VideojuegosController</b><small>Recibe la petición y delega</small></div>'+
+   '<div class="backend-layer"><span class="backend-icon">🎮</span><b>'+m[1]+'</b><small>Recibe la petición</small></div>'+
    '<div class="backend-arrow">↓</div>'+
-   '<div class="backend-layer"><span class="backend-icon">⚙️</span><b>VideojuegosService</b><small>Coordina la lógica</small></div>'+
+   '<div class="backend-layer"><span class="backend-icon">⚙️</span><b>'+m[2]+'</b><small>Coordina la operación</small></div>'+
    '<div class="backend-arrow">↓</div>'+
-   '<div class="backend-layer"><span class="backend-icon">📦</span><b>Repository&lt;Videojuego&gt;</b><small>Consulta la Entity con TypeORM</small></div>'+
+   '<div class="backend-layer"><span class="backend-icon">📦</span><b>'+m[3]+'</b><small>TypeORM trabaja con la Entity</small></div>'+
    '<div class="backend-arrow">↓</div>'+
-   '<div class="backend-layer backend-db"><span class="backend-icon">🐘</span><b>PostgreSQL</b><small>databridge_e01 · tabla videojuegos</small></div>'+
+   '<div class="backend-layer backend-db"><span class="backend-icon">🐘</span><b>'+m[4]+'</b><small>Persistencia real</small></div>'+
  '</div>'+
  '<div class="backend-module-map">'+
    '<div class="module-box module-root"><b>AppModule</b><small>Aplicación raíz</small></div>'+
    '<div class="module-link">→</div>'+
-   '<div class="module-box module-feature"><b>VideojuegosModule</b><small>agrupa Controller · Service · Entity</small></div>'+
+   '<div class="module-box module-feature"><b>'+e.resource.charAt(0).toUpperCase()+e.resource.slice(1)+'Module</b><small>agrupa Controller · Service · Entity</small></div>'+
  '</div>'+
- '<p class="visual-caption"><b>Idea clave:</b> React Native nunca habla directamente con PostgreSQL. Siempre atraviesa Controller → Service → Repository → TypeORM.</p>';
+ '<p class="visual-caption"><b>Idea clave:</b> React Native nunca accede directamente a PostgreSQL. La petición atraviesa las capas del backend.</p>';
 }
 
 function codeViewerSection(e,fs){
