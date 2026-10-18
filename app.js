@@ -213,6 +213,21 @@ function exerciseDestinationGuide(e){
  '<div class="card"><p>Compara esta isla con la anterior: reutilizamos la arquitectura y cambiamos únicamente el concepto protagonista. Identifica qué archivos genera el CLI y cuáles debes crear o modificar.</p><div class="tree">'+trees[e.id]+'</div></div>';
 }
 
+function mobilePreviewGuide(e){
+ if(e.id!==1) return "";
+ return '<div class="mobile-preview-wrap">'+
+   '<div class="mobile-preview-copy"><div class="eyebrow">VISTA FINAL</div><h2>Esto es lo que vas a construir</h2><p>Al terminar, los videojuegos almacenados en PostgreSQL aparecerán en una app React Native como esta.</p><div class="flow mini-flow"><span>PostgreSQL</span><b>→</b><span>API NestJS</span><b>→</b><span>React Native</span></div></div>'+
+   '<div class="phone phone-preview"><div class="screen game-screen">'+
+     '<small>GAME VAULT</small>'+
+     '<h3>Mi colección</h3>'+
+     '<p>Datos reales desde PostgreSQL</p>'+
+     '<div class="mock game-card"><b>🎮 Hollow Knight</b><br><small>Metroidvania · Nintendo Switch</small><span>★ 9.4</span></div>'+
+     '<div class="mock game-card"><b>🎮 Zelda: Tears of the Kingdom</b><br><small>Aventura · Nintendo Switch</small><span>★ 9.8</span></div>'+
+     '<div class="mock game-card"><b>🎮 Forza Horizon 5</b><br><small>Conducción · Xbox</small><span>★ 9.1</span></div>'+
+   '</div></div>'+
+ '</div>';
+}
+
 function backendVisualGuide(e){
  if(e.id!==1) return "";
  return '<div class="section-head"><small>MAPA VISUAL</small><h2>Cómo funciona tu backend</h2></div>'+
@@ -287,7 +302,7 @@ function manualFilesGuide(e){
 }
 function exercise(e){
  const fs=codeFiles(e);
- return '<section class="hero"><div class="eyebrow">EJERCICIO '+String(e.id).padStart(2,"0")+' · '+e.focus.toUpperCase()+'</div><h1>'+e.icon+' '+e.title+'</h1><p>'+e.modify+'</p><div class="chips"><span class="chip">'+e.concept+'</span><span class="chip">'+e.route+'</span><span class="chip">'+e.db+'</span></div></section>'+
+ return '<section class="hero"><div class="eyebrow">EJERCICIO '+String(e.id).padStart(2,"0")+' · '+e.focus.toUpperCase()+'</div><h1>'+e.icon+' '+e.title+'</h1><p>'+e.modify+'</p><div class="chips"><span class="chip">'+e.concept+'</span><span class="chip">'+e.route+'</span><span class="chip">'+e.db+'</span></div></section>'+mobilePreviewGuide(e)+
  '<div class="section-head"><small>FUNDAMENTOS</small><h2>Antes de tocar código</h2></div>'+
  '<div class="card recover"><h3>RECUPERAMOS</h3><p>HTTP, JSON, Controller y Service. Cada ejercicio conecta esos conocimientos con persistencia real.</p></div>'+
  '<div class="card concept"><h3>CONCEPTO NUEVO · '+e.concept+'</h3>'+conceptGuide(e)+'<p><b>Cómo encaja:</b> React Native no accede directamente a PostgreSQL. Controller recibe HTTP, Service coordina y Repository trabaja con las Entities.</p></div>'+
