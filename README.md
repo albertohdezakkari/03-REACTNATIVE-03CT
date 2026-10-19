@@ -1,10 +1,10 @@
-# C02 · DataBridge — Del móvil a PostgreSQL
+# C03 · DataBridge: TypeORM con NestJS
 
 Cuaderno de aprendizaje Full Stack con React Native + Expo, NestJS, TypeORM y PostgreSQL local.
 
 ## Repositorio del alumno
 
-`C02-DATABRIDGE-TYPEORM-POSTGRESQL`
+`C04-DATABRIDGE-TYPEORM-POSTGRESQL`
 
 Cada ejercicio es una isla independiente:
 
