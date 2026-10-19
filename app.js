@@ -198,7 +198,7 @@ function quizGuide(e){
 }
 function exerciseDestinationGuide(e){
  const trees={
-  1:"EJERCICIO-01/\n├── backend/\n│   ├── src/\n│   │   ├── main.ts\n│   │   ├── app.module.ts\n│   │   └── videojuegos/\n│   │       ├── videojuego.entity.ts\n│   │       ├── videojuegos.module.ts\n│   │       ├── videojuegos.service.ts\n│   │       └── videojuegos.controller.ts\n│   └── package.json\n├── frontend/\n│   └── App.tsx\n└── README.md",
+  1:"EJERCICIO-01/\n├── backend/                         ← CLI: nest new backend\n│   ├── src/\n│   │   ├── main.ts                  ← CLI: nest new backend · después lo modificamos\n│   │   ├── app.module.ts            ← CLI: nest new backend · después lo modificamos\n│   │   └── videojuegos/\n│   │       ├── videojuego.entity.ts ← MANUAL: lo creas tú\n│   │       ├── videojuegos.module.ts← CLI: nest g module videojuegos\n│   │       ├── videojuegos.service.ts ← CLI: nest g service videojuegos\n│   │       └── videojuegos.controller.ts ← CLI: nest g controller videojuegos\n│   └── package.json                 ← CLI: nest new backend\n├── frontend/                        ← CLI: create-expo-app\n│   └── App.tsx                      ← CLI: Expo lo crea · después lo modificamos\n└── README.md                        ← MANUAL: lo creas tú",
   2:"EJERCICIO-02/\n├── backend/src/peliculas/\n│   ├── pelicula.entity.ts\n│   ├── peliculas.module.ts\n│   ├── peliculas.service.ts    ← find()\n│   └── peliculas.controller.ts ← GET /peliculas\n├── frontend/App.tsx\n└── README.md",
   3:"EJERCICIO-03/\n├── backend/src/mascotas/\n│   ├── mascota.entity.ts\n│   ├── mascotas.module.ts\n│   ├── mascotas.service.ts     ← findOneBy() + 404\n│   └── mascotas.controller.ts  ← @Param + ParseIntPipe\n├── frontend/App.tsx\n└── README.md",
   4:"EJERCICIO-04/\n├── backend/src/restaurantes/\n│   ├── restaurante.entity.ts\n│   ├── create-restaurante.dto.ts ← Body de entrada\n│   ├── restaurantes.service.ts   ← create() + save()\n│   └── restaurantes.controller.ts← POST + @Body()\n├── frontend/App.tsx              ← formulario\n└── README.md",
@@ -210,7 +210,7 @@ function exerciseDestinationGuide(e){
   10:"EJERCICIO-10/\n├── backend/src/destinos/\n│   ├── destino.entity.ts\n│   ├── create-destino.dto.ts\n│   ├── update-destino.dto.ts\n│   ├── destinos.service.ts     ← CRUD completo\n│   └── destinos.controller.ts\n├── frontend/App.tsx\n└── README.md"
  };
  return '<div class="section-head"><small>ANTES DE CONSTRUIR · MIRA EL DESTINO</small><h2>Mapa de '+e.title+'</h2></div>'+
- '<div class="card"><p>Compara esta isla con la anterior: reutilizamos la arquitectura y cambiamos únicamente el concepto protagonista. Identifica qué archivos genera el CLI y cuáles debes crear o modificar.</p><div class="tree">'+trees[e.id]+'</div></div>';
+ '<div class="card"><p><b>Antes de crear ningún archivo, mira la columna de la derecha.</b> Si pone <code>CLI</code>, no lo crees a mano: aparecerá cuando ejecutemos el comando correspondiente. Si pone <code>MANUAL</code>, sí tendrás que crearlo tú. Cuando pone <code>después lo modificamos</code>, el CLI lo crea primero y nosotros lo editaremos más adelante.</p><div class="tree">'+trees[e.id]+'</div></div>';
 }
 
 function mobilePreviewGuide(e){
