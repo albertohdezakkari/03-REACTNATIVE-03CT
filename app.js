@@ -307,8 +307,11 @@ function backendVisualGuide(e){
  '<p class="visual-caption"><b>Idea clave:</b> React Native nunca accede directamente a PostgreSQL. La petición atraviesa las capas del backend.</p>';
 }
 
-function codeViewerSection(e,fs){
- return '<section class="dark"><h2>OBSERVA LOS ARCHIVOS COMPLETOS</h2><p>Lee ruta, responsabilidad y código. Mostramos la <b>solución base</b> del ejercicio, todavía sin resolver MODIFÍCALO. La carpeta EJERCICIO-XX del profesor conserva el resultado final.</p><div class="tabs">'+fs.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="fileViewer"></div></section>';
+function codeViewerSection(e,fs,kind){
+ const files=fs.filter(f=>kind==="frontend"?f.path.startsWith("frontend/"):f.path.startsWith("backend/"));
+ const label=kind==="frontend"?"FRONTEND":"BACKEND";
+ const id=kind==="frontend"?"frontendFileViewer":"backendFileViewer";
+ return '<section class="dark code-viewer" data-viewer-kind="'+kind+'"><h2>OBSERVA LOS ARCHIVOS COMPLETOS · '+label+'</h2><p>Lee la ruta, la responsabilidad y el código de la <b>solución base</b> antes de continuar. Todavía no incluye el reto de MODIFÍCALO.</p><div class="tabs">'+files.map((f,i)=>'<button class="tab '+(i===0?"active":"")+'" data-tab="'+i+'">'+f.name+'</button>').join("")+'</div><div id="'+id+'" class="file-viewer"></div></section>';
 }
 
 function exerciseExtraGuide(e){
@@ -369,12 +372,12 @@ function exercise(e){
  '<div class="card"><h3>STOP 2 · crea la base de datos de esta isla</h3><div class="terminal">psql -U postgres\nCREATE DATABASE '+e.db+';\n\\l\n\\q</div><p>Debes ver <code>'+e.db+'</code> en la lista antes de arrancar NestJS.</p></div>'+
  '<div class="lab"><div><h3>CONSTRUCCIÓN DESDE CERO</h3><div class="terminal">cd C04-DATABRIDGE-TYPEORM-POSTGRESQL/EJERCICIO-'+String(e.id).padStart(2,"0")+'\nnest new backend\ncd backend\nnpm install @nestjs/typeorm typeorm pg\nnest g module '+e.resource+'\nnest g controller '+e.resource+'\nnest g service '+e.resource+'\n\n# Comprueba las librerías\nnpm list @nestjs/typeorm typeorm pg</div></div><div class="tree">EJERCICIO-'+String(e.id).padStart(2,"0")+'/\n├── backend/\n├── frontend/\n└── README.md</div></div>'+
 
- '<div class="section-head"><small>FASE 1</small><h2>CONSTRUYE BACKEND</h2></div><div class="card backend phase"><div class="phase-no">1</div><div><h3>NestJS + TypeORM + PostgreSQL</h3><p>Crea la base <code>'+e.db+'</code>. Configura TypeORM, registra la Entity en el módulo, inyecta Repository en Service y expón la operación desde Controller.</p><p><b>El CLI no crea estos archivos por ti. Créalo(s) manualmente dentro del módulo:</b><br>'+manualFilesGuide(e)+'</p><p>Después compara tu estructura con las rutas que aparecen en <b>OBSERVA LOS ARCHIVOS COMPLETOS</b>.</p></div></div>'+(codeViewerSection(e,fs))+
+ '<div class="section-head"><small>FASE 1</small><h2>CONSTRUYE BACKEND</h2></div><div class="card backend phase"><div class="phase-no">1</div><div><h3>NestJS + TypeORM + PostgreSQL</h3><p>Crea la base <code>'+e.db+'</code>. Configura TypeORM, registra la Entity en el módulo, inyecta Repository en Service y expón la operación desde Controller.</p><p><b>El CLI no crea estos archivos por ti. Créalo(s) manualmente dentro del módulo:</b><br>'+manualFilesGuide(e)+'</p><p>Después compara tu estructura con las rutas que aparecen en <b>OBSERVA LOS ARCHIVOS COMPLETOS</b>.</p></div></div>'+(codeViewerSection(e,fs,"backend"))+
 
 
  '<div class="section-head"><small>FASE 2</small><h2>PRUEBA BACKEND</h2></div><div class="card backend"><p>Arranca NestJS y prueba exactamente la operación protagonista:</p><div class="terminal">npm run start:dev\n\n'+testGuide(e)+'</div><div class="flow"><span>Request</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span><b>→</b><span>JSON</span></div><p><b>No continúes</b> hasta que la API responda correctamente.</p></div>'+
  exerciseExtraGuide(e)+
- '<div class="section-head"><small>FASE 3</small><h2>CREA Y PRUEBA FRONTEND</h2></div><div class="card frontend phase"><div class="phase-no">3</div><div><h3>React Native · Expo</h3><div class="terminal">cd ..\nnpx create-expo-app@latest frontend --template blank-typescript\ncd frontend\nnpx expo start</div><p>Instala Expo Go en el móvil y comprueba primero que la app base abre. Solo después conecta la API.</p><h4>Si pruebas la solución</h4><div class="terminal">cd frontend\nnpm install\nnpm start</div></div></div>'+
+ '<div class="section-head"><small>FASE 3</small><h2>CREA Y PRUEBA FRONTEND</h2></div><div class="card frontend phase"><div class="phase-no">3</div><div><h3>React Native · Expo</h3><div class="terminal">cd ..\nnpx create-expo-app@latest frontend --template blank-typescript\ncd frontend\nnpx expo start</div><p>Instala Expo Go en el móvil y comprueba primero que la app base abre. Solo después conecta la API.</p></div></div>'+codeViewerSection(e,fs,"frontend")+
  '<div class="section-head"><small>FASE 4</small><h2>CONECTA FRONTEND / BACKEND</h2></div><div class="card connection"><div class="flow"><span>React Native</span><b>→</b><span>HTTP</span><b>→</b><span>'+e.route+'</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>PostgreSQL</span></div><p>En un móvil físico, <code>localhost</code> es el propio móvil. En Windows ejecuta <code>ipconfig</code>, localiza la dirección IPv4 y sustituye <code>TU_IP_LOCAL</code> en <code>App.tsx</code>. PC y móvil deben estar en la misma red. Si Windows pregunta por Firewall para Node.js, permite el acceso en la red privada.</p><div class="terminal">ipconfig\n# Ejemplo: IPv4 192.168.1.37\n# App.tsx → http://192.168.1.37:3000</div></div>'+
  ("")+
 
@@ -396,19 +399,20 @@ function review(){
 }
 function wire(){
  document.querySelectorAll(".exercise-tile").forEach(x=>x.onclick=()=>go(x.dataset.page));
- const viewer=$("#fileViewer");
- if(viewer){
+ document.querySelectorAll(".code-viewer").forEach(section=>{
+   const kind=section.dataset.viewerKind;
    const exerciseData=current.startsWith("e")
      ? EXERCISES[Number(current.slice(1))-1]
      : null;
-   const files=codeFiles(exerciseData);
+   const files=codeFiles(exerciseData).filter(f=>kind==="frontend"?f.path.startsWith("frontend/"):f.path.startsWith("backend/"));
+   const viewer=section.querySelector(".file-viewer");
+   const tabs=[...section.querySelectorAll(".tab")];
 
    const showFile=async(index)=>{
      const file=files[index];
+     if(!file) return;
 
-     document.querySelectorAll(".tab").forEach((tab,i)=>{
-       tab.classList.toggle("active",i===index);
-     });
+     tabs.forEach((tab,i)=>tab.classList.toggle("active",i===index));
 
      viewer.innerHTML=
        '<div class="code-meta">'+
@@ -424,8 +428,7 @@ function wire(){
      }
 
      try{
-       // Cada pestaña descarga UN archivo físico independiente.
-       const response=await fetch(file.source+'?v=20260929-1605');
+       const response=await fetch(file.source+'?v=20261019-split-viewers');
        if(!response.ok) throw new Error('No se pudo cargar el archivo');
        const code=await response.text();
        viewer.querySelector(".code").textContent=code;
@@ -435,12 +438,9 @@ function wire(){
      }
    };
 
-   document.querySelectorAll(".tab").forEach((tab,index)=>{
-     tab.onclick=()=>showFile(index);
-   });
-
+   tabs.forEach((tab,index)=>{ tab.onclick=()=>showFile(index); });
    showFile(0);
- }
+ });
  document.querySelectorAll(".quiz-option").forEach(b=>b.onclick=()=>{const card=b.closest(".card");card.querySelectorAll(".quiz-option").forEach(x=>x.classList.remove("correct","wrong"));b.classList.add(b.dataset.correct?"correct":"wrong");card.querySelector(".quiz-feedback").textContent=b.dataset.correct?"✓ Correcto. Relaciona siempre cada capa con su responsabilidad.":"✕ Revisa el recorrido del dato y las responsabilidades.";});
 }
 function render(){
