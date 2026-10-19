@@ -360,6 +360,129 @@ function manualFilesGuide(e){
  };
  return (files[e.id]||[]).map(x=>"<code>"+x+"</code>").join(" · ");
 }
+function modifyGuide(e){
+ const guides={
+  1:{
+   learn:"Extender un dato de extremo a extremo: Entity → PostgreSQL → Repository → API → React Native.",
+   files:"videojuego.entity.ts → videojuegos.service.ts → App.tsx",
+   steps:[
+    "Añade el nuevo dato en la Entity. Pregúntate: ¿qué tipo debe tener en PostgreSQL?",
+    "Haz que los datos iniciales incluyan ese campo para poder verlo al probar la API.",
+    "Prueba GET /videojuegos y comprueba que el nuevo campo aparece en el JSON.",
+    "Solo entonces modifica App.tsx para mostrarlo en la tarjeta."
+   ],
+   check:"Si quitas temporalmente el campo del frontend, la API debe seguir funcionando: eso demuestra que backend y presentación son capas distintas."
+  },
+  2:{
+   learn:"Usar repository.find() para recuperar una colección y añadir un nuevo atributo persistente.",
+   files:"pelicula.entity.ts → peliculas.service.ts → App.tsx",
+   steps:[
+    "Añade favorita a la Entity y decide un valor por defecto razonable.",
+    "Incluye ese dato en las películas de prueba.",
+    "Comprueba con GET /peliculas que find() devuelve también favorita.",
+    "Representa el estado en React Native con una señal visual sencilla, por ejemplo ♥ / ♡."
+   ],
+   check:"Explica por qué find() no necesita conocer cómo se dibuja una película en React Native."
+  },
+  3:{
+   learn:"Recuperar un único registro con Path Param y mantener el mismo modelo de datos hasta la pantalla.",
+   files:"mascota.entity.ts → mascotas.service.ts → App.tsx",
+   steps:[
+    "Añade nivelEnergia a la Entity.",
+    "Asegúrate de que la mascota inicial tenga un valor para ese campo.",
+    "Prueba /mascotas/1 y también /mascotas/999 para no romper el control de 404.",
+    "Muestra nivelEnergia únicamente cuando la petición haya cargado correctamente."
+   ],
+   check:"El nuevo campo no debe cambiar cómo funciona :id. Son dos conceptos diferentes: identificar un recurso y ampliar sus datos."
+  },
+  4:{
+   learn:"Enviar un dato nuevo desde el móvil en el Body de un POST y persistirlo.",
+   files:"restaurante.entity.ts → create-restaurante.dto.ts → App.tsx",
+   steps:[
+    "Añade precioMedio a la Entity porque queremos guardarlo.",
+    "Añádelo también al DTO porque debe poder llegar en el Body.",
+    "Prueba primero el POST con curl y verifica la fila en PostgreSQL.",
+    "Después incorpora el dato al formulario/Body de App.tsx."
+   ],
+   check:"Pregúntate por qué el dato aparece en Entity y DTO: uno representa persistencia y el otro la entrada HTTP."
+  },
+  5:{
+   learn:"Modificar parcialmente un recurso existente con PATCH sin sustituir todos sus campos.",
+   files:"update-viaje.dto.ts → viajes.service.ts → App.tsx",
+   steps:[
+    "Añade fecha como propiedad opcional del DTO de actualización.",
+    "No cambies la idea de PATCH: deben poder enviarse solo los campos que se quieren modificar.",
+    "Prueba primero un PATCH que cambie fecha y observa PostgreSQL antes/después.",
+    "Actualiza App.tsx para enviar también fecha cuando corresponda."
+   ],
+   check:"Comprueba que cambiar solo fecha no obliga a reenviar destino, país o estado."
+  },
+  6:{
+   learn:"Combinar estado persistente y estado visual: una acción en la app debe cambiar PostgreSQL y después refrescar la interfaz.",
+   files:"libro.entity.ts → libros.service.ts → libros.controller.ts → App.tsx",
+   steps:[
+    "Añade leido a la Entity con un valor inicial claro.",
+    "Crea una operación de backend que marque un libro como leído sin borrarlo.",
+    "Prueba el endpoint con curl y verifica el cambio directamente en PostgreSQL.",
+    "En App.tsx llama a esa operación y vuelve a cargar la lista para reflejar el nuevo estado."
+   ],
+   check:"Diferencia bien DELETE de marcar como leído: una operación elimina el recurso y la otra solo modifica un atributo."
+  },
+  7:{
+   learn:"Extender un CRUD completo con una regla visual derivada de un dato persistente.",
+   files:"sneaker.entity.ts → DTOs → sneakers.service.ts/controller.ts → App.tsx",
+   steps:[
+    "Añade stock a Entity y a los DTO necesarios para crear/actualizar.",
+    "Comprueba que POST y PATCH aceptan stock y que GET lo devuelve.",
+    "Prueba el ciclo completo antes de tocar la interfaz.",
+    "En React Native muestra AGOTADO cuando stock sea 0; no guardes la palabra AGOTADO en la base de datos."
+   ],
+   check:"AGOTADO es una presentación derivada de stock. El dato persistente debe seguir siendo numérico."
+  },
+  8:{
+   learn:"Trabajar con una relación OneToMany/ManyToOne y crear un recurso hijo asociado a su padre.",
+   files:"create-cancion.dto.ts → playlists.service.ts → playlists.controller.ts → App.tsx",
+   steps:[
+    "El DTO debe indicar qué canción crear y a qué playlist pertenece.",
+    "En el Service busca primero la Playlist antes de crear la Canción.",
+    "Guarda la Canción relacionada y vuelve a consultar la playlist con relations.",
+    "Desde App.tsx envía los datos y recarga la playlist para ver la nueva canción."
+   ],
+   check:"La clave es que la Canción pertenece a una Playlist existente; no son dos registros independientes."
+  },
+  9:{
+   learn:"Combinar Query Params para construir filtros opcionales en la consulta.",
+   files:"eventos.controller.ts → eventos.service.ts → App.tsx",
+   steps:[
+    "Mantén ciudad como filtro opcional y añade categoria como segundo Query Param.",
+    "Construye el filtro solo con los parámetros que realmente lleguen.",
+    "Prueba: sin filtros, solo ciudad, solo categoría y ambos juntos.",
+    "Después genera la URL desde App.tsx con los filtros elegidos."
+   ],
+   check:"Un parámetro opcional ausente no debería eliminar resultados por accidente."
+  },
+  10:{
+   learn:"Integrar todo el flujo CRUD y diseñar una mejora propia coherente entre persistencia, API y UI.",
+   files:"Entity → DTOs → Service → Controller → App.tsx",
+   steps:[
+    "Elige una mejora que tenga sentido como dato real, no solo como decoración visual.",
+    "Decide qué operaciones CRUD deben conocer ese dato.",
+    "Implementa y prueba primero backend + PostgreSQL.",
+    "Finalmente representa y modifica ese dato desde React Native."
+   ],
+   check:"Tu mejora está completa solo si puedes seguirla desde la pantalla hasta PostgreSQL y volver."
+  }
+ };
+ const g=guides[e.id];
+ return '<div class="modify-help">'+
+   '<h3>QUÉ ESTÁS PRACTICANDO</h3><p>'+g.learn+'</p>'+
+   '<h3>POR DÓNDE EMPIEZO</h3><p><code>'+g.files.replaceAll(" → ","</code> → <code>")+'</code></p>'+
+   '<h3>PISTAS · NO ES LA SOLUCIÓN</h3>'+
+   g.steps.map((s,i)=>'<div class="step"><b>'+(i+1)+'</b><span>'+s+'</span></div>').join("")+
+   '<div class="card success"><b>COMPRUEBA QUE LO HAS ENTENDIDO</b><p>'+g.check+'</p></div>'+
+ '</div>';
+}
+
 function exercise(e){
  const fs=codeFiles(e);
  return '<section class="hero"><div class="eyebrow">EJERCICIO '+String(e.id).padStart(2,"0")+' · '+e.focus.toUpperCase()+'</div><h1>'+e.icon+' '+e.title+'</h1><p>'+e.modify+'</p><div class="chips"><span class="chip">'+e.concept+'</span><span class="chip">'+e.route+'</span><span class="chip">'+e.db+'</span></div></section>'+mobilePreviewGuide(e)+
@@ -383,7 +506,7 @@ function exercise(e){
 
 
  '<div class="section-head"><small>ENTIENDE</small><h2>Relaciona el código nuevo con su responsabilidad</h2></div><div class="card">'+understandGuide(e)+'</div>'+
- '<section class="card modify"><div class="mod-grid"><div><h2>MODIFÍCALO</h2><p><b>'+e.modify+'</b></p><div class="step"><b>1</b><span>Identifica qué capas debe atravesar el dato.</span></div><div class="step"><b>2</b><span>Modifica primero el backend y vuelve a probar la API.</span></div><div class="step"><b>3</b><span>Actualiza React Native y comprueba el recorrido completo.</span></div></div><div class="phone"><div class="screen"><small>'+e.title.toUpperCase()+'</small><h3>'+e.focus+'</h3><div class="mock"><b>'+e.icon+' '+e.mock+'</b><br><small>'+e.mock2+'</small></div><div class="mock">PostgreSQL conectado ✓</div></div></div></div></section>'+
+ '<section class="card modify"><div class="mod-grid"><div><h2>MODIFÍCALO</h2><p><b>'+e.modify+'</b></p>'+modifyGuide(e)+'</div><div class="phone"><div class="screen"><small>'+e.title.toUpperCase()+'</small><h3>'+e.focus+'</h3><div class="mock"><b>'+e.icon+' '+e.mock+'</b><br><small>'+e.mock2+'</small></div><div class="mock">PostgreSQL conectado ✓</div></div></div></div></section>'+
  '<div class="section-head"><small>CHECKPOINTS</small><h2>Localiza problemas antes de seguir</h2></div><div class="card checks">☐ NestJS arranca y PostgreSQL conecta.<br>'+checkpointGuide(e)+'<br>☐ Puedo explicar el recorrido del dato sin mirar el código.</div>'+
  '<div class="section-head"><small>COMPRUEBA</small><h2>¿Lo entiendes?</h2></div>'+(()=>{const q=quizGuide(e);return '<div class="card"><p><b>'+q[0]+'</b></p><div class="quiz-options"><button class="quiz-option" data-correct="1">'+q[1]+'</button><button class="quiz-option">'+q[2]+'</button><button class="quiz-option">'+q[3]+'</button><button class="quiz-option">'+q[4]+'</button></div><p class="quiz-feedback"></p></div>';})()+
  '<section class="card github"><h2>GITHUB</h2><p>Ejecuta estos comandos desde la raíz del repositorio <code>C04-DATABRIDGE-TYPEORM-POSTGRESQL</code>, no desde <code>backend</code> ni desde <code>frontend</code>.</p><div class="terminal">git status\ngit add EJERCICIO-'+String(e.id).padStart(2,"0")+'\ngit commit -m "Ejercicio '+String(e.id).padStart(2,"0")+' - '+e.title+'"\ngit push</div><p>Abre GitHub y comprueba que <b>EJERCICIO-'+String(e.id).padStart(2,"0")+'/backend</b>, <b>frontend</b> y <b>README.md</b> están visibles antes de continuar.</p></section>'+
