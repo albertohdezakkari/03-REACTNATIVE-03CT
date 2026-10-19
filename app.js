@@ -360,6 +360,22 @@ function manualFilesGuide(e){
  };
  return (files[e.id]||[]).map(x=>"<code>"+x+"</code>").join(" · ");
 }
+function modifyPreview(e){
+ const p={
+  1:'<small>GAME VAULT · DESPUÉS DEL RETO</small><h3>Mi colección</h3><div class="mock"><b>🎮 Hollow Knight</b><br><small><b>Metroidvania</b> · Nintendo Switch · ★ 9.4</small></div><div class="mock"><b>🎮 Zelda</b><br><small><b>Aventura</b> · Nintendo Switch · ★ 9.8</small></div>',
+  2:'<small>CINEBOX · DESPUÉS DEL RETO</small><h3>Cartelera</h3><div class="mock"><b>🎬 Interstellar <span style="float:right">♥</span></b><br><small>Ciencia ficción · 2014</small></div><div class="mock"><b>🎬 Coco <span style="float:right">♡</span></b><br><small>Animación · 2017</small></div>',
+  3:'<small>PET PROFILE · DESPUÉS DEL RETO</small><h3>Nala</h3><div class="mock"><b>🐶 Golden Retriever</b><br><small>4 años · Zaragoza</small></div><div class="mock"><b>⚡ Nivel de energía: ALTO</b></div>',
+  4:'<small>FOOD SPOTS · DESPUÉS DEL RETO</small><h3>Nuevo restaurante</h3><div class="mock"><b>🍜 La Trattoria</b><br><small>Italiano · Zaragoza</small></div><div class="mock"><b>Precio medio: 25 €</b></div><div class="mock-btn">Guardar restaurante</div>',
+  5:'<small>TRAVEL BOOK · DESPUÉS DEL RETO</small><h3>Editar viaje</h3><div class="mock"><b>✈️ Tokio</b><br><small>Japón · RESERVADO</small></div><div class="mock"><b>📅 Fecha: 10/04/2027</b></div><div class="mock-btn">Guardar cambios</div>',
+  6:'<small>MY LIBRARY · DESPUÉS DEL RETO</small><h3>Biblioteca</h3><div class="mock"><b>📚 1984</b><br><small>George Orwell · <b>Leído ✓</b></small></div><div class="mock-btn">Marcar como leído</div>',
+  7:'<small>SNEAKER VAULT · DESPUÉS DEL RETO</small><h3>Inventario</h3><div class="mock"><b>👟 Air Max 1</b><br><small>Nike · Stock 4</small></div><div class="mock"><b>👟 Forum Low</b><br><small>Adidas · <b>AGOTADO</b></small></div>',
+  8:'<small>MY PLAYLISTS · DESPUÉS DEL RETO</small><h3>Entrenamiento</h3><div class="mock"><b>🎵 Run Boy Run</b><br><small>Woodkid</small></div><div class="mock"><b>🎵 Midnight City</b><br><small>M83 · NUEVA</small></div><div class="mock-btn">＋ Añadir canción</div>',
+  9:'<small>EVENT RADAR · DESPUÉS DEL RETO</small><h3>Eventos filtrados</h3><div class="mock"><b>📍 Zaragoza</b><br><small>Categoría: Tecnología</small></div><div class="mock"><b>🎟️ Tech Meetup</b><br><small>Zaragoza · Tecnología</small></div>',
+  10:'<small>WANDER · DESPUÉS DEL RETO</small><h3>Tu mejora</h3><div class="mock"><b>🌍 Reikiavik</b><br><small>Islandia · Prioridad ALTA</small></div><div class="mock"><b>✓ Visitado</b><br><small>Ejemplo de mejora coherente</small></div>'
+ }[e.id];
+ return p||"";
+}
+
 function modifyGuide(e){
  const guides={
   1:{
@@ -506,7 +522,7 @@ function exercise(e){
 
 
  '<div class="section-head"><small>ENTIENDE</small><h2>Relaciona el código nuevo con su responsabilidad</h2></div><div class="card">'+understandGuide(e)+'</div>'+
- '<section class="card modify"><div class="mod-grid"><div><h2>MODIFÍCALO</h2><p><b>'+e.modify+'</b></p>'+modifyGuide(e)+'</div><div class="phone"><div class="screen"><small>'+e.title.toUpperCase()+'</small><h3>'+e.focus+'</h3><div class="mock"><b>'+e.icon+' '+e.mock+'</b><br><small>'+e.mock2+'</small></div><div class="mock">PostgreSQL conectado ✓</div></div></div></div></section>'+
+ '<section class="card modify"><div class="mod-grid"><div><h2>MODIFÍCALO</h2><p><b>'+e.modify+'</b></p>'+modifyGuide(e)+'</div><div><p class="muted" style="text-align:center"><b>ASÍ DEBERÍA NOTARSE EL CAMBIO EN LA APP</b></p><div class="phone"><div class="screen">'+modifyPreview(e)+'</div></div></div></div></section>'+
  '<div class="section-head"><small>CHECKPOINTS</small><h2>Localiza problemas antes de seguir</h2></div><div class="card checks">☐ NestJS arranca y PostgreSQL conecta.<br>'+checkpointGuide(e)+'<br>☐ Puedo explicar el recorrido del dato sin mirar el código.</div>'+
  '<div class="section-head"><small>COMPRUEBA</small><h2>¿Lo entiendes?</h2></div>'+(()=>{const q=quizGuide(e);return '<div class="card"><p><b>'+q[0]+'</b></p><div class="quiz-options"><button class="quiz-option" data-correct="1">'+q[1]+'</button><button class="quiz-option">'+q[2]+'</button><button class="quiz-option">'+q[3]+'</button><button class="quiz-option">'+q[4]+'</button></div><p class="quiz-feedback"></p></div>';})()+
  '<section class="card github"><h2>GITHUB</h2><p>Ejecuta estos comandos desde la raíz del repositorio <code>C04-DATABRIDGE-TYPEORM-POSTGRESQL</code>, no desde <code>backend</code> ni desde <code>frontend</code>.</p><div class="terminal">git status\ngit add EJERCICIO-'+String(e.id).padStart(2,"0")+'\ngit commit -m "Ejercicio '+String(e.id).padStart(2,"0")+' - '+e.title+'"\ngit push</div><p>Abre GitHub y comprueba que <b>EJERCICIO-'+String(e.id).padStart(2,"0")+'/backend</b>, <b>frontend</b> y <b>README.md</b> están visibles antes de continuar.</p></section>'+
