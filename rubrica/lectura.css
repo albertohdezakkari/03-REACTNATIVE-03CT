@@ -1,0 +1,26 @@
+/* Reading aids; the 57 official criteria and scores remain in the tables. */
+.reading-guide{background:white;border:1px solid var(--line);border-radius:14px;padding:30px;margin-bottom:30px}
+.reading-guide h2{font-size:28px;line-height:1.25;margin:10px 0 16px}
+.reading-guide>p{max-width:74ch;margin:14px 0;line-height:1.8}
+.reading-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;list-style:none;padding:0;margin:28px 0}
+.reading-steps li{border-top:3px solid var(--teal);padding-top:16px}
+.reading-steps strong{display:block;font-size:16px;margin-bottom:10px;line-height:1.5}
+.reading-steps p{line-height:1.8;color:var(--muted)}
+.data-journey{display:flex;align-items:center;justify-content:center;gap:16px;padding:24px;background:var(--soft);border-radius:10px;flex-wrap:wrap;margin:20px 0}
+.data-journey span{background:white;border:1px solid #b5cfc0;padding:12px 18px;border-radius:8px;font-size:15px;font-weight:700}
+.data-journey b{color:var(--teal)}
+.reading-help{font-size:13px!important;line-height:1.7;color:var(--muted)}
+.learning-pause{margin:0 22px 24px;background:#eff6ef;border:1px solid #c8dbce;border-radius:10px}
+.learning-pause summary{padding:18px 20px;font-size:15px;font-weight:750;line-height:1.6;cursor:pointer}
+.learning-pause[open] summary{border-bottom:1px solid #c8dbce}
+.learning-pause>div{padding:18px 22px}
+.learning-pause p{max-width:75ch;line-height:1.8}
+.learning-pause fieldset{border:0;margin:22px 0;padding:0}
+.learning-pause legend{font-size:14px;font-weight:700;margin-bottom:10px}
+.learning-pause label{display:flex;align-items:start;gap:12px;margin:16px 0;font-size:15px;line-height:1.7;cursor:pointer}
+.learning-pause input{width:20px;height:20px;flex:0 0 20px;accent-color:var(--teal);margin-top:3px}
+.condition{font-size:16px;line-height:1.8}
+summary:focus-visible,input:focus-visible{outline:3px solid #a4512f;outline-offset:5px}
+@media(max-width:700px){.reading-guide{padding:22px}.reading-guide h2{font-size:24px}.reading-steps{grid-template-columns:1fr;gap:22px}.data-journey{flex-direction:column;gap:10px}.data-journey b{transform:rotate(90deg)}.learning-pause{margin:0 12px 18px}.learning-pause>div{padding:16px}.learning-pause summary{padding:16px}.condition{font-size:16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.reading-guide,.learning-pause{display:none}.condition{font-size:10pt;line-height:1.6}}
