@@ -4,7 +4,7 @@ Cuaderno de aprendizaje Full Stack con React Native + Expo, NestJS, TypeORM y Po
 
 ## Repositorio del alumno
 
-`C04-DATABRIDGE-TYPEORM-POSTGRESQL`
+`C03-DATABRIDGE-TYPEORM-POSTGRESQL`
 
 Cada ejercicio es una isla independiente:
 
