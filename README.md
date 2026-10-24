@@ -31,3 +31,7 @@ El progreso del alumno se guarda mediante `localStorage`.
 ## Rúbrica de evaluación
 
 La rúbrica está disponible en [rubrica/](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/rubrica/), enlazada desde el inicio y el menú del cuaderno. Incluye los 57 criterios de los diez ejercicios y sus ponderaciones, que suman 100 puntos.
+
+## Preparación del control sin internet
+
+[Tres chuletas y base neutral de proyecto](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/repaso/): configuración/PostgreSQL, backend y frontend. Descargar el PDF y preparar las dependencias antes de la sesión. El enunciado concreto del control se distribuye por el profesor al comenzar.
