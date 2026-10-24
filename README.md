@@ -35,3 +35,13 @@ La rúbrica está disponible en [rubrica/](https://albertohdezakkari.github.io/0
 ## Preparación del control sin internet
 
 [Tres chuletas y base neutral de proyecto](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/repaso/): configuración/PostgreSQL, backend y frontend. Descargar el PDF y preparar las dependencias antes de la sesión. El enunciado concreto del control se distribuye por el profesor al comenzar.
+
+### Lectura de la rúbrica
+
+La página `rubrica/` incorpora una guía de lectura y pausas opcionales para
+explicar el resultado, recorrer el código y localizar evidencias. El diagrama
+petición → respuesta → interfaz orienta la comprensión cuando el ejercicio conecta
+frontend y backend. Las diez tablas oficiales permanecen idénticas: 57 criterios
+y 100 puntos. Las marcas de revisión son nativas, sin almacenamiento ni envío;
+no añaden entregables o puntos. `rubrica/lectura.css` ajusta lectura móvil,
+contraste y espaciado; la impresión omite las ayudas personales.
