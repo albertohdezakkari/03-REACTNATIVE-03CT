@@ -23,6 +23,7 @@ jobs:
           node --check control/contenido.js
           node --check control/preguntas.js
           node --check control/cuaderno.js
+          node --check control/practice-tabs.js
           node --check control/practicas.js
           node --check control/practicas-vista.js
           node --check control/practicas/preparar.mjs
