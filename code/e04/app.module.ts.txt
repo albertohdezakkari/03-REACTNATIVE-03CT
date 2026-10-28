@@ -11,7 +11,7 @@ import { RestaurantesModule } from './restaurantes/restaurantes.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: '123456',
       database: 'databridge_e04',
       autoLoadEntities: true,
       synchronize: true,

@@ -11,7 +11,7 @@ import { DestinosModule } from './destinos/destinos.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: '123456',
       database: 'databridge_e10',
       autoLoadEntities: true,
       synchronize: true,

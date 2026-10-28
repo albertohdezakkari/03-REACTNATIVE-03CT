@@ -12,7 +12,7 @@ Este cuaderno parte de un equipo de aula sin herramientas de desarrollo preparad
 
 Durante la instalación local de PostgreSQL usa:
 - usuario: postgres
-- contraseña de aula: postgres
+- contraseña de aula: 123456
 - puerto: 5432
 
 La contraseña es únicamente para el laboratorio local. No reutilizarla en servicios reales.

@@ -11,7 +11,7 @@ import { LibrosModule } from './libros/libros.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: '123456',
       database: 'databridge_e06',
       autoLoadEntities: true,
       synchronize: true,

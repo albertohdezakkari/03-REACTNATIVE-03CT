@@ -11,7 +11,7 @@ import { PlaylistsModule } from './playlists/playlists.module';
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'postgres',
+      password: '123456',
       database: 'databridge_e08',
       autoLoadEntities: true,
       synchronize: true,
