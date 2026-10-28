@@ -20,6 +20,9 @@ jobs:
         run: |
           node --check data.js
           node --check app.js
+          node --check control/contenido.js
+          node --check control/preguntas.js
+          node --check control/cuaderno.js
       - name: Comprobar archivos GitHub Pages
         run: |
           test -f index.html
