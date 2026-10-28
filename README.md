@@ -49,3 +49,5 @@ contraste y espaciado; la impresión omite las ayudas personales.
 ## Cuaderno web de consolidación y autoría
 
 [Configuración, seis casos relacionales, entrenamiento y challenge](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/control/). El recorrido incluye notas y progreso local, rúbrica y protocolo de entrega. La base neutral se obtiene directamente por Git desde control/base/.
+
+Las seis secciones de casos del cuaderno de consolidación incluyen proyectos completos en control/practicas/caso-01 a caso-06, con backend, frontend, base propia y pruebas HTTP/persistencia.
