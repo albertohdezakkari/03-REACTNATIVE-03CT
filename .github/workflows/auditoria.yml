@@ -30,6 +30,11 @@ jobs:
           node --check control/inicios/preparar.mjs
           node --check control/inicios/comprobar-bases.mjs
           node --check control/materiales-clase.js
+          node --check evaluacion/common.mjs
+          node --check evaluacion/test.mjs
+          node --check evaluacion/teacher.mjs
+          node --check evaluacion/omr.mjs
+          node --check sw-evaluacion.js
       - name: Comprobar archivos GitHub Pages
         run: |
           test -f index.html
