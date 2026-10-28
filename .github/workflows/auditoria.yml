@@ -24,6 +24,7 @@ jobs:
           node --check control/preguntas.js
           node --check control/cuaderno.js
           node --check control/practice-tabs.js
+          node --check control/lineas-clave.js
           node --check control/construccion.js
           node --check control/construccion-vista.js
           node --check control/inicios/preparar.mjs
