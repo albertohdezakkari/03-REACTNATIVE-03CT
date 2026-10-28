@@ -32,6 +32,8 @@ jobs:
           node --check control/materiales-clase.js
           node --check evaluacion/common.mjs
           node --check evaluacion/test.mjs
+          node --check evaluacion/challenge.mjs
+          node --check evaluacion/challenge-content.mjs
           node --check evaluacion/teacher.mjs
           node --check evaluacion/omr.mjs
           node --check sw-evaluacion.js
