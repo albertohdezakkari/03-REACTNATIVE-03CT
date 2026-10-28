@@ -27,9 +27,8 @@ jobs:
           node --check control/construccion.js
           node --check control/construccion-vista.js
           node --check control/inicios/preparar.mjs
-          node --check control/practicas.js
-          node --check control/practicas-vista.js
-          node --check control/practicas/preparar.mjs
+          node --check control/inicios/comprobar-bases.mjs
+          node --check control/materiales-clase.js
       - name: Comprobar archivos GitHub Pages
         run: |
           test -f index.html
