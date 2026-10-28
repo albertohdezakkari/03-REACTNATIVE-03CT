@@ -45,3 +45,7 @@ frontend y backend. Las diez tablas oficiales permanecen idénticas: 57 criterio
 y 100 puntos. Las marcas de revisión son nativas, sin almacenamiento ni envío;
 no añaden entregables o puntos. `rubrica/lectura.css` ajusta lectura móvil,
 contraste y espaciado; la impresión omite las ayudas personales.
+
+## Cuaderno web de consolidación y autoría
+
+[Configuración, seis casos relacionales, entrenamiento y challenge](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/control/). El recorrido incluye notas y progreso local, rúbrica y protocolo de entrega. La base neutral se obtiene directamente por Git desde control/base/.
