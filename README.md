@@ -51,3 +51,5 @@ contraste y espaciado; la impresión omite las ayudas personales.
 [Configuración, seis casos relacionales, entrenamiento y challenge](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/control/). El recorrido incluye notas y progreso local, rúbrica y protocolo de entrega. La base neutral se obtiene directamente por Git desde control/base/.
 
 Las seis secciones de casos del cuaderno de consolidación incluyen proyectos completos en control/practicas/caso-01 a caso-06, con backend, frontend, base propia y pruebas HTTP/persistencia.
+
+El recorrido de clase parte de las bases neutrales de control/inicios/. El comando node control/inicios/preparar.mjs crea DATABRIDGE-EN-CLASE al lado del repositorio. El cuaderno muestra versiones incrementales y bloques para añadir; control/practicas/ es la referencia final, no el punto de partida del alumnado.
