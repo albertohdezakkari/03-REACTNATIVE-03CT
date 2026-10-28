@@ -1,26 +1,24 @@
-const HIDDEN_EXERCISE_IDS = new Set([4, 5, 6, 7]);
-const visibleExercises = EXERCISES.filter(e => !HIDDEN_EXERCISE_IDS.has(e.id));
-const pages=["home",...visibleExercises.map(e=>"e"+e.id),"review"];
+const pages=["home",...EXERCISES.map(e=>"e"+e.id),"review"];
 let current=location.hash.slice(1)||"home";
-if(!pages.includes(current)){current="home";history.replaceState(null,"","#home");}
+if(!pages.includes(current)) current="home";
 let state=JSON.parse(localStorage.getItem("c02-databridge-state")||'{"done":[]}');
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[m]));
 function save(){localStorage.setItem("c02-databridge-state",JSON.stringify(state))}
-function go(page){page=pages.includes(page)?page:"home";current=page;location.hash=page;render();scrollTo(0,0);$("#sidebar").classList.remove("open")}
+function go(page){current=page;location.hash=page;render();scrollTo(0,0);$("#sidebar").classList.remove("open")}
 function renderNav(){
  let html='<button class="side-link '+(current==="home"?"active":"")+'" data-page="home">00 · Inicio</button>';
- visibleExercises.forEach(e=>html+='<button class="side-link '+(current==="e"+e.id?"active ":"")+(state.done.includes("e"+e.id)?"done":"")+'" data-page="e'+e.id+'">'+String(e.id).padStart(2,"0")+' · '+e.title+'</button>');
+ EXERCISES.forEach(e=>html+='<button class="side-link '+(current==="e"+e.id?"active ":"")+(state.done.includes("e"+e.id)?"done":"")+'" data-page="e'+e.id+'">'+String(e.id).padStart(2,"0")+' · '+e.title+'</button>');
  html+='<button class="side-link '+(current==="review"?"active ":"")+(state.done.includes("review")?"done":"")+'" data-page="review">✓ Repaso final</button>';
  $("#sideNav").innerHTML=html;
  document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>go(b.dataset.page));
- const completed=state.done.filter(x=>x!=="home"&&pages.includes(x)).length;
- const pct=Math.round(completed/(pages.length-1)*100);
+ const completed=state.done.filter(x=>x!=="home").length;
+ const pct=Math.round(completed/11*100);
  $("#progressText").textContent=pct+"%";
  $("#progressBar").style.width=pct+"%";
 }
 function home(){
- return '<section class="hero"><div class="eyebrow">CUADERNO 03 DE 10</div><h1>DataBridge</h1><h2>Del móvil a PostgreSQL</h2><p>Construye aplicaciones Full Stack en las que React Native se comunica con una API REST de NestJS y los datos se almacenan realmente en PostgreSQL mediante TypeORM.</p><div class="chips"><span class="chip">'+visibleExercises.length+' ejercicios visibles</span><span class="chip">React Native + Expo</span><span class="chip">NestJS</span><span class="chip">TypeORM</span><span class="chip">PostgreSQL local</span><span class="chip">GitHub</span></div></section>'+
+ return '<section class="hero"><div class="eyebrow">CUADERNO 03 DE 10</div><h1>DataBridge</h1><h2>Del móvil a PostgreSQL</h2><p>Construye aplicaciones Full Stack en las que React Native se comunica con una API REST de NestJS y los datos se almacenan realmente en PostgreSQL mediante TypeORM.</p><div class="chips"><span class="chip">10 ejercicios</span><span class="chip">React Native + Expo</span><span class="chip">NestJS</span><span class="chip">TypeORM</span><span class="chip">PostgreSQL local</span><span class="chip">GitHub</span></div></section>'+
  '<div class="card rubric-callout"><div><div class="eyebrow">ANTES DE EMPEZAR</div><h3>Consulta cómo se evaluará tu trabajo</h3><p>La rúbrica explica los 57 criterios de los diez ejercicios y los puntos de cada parte. La suma es de 100 puntos, equivalentes a una nota sobre 10.</p></div><a href="./rubrica/" class="rubric-button">Ver rúbrica →</a></div>'+
  '<div class="grid2"><div class="card"><h3>Qué aprenderás</h3><p>Persistencia real, Entity, Repository, CRUD, DTO, relaciones y filtros. El objetivo es comprender el recorrido completo del dato.</p></div><div class="card"><h3>Cómo trabajarás</h3><p>Siempre backend primero: preparar → construir → probar → crear Expo → conectar → modificar → comprobar → GitHub.</p></div></div>'+
  '<div class="section-head"><small>MAPA CONCEPTUAL</small><h2>El recorrido del dato</h2></div><div class="card flow"><span>📱 React Native</span><b>→</b><span>HTTP / JSON</span><b>→</b><span>Controller</span><b>→</b><span>Service</span><b>→</b><span>Repository</span><b>→</b><span>TypeORM</span><b>→</b><span>🐘 PostgreSQL</span></div>'+
@@ -29,7 +27,7 @@ function home(){
  '<div class="grid2"><div class="card"><h3>1 · Instala las herramientas</h3><p><a href="https://git-scm.com/download/win" target="_blank" rel="noopener">Git para Windows</a> · <a href="https://nodejs.org/en/download" target="_blank" rel="noopener">Node.js LTS</a> · <a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">Visual Studio Code</a> · <a href="https://www.postgresql.org/download/windows/" target="_blank" rel="noopener">PostgreSQL</a> · <a href="https://expo.dev/go" target="_blank" rel="noopener">Expo Go</a>.</p><p>En Windows utiliza el usuario <code>postgres</code>, contraseña <code>123456</code> y puerto <code>5432</code>. Configura esa contraseña al instalar PostgreSQL para que los ejemplos funcionen sin cambios. Es una credencial local de laboratorio, no una práctica de producción.</p></div><div class="card"><h3>2 · Comprueba desde Git Bash</h3><div class="terminal">git --version\nnode --version\nnpm --version\ncode --version\npsql --version\nnpm install -g @nestjs/cli\nnest --version</div></div></div>'+
  '<div class="card"><h3>3 · Comprueba PostgreSQL antes de NestJS</h3><p>Antes de conectar NestJS queremos comprobar que <b>PostgreSQL está instalado, el servidor responde y podemos entrar con el usuario administrador del laboratorio</b>.</p><div class="terminal">psql -U postgres\n\n# Dentro de psql:\nSELECT version();\n\\q</div><p><code>psql -U postgres</code> abre la consola de PostgreSQL e intenta acceder con el usuario <code>postgres</code>. Te pedirá la contraseña que configuraste durante la instalación.</p><p>Cuando veas un prompt parecido a <code>postgres=#</code>, ya estás <b>dentro de PostgreSQL</b>. Desde ahí se escriben instrucciones SQL, no comandos normales de Git Bash.</p><p><code>SELECT version();</code> pregunta al servidor qué versión de PostgreSQL está ejecutando. Si devuelve una fila con la versión, sabemos que la conexión funciona correctamente.</p><p><code>\\q</code> no es SQL: es un comando propio de <code>psql</code> y sirve para <b>salir de la consola de PostgreSQL</b> y volver a Git Bash.</p><p><b>Qué debes comprobar:</b> puedes entrar, aparece <code>postgres=#</code>, <code>SELECT version();</code> responde y <code>\\q</code> te devuelve a la terminal.</p><p><b>Si <code>psql</code> no se reconoce:</b> cierra y abre Git Bash tras instalar PostgreSQL. Si sigue sin funcionar, añade la carpeta <code>bin</code> de PostgreSQL al PATH de Windows.</p></div>'+
  '<div class="grid2"><div class="card"><h3>Diagnóstico rápido</h3><p><code>command not found</code> → instalación/PATH.<br><code>password authentication failed</code> → contraseña PostgreSQL.<br><code>ECONNREFUSED</code> → servidor/host/puerto.<br><code>database does not exist</code> → crea la BD del ejercicio.</p></div><div class="card"><h3>Repositorio del alumno</h3><div class="tree">C03-DATABRIDGE-TYPEORM-POSTGRESQL/\n├── EJERCICIO-01/\n│   ├── backend/\n│   ├── frontend/\n│   └── README.md\n├── ...\n└── EJERCICIO-10/</div></div></div>'+
- '<div class="section-head"><small>PROGRESIÓN</small><h2>Ejercicios disponibles</h2></div><div class="exercise-list">'+visibleExercises.map(e=>'<div class="exercise-tile" data-page="e'+e.id+'"><b>'+String(e.id).padStart(2,"0")+' · '+e.icon+' '+e.title+'</b><small>'+e.focus+' · '+e.concept+'</small></div>').join("")+'</div>';
+ '<div class="section-head"><small>PROGRESIÓN</small><h2>Los 10 ejercicios</h2></div><div class="exercise-list">'+EXERCISES.map(e=>'<div class="exercise-tile" data-page="e'+e.id+'"><b>'+String(e.id).padStart(2,"0")+' · '+e.icon+' '+e.title+'</b><small>'+e.focus+' · '+e.concept+'</small></div>').join("")+'</div>';
 }
 function codeFiles(e){
  const map={
@@ -600,5 +598,5 @@ $("#nextBtn").onclick=()=>{const i=pages.indexOf(current);if(i<pages.length-1)go
 $("#completeBtn").onclick=()=>{if(!state.done.includes(current))state.done.push(current);save();render()};
 $("#resetProgress").onclick=()=>{if(confirm("¿Reiniciar todo el progreso?")){state.done=[];save();render()}};
 $("#menuBtn").onclick=()=>$("#sidebar").classList.toggle("open");
-addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(pages.includes(h)){current=h;render()}else{go("home")}});
+addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(pages.includes(h)){current=h;render()}});
 render();
