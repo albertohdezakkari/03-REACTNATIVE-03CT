@@ -33,6 +33,9 @@ jobs:
           node --check evaluacion/common.mjs
           node --check evaluacion/test.mjs
           node --check evaluacion/challenge.mjs
+          node --check evaluacion/challenge-paired.mjs
+          node --check evaluacion/challenge-use-cases.mjs
+          node --check evaluacion/challenge-visual.mjs
           node --check evaluacion/challenge-content.mjs
           node --check evaluacion/teacher.mjs
           node --check evaluacion/omr.mjs
