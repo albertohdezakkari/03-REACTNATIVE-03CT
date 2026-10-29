@@ -1,0 +1,102 @@
+{
+  "verifiedAt": "2026-10-28T19:24:46.098Z",
+  "scope": "Construcción incremental real desde bases sin dominio; fases compiladas y ejecutadas contra PostgreSQL local.",
+  "cases": [
+    {
+      "case": "C01",
+      "phases": [
+        "Base neutral sin TypeORM ni dominio",
+        "Conexión TypeORM sin tablas del dominio",
+        "Entidades registradas; todavía sin rutas",
+        "Backend acumulativo Get",
+        "Backend acumulativo Post",
+        "Backend acumulativo Patch",
+        "Backend acumulativo Delete"
+      ],
+      "readScreenCompilation": "passed",
+      "frontendBuiltFromLessonBlocks": "passed",
+      "equivalentSQL": "executed on PostgreSQL",
+      "optionalQueryBuilderFilters": "passed"
+    },
+    {
+      "case": "C02",
+      "phases": [
+        "Base neutral sin TypeORM ni dominio",
+        "Conexión TypeORM sin tablas del dominio",
+        "Entidades registradas; todavía sin rutas",
+        "Backend acumulativo Get",
+        "Backend acumulativo Post",
+        "Backend acumulativo Patch",
+        "Backend acumulativo Delete"
+      ],
+      "readScreenCompilation": "passed",
+      "frontendBuiltFromLessonBlocks": "passed",
+      "equivalentSQL": "executed on PostgreSQL",
+      "optionalQueryBuilderFilters": "passed"
+    },
+    {
+      "case": "C03",
+      "phases": [
+        "Base neutral sin TypeORM ni dominio",
+        "Conexión TypeORM sin tablas del dominio",
+        "Entidades registradas; todavía sin rutas",
+        "Backend acumulativo Get",
+        "Backend acumulativo Post",
+        "Backend acumulativo Patch",
+        "Backend acumulativo Delete"
+      ],
+      "readScreenCompilation": "passed",
+      "frontendBuiltFromLessonBlocks": "passed",
+      "equivalentSQL": "executed on PostgreSQL",
+      "optionalQueryBuilderFilters": "passed"
+    },
+    {
+      "case": "C04",
+      "phases": [
+        "Base neutral sin TypeORM ni dominio",
+        "Conexión TypeORM sin tablas del dominio",
+        "Entidades registradas; todavía sin rutas",
+        "Backend acumulativo Get",
+        "Backend acumulativo Post",
+        "Backend acumulativo Patch",
+        "Backend acumulativo Delete"
+      ],
+      "readScreenCompilation": "passed",
+      "frontendBuiltFromLessonBlocks": "passed",
+      "equivalentSQL": "executed on PostgreSQL",
+      "optionalQueryBuilderFilters": "passed"
+    },
+    {
+      "case": "C05",
+      "phases": [
+        "Base neutral sin TypeORM ni dominio",
+        "Conexión TypeORM sin tablas del dominio",
+        "Entidades registradas; todavía sin rutas",
+        "Backend acumulativo Get",
+        "Backend acumulativo Post",
+        "Backend acumulativo Patch",
+        "Backend acumulativo Delete"
+      ],
+      "readScreenCompilation": "passed",
+      "frontendBuiltFromLessonBlocks": "passed",
+      "equivalentSQL": "executed on PostgreSQL",
+      "optionalQueryBuilderFilters": "passed"
+    },
+    {
+      "case": "C06",
+      "phases": [
+        "Base neutral sin TypeORM ni dominio",
+        "Conexión TypeORM sin tablas del dominio",
+        "Entidades registradas; todavía sin rutas",
+        "Backend acumulativo Get",
+        "Backend acumulativo Post",
+        "Backend acumulativo Patch",
+        "Backend acumulativo Delete"
+      ],
+      "readScreenCompilation": "passed",
+      "frontendBuiltFromLessonBlocks": "passed",
+      "equivalentSQL": "executed on PostgreSQL",
+      "optionalQueryBuilderFilters": "passed"
+    }
+  ]
+}

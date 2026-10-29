@@ -1,0 +1,109 @@
+/* El contenido se recorre por pestañas y páginas, sin desplazamiento vertical. */
+body.notebook-mode{height:100dvh;overflow:hidden}
+.notebook-mode .shell{height:100dvh;overflow:hidden}
+.notebook-mode .workspace{height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+.notebook-mode .topbar{height:50px;min-height:50px;flex-shrink:0;padding:0 24px}
+.notebook-mode main{width:100%;max-width:none;margin:0;min-height:0;flex:1;display:flex;flex-direction:column;padding:18px 24px 12px;overflow:hidden}
+.notebook-mode .page-head{margin:0 0 12px;padding:0 0 12px;flex-shrink:0}
+.notebook-mode .eyebrow{margin:0 0 5px;font-size:9px;letter-spacing:1px}
+.notebook-mode .page-head h1{font-size:30px;line-height:1.15;letter-spacing:-.8px;margin:0 0 5px;max-width:none}
+.notebook-mode .lead{font-size:12px;line-height:1.4;max-width:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.notebook-mode .footer-nav{padding:10px 24px;min-height:58px;flex-shrink:0}
+.notebook-mode .footer-nav button{padding:8px 13px}
+.notebook{display:flex;flex-direction:column;flex:1;min-height:0;gap:12px}
+.step-tabs{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;flex-shrink:0}
+.step-tabs button{border:1px solid #cbd7c3;background:#fff;color:#42604e;border-radius:7px;padding:8px 6px;display:flex;gap:6px;align-items:center;justify-content:center;font-size:10px;line-height:1.25;min-height:35px}
+.step-tabs button span{font-size:9px;opacity:.65}
+.step-tabs [aria-selected=true]{background:#193e34;color:#edf6dd;border-color:#193e34;font-weight:750}
+.notebook-step{display:flex;flex-direction:column;min-height:0;flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.notebook-step-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px 10px;flex-shrink:0}
+.notebook-step-head h2{font-size:17px;line-height:1.25;letter-spacing:-.2px;margin:0}
+.step-count{font:11px ui-monospace,monospace;color:var(--muted);white-space:nowrap}
+.file-tabs{display:flex;gap:5px;border-bottom:1px solid var(--line);padding:0 18px 9px;flex-shrink:0;overflow-x:auto;scrollbar-width:thin}
+.file-tabs button{border:1px solid #d8e0d1;border-radius:6px;background:#f5f8f0;color:#50634e;font:11px ui-monospace,monospace;white-space:nowrap;padding:8px 10px;flex-shrink:0}
+.file-tabs [aria-selected=true]{background:#dcecc8;color:#183e2c;border-color:#91b37d;font-weight:700}
+.notebook-view{display:flex;flex-direction:column;min-height:0;flex:1;overflow:hidden;padding:15px 18px 8px}
+.source-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0;background:#23483c;color:#d8ead1;padding:9px 13px;border-radius:8px 8px 0 0;font:11px ui-monospace,monospace}
+.source-toolbar span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.copy-full{border:1px solid #8daa82;color:#ebf4df;background:transparent;border-radius:5px;padding:5px 9px;font-size:10px;white-space:nowrap}
+.notebook-view .source-description{background:#edf3e5;font-size:11px;line-height:1.5;padding:7px 12px;margin:0;flex-shrink:0}
+.notebook-view .source-code{margin:0;padding:10px 14px;min-height:0;flex:1;max-height:none;overflow:scroll;white-space:pre;border-radius:0 0 8px 8px;font:12px/19px ui-monospace,SFMono-Regular,Consolas,monospace;tab-size:2}
+.source-line{display:block;height:19px;min-height:19px;line-height:19px;white-space:pre}
+.line-number{display:inline-block;width:33px;padding-right:12px;text-align:right;color:#8da388;user-select:none;font-size:10px}
+.page-controls{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 18px 12px;flex-shrink:0;border-top:1px solid #edf0e9;min-height:47px}
+.page-controls[hidden]{display:none}
+.page-controls button{font-size:10px;background:white;border:1px solid #c8d6bf;border-radius:5px;color:var(--ink);padding:6px 9px}
+.page-label{font-size:10px;color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.guide-viewport{overflow:hidden;min-height:0;flex:1;position:relative}
+.guide-columns{height:100%;column-gap:32px;column-fill:auto;transition:transform .12s ease;transform-origin:top left;font-size:14px;line-height:1.8;overflow:visible}
+.guide-columns p{margin:0 0 16px;overflow-wrap:anywhere}
+.guide-columns h3{font-size:16px;margin:0 0 12px;break-after:avoid}
+.guide-columns ul,.guide-columns ol{padding-left:22px;margin-top:0}
+.guide-columns li{margin:0 0 9px;overflow-wrap:anywhere}
+.guide-columns .note{font-size:12px;line-height:1.7;break-inside:auto}
+.guide-columns .schema{display:block;margin:0}
+.guide-columns .entity{margin:0 0 14px;break-inside:avoid;max-width:100%}
+.guide-columns .flow,.guide-columns .stats,.guide-columns label,.guide-columns textarea{break-inside:avoid}
+.guide-columns textarea{min-height:75px;max-height:110px;font-size:12px}
+.guide-columns .checks label{font-size:12px;padding:9px 0;line-height:1.6}
+.guide-columns .table-wrap{margin:0 0 12px}
+.guide-columns th,.guide-columns td{padding:9px;font-size:11px}
+.er-stage{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;border-radius:10px;background:#f7faf0;overflow:hidden}
+.er-stage img{width:100%;height:100%;object-fit:contain;min-height:0}
+.er-caption{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:9px 0 0;font-size:11px;color:var(--muted);flex-shrink:0}
+@media(max-width:1100px){.notebook-mode .shell{grid-template-columns:225px minmax(0,1fr)}.notebook-mode main{padding:14px 18px 10px}.step-tabs{grid-template-columns:repeat(5,minmax(0,1fr))}.step-tabs button{padding:6px 4px;font-size:9px;min-height:31px}.notebook-mode .page-head h1{font-size:27px}}
+@media(max-width:760px){.notebook-mode .shell{display:block}.notebook-mode .topbar{padding:0 14px}.notebook-mode main{padding:11px 12px 8px}.notebook-mode .page-head{padding-bottom:9px;margin-bottom:9px}.notebook-mode .eyebrow{font-size:8px;letter-spacing:.6px}.notebook-mode .page-head h1{font-size:24px}.notebook-mode .lead{display:none}.step-tabs{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}.step-tabs button{font-size:9px;min-height:30px;gap:3px}.notebook{gap:8px}.notebook-step-head{padding:10px 11px 8px}.notebook-step-head h2{font-size:14px}.file-tabs{padding:0 10px 8px}.file-tabs button{font-size:10px;padding:7px 9px}.notebook-view{padding:10px 10px 6px}.source-toolbar{padding:7px 9px;gap:6px;font-size:9px}.copy-full{font-size:9px;padding:5px 6px}.notebook-view .source-description{font-size:10px;padding:6px 9px}.notebook-view .source-code{font-size:11px;padding:8px}.guide-columns{font-size:12px;line-height:1.75}.page-controls{padding:8px 10px;gap:5px}.page-controls button{font-size:9px;padding:5px}.page-label{font-size:9px}.er-caption{font-size:9px;align-items:start}.er-caption span{max-width:50%}.notebook-mode .footer-nav{padding:8px 12px;min-height:52px}.notebook-mode .footer-nav button{font-size:9px;padding:8px}.notebook-mode .footer-nav #complete{max-width:125px}}
+@media print{body.notebook-mode,.notebook-mode .shell,.notebook-mode .workspace{height:auto;overflow:visible}.notebook-mode main{display:block;overflow:visible}.step-tabs,.file-tabs,.page-controls,.copy-full{display:none}.notebook,.notebook-step,.notebook-view{display:block;overflow:visible}.guide-columns{columns:auto!important;height:auto;transform:none!important;width:auto!important}.notebook-view .source-code{height:auto!important;overflow:visible}.er-stage img{height:300px}}
+
+.er-stage picture{display:block;width:100%;height:100%;min-height:0}
+.guide-columns .table-wrap{overflow:visible;break-inside:auto;border-radius:0}
+.guide-columns table{table-layout:fixed;width:100%;break-inside:auto}
+.guide-columns tr{break-inside:avoid}
+.source-actions{display:flex;align-items:center;gap:7px;flex-shrink:0}
+.show-full-source{background:#d6edab;color:#163a2d;border:1px solid #d6edab;border-radius:5px;padding:5px 9px;font-size:10px;font-weight:750;white-space:nowrap}
+.source-references{display:flex;gap:6px;padding:7px 9px;background:#f5f7ee;overflow-x:auto;flex-shrink:0;scrollbar-width:thin}
+.source-references button{flex-shrink:0;border:1px solid #c8d6bd;border-radius:5px;padding:5px 8px;background:white;color:#365740;font-size:10px;white-space:nowrap}
+.reference-detail{margin:0;padding:6px 10px;background:#f5f7ee;color:#486044;font-size:11px;line-height:1.5;flex-shrink:0;max-height:49px;overflow:hidden}
+.source-references[hidden],.reference-detail[hidden],.source-references:empty{display:none}
+.key-line .line-text{text-decoration:underline;text-decoration-color:#e7c86d;text-decoration-thickness:1px;text-underline-offset:4px}
+.key-line .line-number{color:#efcf70}
+.changed-line{background:#355c43;box-shadow:inset 3px 0 #b9d98a}
+.full-source-dialog{border:1px solid #708d72;border-radius:12px;padding:0;width:calc(100vw - 28px);max-width:1400px;height:calc(100dvh - 28px);max-height:none;background:#152d2a;color:#e0edce;overflow:hidden}
+.full-source-dialog[open]{display:flex;flex-direction:column}
+.full-source-dialog:not([open]){display:none}
+.full-source-dialog::backdrop{background:#0c231cce}
+.full-source-header{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#23483c;padding:13px 17px;flex-shrink:0}
+.full-source-header strong{font:13px ui-monospace,monospace;overflow-wrap:anywhere}
+.full-source-header small{display:block;font-size:10px;color:#c2d4b9;margin-top:5px}
+.full-source-header>div:last-child{display:flex;gap:8px;flex-shrink:0}
+.full-source-header button{border:1px solid #8dab7f;border-radius:5px;background:transparent;color:#e4efd8;font-size:11px;padding:7px 11px}
+.full-source-header .modal-close{background:#e0efc3;color:#193b2e;font-weight:700}
+.all-source-code{margin:0;padding:14px 18px;flex:1;min-height:0;overflow:auto;white-space:pre;font:13px/21px ui-monospace,SFMono-Regular,Consolas,monospace;background:#152d2a;border-radius:0}
+.full-source-dialog .source-line{height:auto;min-height:21px;line-height:21px;white-space:pre}
+.full-source-dialog .line-number{width:40px;font-size:10px}
+@media(max-width:760px){.source-actions{gap:4px}.source-toolbar .copy-full,.show-full-source{font-size:9px;padding:5px}.source-references{padding:5px;gap:5px}.source-references button{font-size:9px;padding:5px}.reference-detail{font-size:10px;padding:5px 7px;max-height:55px}.full-source-header{align-items:start;padding:11px;flex-wrap:wrap}.full-source-header strong{font-size:11px}.full-source-header small{font-size:9px}.full-source-header button{font-size:10px;padding:6px 9px}.all-source-code{font-size:11px;padding:10px}.full-source-dialog .source-line{line-height:19px;min-height:19px}}
+/* Al leer código, aprovechar la pantalla y mantener los pasos accesibles. */
+.source-reading main .page-head{display:none}
+.source-reading .step-tabs{display:flex;overflow-x:auto;scrollbar-width:thin;gap:5px}
+.source-reading .step-tabs button{flex-shrink:0;min-width:103px;padding:8px 10px}
+.source-reading .source-description{display:none}
+.source-reading .reference-detail{font-size:10px;padding:4px 9px;max-height:38px}
+.full-source-description{margin:0;padding:6px 14px;background:#f0f5e8;color:#36513e;font-size:11px;line-height:1.4;flex-shrink:0}
+@media(max-width:760px){.source-reading .step-tabs button{min-width:94px;padding:7px 9px}.source-reading .reference-detail{font-size:9px;max-height:43px}}
+
+/* El archivo entero se desplaza dentro del visor, sin recortar líneas. */
+.notebook,.notebook-step,.notebook-view,.file-tabs,.source-toolbar,.source-references{min-width:0;max-width:100%}
+.source-toolbar{flex-wrap:wrap}
+.source-toolbar>span{flex:1 1 180px}
+.source-actions{flex-wrap:wrap}
+.notebook-view .source-code,.all-source-code{width:100%;min-width:0;overflow:scroll;scrollbar-gutter:stable;overscroll-behavior:contain}
+.source-code::-webkit-scrollbar,.all-source-code::-webkit-scrollbar{width:12px;height:12px}
+.source-code::-webkit-scrollbar-track,.all-source-code::-webkit-scrollbar-track{background:#23483c}
+.source-code::-webkit-scrollbar-thumb,.all-source-code::-webkit-scrollbar-thumb{background:#9eb58c;border:2px solid #23483c;border-radius:6px}
+.source-reading main{padding:8px 10px 4px}
+.source-reading .notebook{gap:6px}
+.source-reading .notebook-step-head{padding:7px 12px}
+.source-reading .notebook-view{padding:6px 8px}
+.full-source-dialog{width:calc(100vw - 8px);max-width:none;height:calc(100dvh - 8px);max-height:calc(100dvh - 8px);margin:auto}
+.full-source-header>div:first-child{min-width:0;flex:1}
+.full-source-dialog .all-source-code{flex:1 1 0;max-height:none}
