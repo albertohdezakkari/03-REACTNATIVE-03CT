@@ -21,7 +21,6 @@ jobs:
           node --check data.js
           node --check app.js
           node --check control/contenido.js
-          node --check control/preguntas.js
           node --check control/cuaderno.js
           node --check control/practice-tabs.js
           node --check control/lineas-clave.js
@@ -30,15 +29,6 @@ jobs:
           node --check control/inicios/preparar.mjs
           node --check control/inicios/comprobar-bases.mjs
           node --check control/materiales-clase.js
-          node --check evaluacion/common.mjs
-          node --check evaluacion/test.mjs
-          node --check evaluacion/challenge.mjs
-          node --check evaluacion/challenge-paired.mjs
-          node --check evaluacion/challenge-use-cases.mjs
-          node --check evaluacion/challenge-visual.mjs
-          node --check evaluacion/challenge-content.mjs
-          node --check evaluacion/teacher.mjs
-          node --check evaluacion/omr.mjs
           node --check sw-evaluacion.js
       - name: Comprobar archivos GitHub Pages
         run: |

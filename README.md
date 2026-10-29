@@ -28,28 +28,8 @@ Archivos:
 
 El progreso del alumno se guarda mediante `localStorage`.
 
-## Rúbrica de evaluación
+## Repaso guiado
 
-La rúbrica está disponible en [rubrica/](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/rubrica/), enlazada desde el inicio y el menú del cuaderno. Incluye los 57 criterios de los diez ejercicios y sus ponderaciones, que suman 100 puntos.
+[Cuaderno de consolidación](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/control/) y [chuletas de consulta](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/repaso/).
 
-## Preparación del control sin internet
-
-[Tres chuletas y base neutral de proyecto](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/repaso/): configuración/PostgreSQL, backend y frontend. Descargar el PDF y preparar las dependencias antes de la sesión. El enunciado concreto del control se distribuye por el profesor al comenzar.
-
-### Lectura de la rúbrica
-
-La página `rubrica/` incorpora una guía de lectura y pausas opcionales para
-explicar el resultado, recorrer el código y localizar evidencias. El diagrama
-petición → respuesta → interfaz orienta la comprensión cuando el ejercicio conecta
-frontend y backend. Las diez tablas oficiales permanecen idénticas: 57 criterios
-y 100 puntos. Las marcas de revisión son nativas, sin almacenamiento ni envío;
-no añaden entregables o puntos. `rubrica/lectura.css` ajusta lectura móvil,
-contraste y espaciado; la impresión omite las ayudas personales.
-
-## Cuaderno web de consolidación y autoría
-
-[Configuración, seis casos relacionales, entrenamiento y challenge](https://albertohdezakkari.github.io/03-REACTNATIVE-03CT/control/). El recorrido incluye notas y progreso local, rúbrica y protocolo de entrega. La base neutral se obtiene directamente por Git desde control/base/.
-
-
-
-El alumnado clona únicamente los proyectos base desde https://github.com/albertohdezakkari/DATABRIDGE-BASES. Cada apartado se construye sobre su base siguiendo las pestañas del cuaderno web. La solución es el trabajo realizado en clase.
+El alumnado parte de los [proyectos base](https://github.com/albertohdezakkari/DATABRIDGE-BASES) y construye los archivos con el profesor siguiendo las pestañas.
