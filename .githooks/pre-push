@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -eu
+case "${2:-}" in
+  *albertohdezakkari/03-REACTNATIVE-03CT.git|*albertohdezakkari/03-REACTNATIVE-03CT) ;;
+  *) exit 0 ;;
+esac
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [[ "$local_sha" =~ ^0+$ ]] && continue
+  blocked=$(git rev-list --objects "$local_sha" | awk '$2 ~ /^(test\/|evaluacion\/|challenge-rubrica\/|rubrica\/|SIMULACION-ENTREGA\/|control\/preguntas\.js$|challenge\/)/ && $2 != "challenge/simulacion/sw.js" {print $2; exit}')
+  if [ -n "$blocked" ]; then
+    echo "Publicación bloqueada: el historial contiene material reservado: $blocked" >&2
+    echo 'Utiliza el historial público saneado. Conserva exámenes y correcciones en privado.' >&2
+    exit 1
+  fi
+done
