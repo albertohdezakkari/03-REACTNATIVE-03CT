@@ -28,6 +28,10 @@ export function sheetSVG(assignment){
 }
 export async function prepareOffline(){
  if(!('serviceWorker' in navigator))throw Error('Abre esta página por HTTPS o localhost para preparar el modo sin conexión.');
- await navigator.serviceWorker.register('../sw-evaluacion.js');const reg=await navigator.serviceWorker.ready;
- await new Promise((resolve,reject)=>{const channel=new MessageChannel();const timer=setTimeout(()=>reject(Error('No se ha confirmado la caché. Pulsa Preparar de nuevo.')),30000);channel.port1.onmessage=e=>{clearTimeout(timer);e.data.ok?resolve():reject(Error(e.data.error));};(reg.active||reg.waiting).postMessage({type:'PREPARE'},[channel.port2]);});return true;
+ const reg=await navigator.serviceWorker.register('../sw-evaluacion.js?v=20261029-student-v2',{updateViaCache:'none'});
+ await reg.update();
+ let worker=reg.installing||reg.waiting;
+ if(worker)await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('No se ha activado la caché actualizada. Pulsa Preparar de nuevo.')),30000);const check=()=>{if(worker.state==='activated'){clearTimeout(timer);resolve();}else if(worker.state==='redundant'){clearTimeout(timer);reject(Error('No se pudo activar la caché. Recarga con Internet y prepara de nuevo.'));}};worker.addEventListener('statechange',check);check();});
+ worker=reg.active;if(!worker||worker.state!=='activated')throw Error('No se ha activado la caché actualizada. Recarga con Internet y prepara de nuevo.');
+ await new Promise((resolve,reject)=>{const channel=new MessageChannel();const timer=setTimeout(()=>reject(Error('No se ha confirmado la caché. Pulsa Preparar de nuevo.')),30000);channel.port1.onmessage=e=>{clearTimeout(timer);e.data.ok?resolve():reject(Error(e.data.error));};worker.postMessage({type:'PREPARE'},[channel.port2]);});return true;
 }
