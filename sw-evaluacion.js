@@ -1,4 +1,4 @@
-const CACHE='databridge-evaluacion-20261029-v2';
+const CACHE='databridge-evaluacion-20261029-v3';
 const FILES=['test/','test/plantilla.html','challenge/','challenge-rubrica/','challenge-rubrica/contenido.html','challenge-rubrica/rubrica-challenge.json','evaluacion/challenge.mjs','evaluacion/challenge-paired.mjs','evaluacion/challenge-use-cases.mjs','evaluacion/challenge-delivery.mjs','evaluacion/challenge-visual.mjs','evaluacion/challenge-paired.css','evaluacion/challenge-content.mjs','evaluacion/challenge.css','evaluacion/challenge-casos.json','evaluacion/common.mjs','evaluacion/test.mjs','evaluacion/evaluacion.css','evaluacion/banco.json'];
 async function prepare(){const cache=await caches.open(CACHE);await cache.addAll(FILES.map(p=>new URL(p,self.registration.scope).href));}
 self.addEventListener('install',e=>e.waitUntil(prepare().then(()=>self.skipWaiting())));

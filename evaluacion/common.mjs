@@ -28,7 +28,7 @@ export function sheetSVG(assignment){
 }
 export async function prepareOffline(){
  if(!('serviceWorker' in navigator))throw Error('Abre esta página por HTTPS o localhost para preparar el modo sin conexión.');
- const reg=await navigator.serviceWorker.register('../sw-evaluacion.js?v=20261029-student-v2',{updateViaCache:'none'});
+ const reg=await navigator.serviceWorker.register('../sw-evaluacion.js?v=20261029-student-v3',{updateViaCache:'none'});
  await reg.update();
  let worker=reg.installing||reg.waiting;
  if(worker)await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('No se ha activado la caché actualizada. Pulsa Preparar de nuevo.')),30000);const check=()=>{if(worker.state==='activated'){clearTimeout(timer);resolve();}else if(worker.state==='redundant'){clearTimeout(timer);reject(Error('No se pudo activar la caché. Recarga con Internet y prepara de nuevo.'));}};worker.addEventListener('statechange',check);check();});
