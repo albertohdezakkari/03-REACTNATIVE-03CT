@@ -1,0 +1,124 @@
+{
+  "schema": "databridge-challenge-rubric-v1",
+  "version": "1N-funcional-5-7-10-v3",
+  "maximum": 10,
+  "durationMinutes": 75,
+  "bands": [
+    {
+      "name": "Modelo persistido, consultas y pantalla",
+      "points": 5,
+      "cumulative": 5
+    },
+    {
+      "name": "Altas y asociación desde API y pantalla",
+      "points": 2,
+      "cumulative": 7
+    },
+    {
+      "name": "Cambios y borrados desde API y pantalla",
+      "points": 3,
+      "cumulative": 10
+    }
+  ],
+  "criteria": [
+    {
+      "id": "B1",
+      "band": "Hasta 5",
+      "title": "La relación 1:N guarda los datos correctamente",
+      "points": 1,
+      "evidence": "PostgreSQL contiene ambas tablas, sus PK y una FK real del dependiente al principal; el GET del dependiente devuelve su principal relacionado.",
+      "useCases": "CU02",
+      "verification": "SQL de catálogo/FK y GET dependientes; contrastar IDs reales."
+    },
+    {
+      "id": "B2",
+      "band": "Hasta 5",
+      "title": "La aplicación arranca y se conecta a PostgreSQL",
+      "points": 0.5,
+      "evidence": "Backend NestJS con TypeORM operativo sobre la base del ensayo. La petición llega a Controller, Service y Repository y consulta datos reales.",
+      "useCases": "CU01",
+      "verification": "Arranque y petición curl; corroborar las capas requeridas sin imponer archivos concretos."
+    },
+    {
+      "id": "B3",
+      "band": "Hasta 5",
+      "title": "Las dos consultas GET resuelven el caso",
+      "points": 1.5,
+      "evidence": "GET principales (0,5) y GET dependientes con campos solicitados, principal relacionado y orden por id (1).",
+      "useCases": "CU01/CU02",
+      "verification": "curl de ambas rutas con datos controlados y contraste SQL."
+    },
+    {
+      "id": "B4",
+      "band": "Hasta 5",
+      "title": "La pantalla consulta y muestra los datos de la API",
+      "points": 1.5,
+      "evidence": "Cargar la pantalla y usar Consultar. Aparecen los dependientes reales, su campo numérico y el nombre del principal; las peticiones observadas llegan al backend.",
+      "useCases": "CU01/CU02",
+      "verification": "Navegador, captura y registro de red con nombres de ensayo no precargados en la interfaz."
+    },
+    {
+      "id": "B5",
+      "band": "Hasta 5",
+      "title": "Los datos iniciales de SQL coinciden con API y pantalla",
+      "points": 0.5,
+      "evidence": "Dos principales y tres dependientes introducidos con SQL se recuperan con sus IDs y FK, sin sustituirlos por datos simulados.",
+      "useCases": "CU02",
+      "verification": "SELECT de las filas de ensayo y GET de las mismas; comprobar lo mostrado."
+    },
+    {
+      "id": "M1",
+      "band": "Hasta 7 (+2)",
+      "title": "Las dos altas del backend guardan correctamente",
+      "points": 1,
+      "evidence": "POST principal con nombre (0,5). POST dependiente con nombre, campo numérico y principal elegido (0,5); conserva una FK real.",
+      "useCases": "CU03/CU04",
+      "verification": "curl POST y SELECT posterior para ambos registros."
+    },
+    {
+      "id": "M2",
+      "band": "Hasta 7 (+2)",
+      "title": "Las dos altas se hacen desde la pantalla",
+      "points": 1,
+      "evidence": "Crear principal desde su formulario (0,5). Crear dependiente seleccionando ese principal (0,5), guardar y actualizar la lista desde la API.",
+      "useCases": "CU03/CU04",
+      "verification": "Interacción real en navegador, peticiones POST observadas y filas/FK en PostgreSQL."
+    },
+    {
+      "id": "A1",
+      "band": "Hasta 10 (+3)",
+      "title": "PATCH modifica solo lo solicitado",
+      "points": 0.75,
+      "evidence": "Modificar un campo desde curl; el otro campo, la FK y los demás registros conservan su valor.",
+      "useCases": "CU05",
+      "verification": "PATCH con un único campo y SELECT antes/después."
+    },
+    {
+      "id": "A2",
+      "band": "Hasta 10 (+3)",
+      "title": "DELETE elimina únicamente el dependiente indicado",
+      "points": 0.75,
+      "evidence": "Eliminar un dependiente desde curl; desaparece la fila y se conservan el principal y los demás registros.",
+      "useCases": "CU06",
+      "verification": "DELETE, nuevo GET y SELECT de dependientes y principales."
+    },
+    {
+      "id": "A3",
+      "band": "Hasta 10 (+3)",
+      "title": "Editar y eliminar funcionan en la pantalla",
+      "points": 1,
+      "evidence": "Editar un dependiente desde la pantalla (0,5) y eliminar otro (0,5). La lista vuelve a consultar la API y representa el cambio real.",
+      "useCases": "CU05/CU06",
+      "verification": "Interacción en navegador, PATCH/DELETE observados y contraste SQL."
+    },
+    {
+      "id": "A4",
+      "band": "Hasta 10 (+3)",
+      "title": "La comprobación demuestra los cambios y lo conservado",
+      "points": 0.5,
+      "evidence": "Las respuestas de API, el estado de la pantalla y SQL coinciden tras las operaciones. Se conserva un informe reproducible del commit evaluado.",
+      "useCases": "CU05/CU06",
+      "verification": "Trazas curl, SQL y navegador coherentes, con caso, SHA, IDs y resultados esperados/obtenidos."
+    }
+  ]
+}

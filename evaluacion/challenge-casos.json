@@ -1,0 +1,1283 @@
+{
+  "schema": "databridge-challenge-v1",
+  "session": "DATABRIDGE-20261029",
+  "durationSeconds": 4500,
+  "cases": [
+    {
+      "id": "CH-01",
+      "title": "Refugio → Animal",
+      "story": "Organiza los animales alojados en cada refugio.",
+      "parent": {
+        "entity": "Refugio",
+        "table": "refugios",
+        "relation": "refugio",
+        "label": "Refugio",
+        "examples": [
+          "Refugio Norte",
+          "Refugio Sur"
+        ]
+      },
+      "child": {
+        "entity": "Animal",
+        "table": "animales",
+        "label": "Animal",
+        "foreignKey": "refugio_id",
+        "parentInput": "refugioId",
+        "metric": "edadMeses",
+        "metricLabel": "Edad",
+        "unit": "meses",
+        "examples": [
+          {
+            "nombre": "Nala",
+            "edadMeses": 8
+          },
+          {
+            "nombre": "Bruno",
+            "edadMeses": 24
+          },
+          {
+            "nombre": "Nala · nuevo",
+            "edadMeses": 32
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-02",
+      "title": "Huerto → Parcela",
+      "story": "Distribuye las parcelas de los huertos urbanos.",
+      "parent": {
+        "entity": "Huerto",
+        "table": "huertos",
+        "relation": "huerto",
+        "label": "Huerto",
+        "examples": [
+          "Huerto del Río",
+          "Huerto del Parque"
+        ]
+      },
+      "child": {
+        "entity": "Parcela",
+        "table": "parcelas",
+        "label": "Parcela",
+        "foreignKey": "huerto_id",
+        "parentInput": "huertoId",
+        "metric": "superficieM2",
+        "metricLabel": "Superficie",
+        "unit": "m²",
+        "examples": [
+          {
+            "nombre": "Parcela A",
+            "superficieM2": 20
+          },
+          {
+            "nombre": "Parcela B",
+            "superficieM2": 45
+          },
+          {
+            "nombre": "Parcela A · nuevo",
+            "superficieM2": 65
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-03",
+      "title": "Museo → Pieza",
+      "story": "Consulta las piezas conservadas en cada museo.",
+      "parent": {
+        "entity": "Museo",
+        "table": "museos",
+        "relation": "museo",
+        "label": "Museo",
+        "examples": [
+          "Museo del Barrio",
+          "Museo del Centro"
+        ]
+      },
+      "child": {
+        "entity": "Pieza",
+        "table": "piezas",
+        "label": "Pieza",
+        "foreignKey": "museo_id",
+        "parentInput": "museoId",
+        "metric": "antiguedadAnios",
+        "metricLabel": "Antigüedad",
+        "unit": "años",
+        "examples": [
+          {
+            "nombre": "Vasija azul",
+            "antiguedadAnios": 30
+          },
+          {
+            "nombre": "Reloj de pared",
+            "antiguedadAnios": 120
+          },
+          {
+            "nombre": "Vasija azul · nuevo",
+            "antiguedadAnios": 150
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-04",
+      "title": "Editorial → Publicacion",
+      "story": "Gestiona las publicaciones de cada editorial.",
+      "parent": {
+        "entity": "Editorial",
+        "table": "editoriales",
+        "relation": "editorial",
+        "label": "Editorial",
+        "examples": [
+          "Editorial Roble",
+          "Editorial Faro"
+        ]
+      },
+      "child": {
+        "entity": "Publicacion",
+        "table": "publicaciones",
+        "label": "Publicacion",
+        "foreignKey": "editorial_id",
+        "parentInput": "editorialId",
+        "metric": "paginas",
+        "metricLabel": "Extensión",
+        "unit": "páginas",
+        "examples": [
+          {
+            "nombre": "Rutas del Ebro",
+            "paginas": 80
+          },
+          {
+            "nombre": "Historias cortas",
+            "paginas": 240
+          },
+          {
+            "nombre": "Rutas del Ebro · nuevo",
+            "paginas": 320
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-05",
+      "title": "Festival → Actuacion",
+      "story": "Organiza las actuaciones de cada festival.",
+      "parent": {
+        "entity": "Festival",
+        "table": "festivales",
+        "relation": "festival",
+        "label": "Festival",
+        "examples": [
+          "Festival del Sol",
+          "Festival del Río"
+        ]
+      },
+      "child": {
+        "entity": "Actuacion",
+        "table": "actuaciones",
+        "label": "Actuacion",
+        "foreignKey": "festival_id",
+        "parentInput": "festivalId",
+        "metric": "duracionMinutos",
+        "metricLabel": "Duración",
+        "unit": "min",
+        "examples": [
+          {
+            "nombre": "Concierto acústico",
+            "duracionMinutos": 25
+          },
+          {
+            "nombre": "Danza urbana",
+            "duracionMinutos": 60
+          },
+          {
+            "nombre": "Concierto acústico · nuevo",
+            "duracionMinutos": 85
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-06",
+      "title": "Gimnasio → Sesion",
+      "story": "Administra las sesiones programadas en cada gimnasio.",
+      "parent": {
+        "entity": "Gimnasio",
+        "table": "gimnasios",
+        "relation": "gimnasio",
+        "label": "Gimnasio",
+        "examples": [
+          "Gimnasio Norte",
+          "Gimnasio Centro"
+        ]
+      },
+      "child": {
+        "entity": "Sesion",
+        "table": "sesiones",
+        "label": "Sesion",
+        "foreignKey": "gimnasio_id",
+        "parentInput": "gimnasioId",
+        "metric": "plazas",
+        "metricLabel": "Plazas",
+        "unit": "personas",
+        "examples": [
+          {
+            "nombre": "Pilates inicial",
+            "plazas": 10
+          },
+          {
+            "nombre": "Entrenamiento funcional",
+            "plazas": 24
+          },
+          {
+            "nombre": "Pilates inicial · nuevo",
+            "plazas": 34
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-07",
+      "title": "Agencia → Excursion",
+      "story": "Publica las excursiones organizadas por cada agencia.",
+      "parent": {
+        "entity": "Agencia",
+        "table": "agencias",
+        "relation": "agencia",
+        "label": "Agencia",
+        "examples": [
+          "Agencia Horizonte",
+          "Agencia Camino"
+        ]
+      },
+      "child": {
+        "entity": "Excursion",
+        "table": "excursiones",
+        "label": "Excursion",
+        "foreignKey": "agencia_id",
+        "parentInput": "agenciaId",
+        "metric": "duracionHoras",
+        "metricLabel": "Duración",
+        "unit": "h",
+        "examples": [
+          {
+            "nombre": "Ruta del bosque",
+            "duracionHoras": 2
+          },
+          {
+            "nombre": "Visita al castillo",
+            "duracionHoras": 6
+          },
+          {
+            "nombre": "Ruta del bosque · nuevo",
+            "duracionHoras": 8
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-08",
+      "title": "Panaderia → Producto",
+      "story": "Mantén el catálogo de productos de cada panadería.",
+      "parent": {
+        "entity": "Panaderia",
+        "table": "panaderias",
+        "relation": "panaderia",
+        "label": "Panaderia",
+        "examples": [
+          "Panadería Espiga",
+          "Panadería Trigo"
+        ]
+      },
+      "child": {
+        "entity": "Producto",
+        "table": "productos",
+        "label": "Producto",
+        "foreignKey": "panaderia_id",
+        "parentInput": "panaderiaId",
+        "metric": "precioCentimos",
+        "metricLabel": "Precio",
+        "unit": "céntimos",
+        "examples": [
+          {
+            "nombre": "Pan integral",
+            "precioCentimos": 180
+          },
+          {
+            "nombre": "Caja de pastas",
+            "precioCentimos": 650
+          },
+          {
+            "nombre": "Pan integral · nuevo",
+            "precioCentimos": 830
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-09",
+      "title": "Taller → Reparacion",
+      "story": "Lleva las reparaciones asociadas a cada taller.",
+      "parent": {
+        "entity": "Taller",
+        "table": "talleres",
+        "relation": "taller",
+        "label": "Taller",
+        "examples": [
+          "Taller Norte",
+          "Taller del Barrio"
+        ]
+      },
+      "child": {
+        "entity": "Reparacion",
+        "table": "reparaciones",
+        "label": "Reparacion",
+        "foreignKey": "taller_id",
+        "parentInput": "tallerId",
+        "metric": "costeCentimos",
+        "metricLabel": "Coste",
+        "unit": "céntimos",
+        "examples": [
+          {
+            "nombre": "Ajuste de frenos",
+            "costeCentimos": 2500
+          },
+          {
+            "nombre": "Cambio de cadena",
+            "costeCentimos": 7000
+          },
+          {
+            "nombre": "Ajuste de frenos · nuevo",
+            "costeCentimos": 9500
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-10",
+      "title": "Hospital → Habitacion",
+      "story": "Inventaría las habitaciones de cada hospital, sin datos de pacientes.",
+      "parent": {
+        "entity": "Hospital",
+        "table": "hospitales",
+        "relation": "hospital",
+        "label": "Hospital",
+        "examples": [
+          "Hospital Central",
+          "Hospital del Valle"
+        ]
+      },
+      "child": {
+        "entity": "Habitacion",
+        "table": "habitaciones",
+        "label": "Habitacion",
+        "foreignKey": "hospital_id",
+        "parentInput": "hospitalId",
+        "metric": "camas",
+        "metricLabel": "Capacidad",
+        "unit": "camas",
+        "examples": [
+          {
+            "nombre": "Habitación A",
+            "camas": 1
+          },
+          {
+            "nombre": "Habitación B",
+            "camas": 3
+          },
+          {
+            "nombre": "Habitación A · nuevo",
+            "camas": 4
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-11",
+      "title": "Hotel → Reserva",
+      "story": "Gestiona reservas ficticias asignadas a cada hotel.",
+      "parent": {
+        "entity": "Hotel",
+        "table": "hoteles",
+        "relation": "hotel",
+        "label": "Hotel",
+        "examples": [
+          "Hotel Aurora",
+          "Hotel del Lago"
+        ]
+      },
+      "child": {
+        "entity": "Reserva",
+        "table": "reservas",
+        "label": "Reserva",
+        "foreignKey": "hotel_id",
+        "parentInput": "hotelId",
+        "metric": "noches",
+        "metricLabel": "Duración",
+        "unit": "noches",
+        "examples": [
+          {
+            "nombre": "Reserva R-101",
+            "noches": 2
+          },
+          {
+            "nombre": "Reserva R-102",
+            "noches": 5
+          },
+          {
+            "nombre": "Reserva R-101 · nuevo",
+            "noches": 7
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-12",
+      "title": "Cooperativa → Lote",
+      "story": "Registra los lotes recibidos por cada cooperativa.",
+      "parent": {
+        "entity": "Cooperativa",
+        "table": "cooperativas",
+        "relation": "cooperativa",
+        "label": "Cooperativa",
+        "examples": [
+          "Cooperativa Olivo",
+          "Cooperativa Campo"
+        ]
+      },
+      "child": {
+        "entity": "Lote",
+        "table": "lotes",
+        "label": "Lote",
+        "foreignKey": "cooperativa_id",
+        "parentInput": "cooperativaId",
+        "metric": "kilos",
+        "metricLabel": "Peso",
+        "unit": "kg",
+        "examples": [
+          {
+            "nombre": "Lote de manzanas",
+            "kilos": 40
+          },
+          {
+            "nombre": "Lote de peras",
+            "kilos": 120
+          },
+          {
+            "nombre": "Lote de manzanas · nuevo",
+            "kilos": 160
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-13",
+      "title": "Cine → Proyeccion",
+      "story": "Organiza las proyecciones de cada cine.",
+      "parent": {
+        "entity": "Cine",
+        "table": "cines",
+        "relation": "cine",
+        "label": "Cine",
+        "examples": [
+          "Cine Alameda",
+          "Cine del Parque"
+        ]
+      },
+      "child": {
+        "entity": "Proyeccion",
+        "table": "proyecciones",
+        "label": "Proyeccion",
+        "foreignKey": "cine_id",
+        "parentInput": "cineId",
+        "metric": "duracionMinutos",
+        "metricLabel": "Duración",
+        "unit": "min",
+        "examples": [
+          {
+            "nombre": "Viaje al norte",
+            "duracionMinutos": 90
+          },
+          {
+            "nombre": "La última estación",
+            "duracionMinutos": 125
+          },
+          {
+            "nombre": "Viaje al norte · nuevo",
+            "duracionMinutos": 215
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-14",
+      "title": "Parque → Zona",
+      "story": "Consulta las zonas visitables de cada parque.",
+      "parent": {
+        "entity": "Parque",
+        "table": "parques",
+        "relation": "parque",
+        "label": "Parque",
+        "examples": [
+          "Parque del Agua",
+          "Parque del Este"
+        ]
+      },
+      "child": {
+        "entity": "Zona",
+        "table": "zonas",
+        "label": "Zona",
+        "foreignKey": "parque_id",
+        "parentInput": "parqueId",
+        "metric": "capacidad",
+        "metricLabel": "Capacidad",
+        "unit": "personas",
+        "examples": [
+          {
+            "nombre": "Zona de juegos",
+            "capacidad": 30
+          },
+          {
+            "nombre": "Zona de picnic",
+            "capacidad": 80
+          },
+          {
+            "nombre": "Zona de juegos · nuevo",
+            "capacidad": 110
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-15",
+      "title": "Empresa → Proyecto",
+      "story": "Controla los proyectos de cada empresa.",
+      "parent": {
+        "entity": "Empresa",
+        "table": "empresas",
+        "relation": "empresa",
+        "label": "Empresa",
+        "examples": [
+          "Empresa Brújula",
+          "Empresa Delta"
+        ]
+      },
+      "child": {
+        "entity": "Proyecto",
+        "table": "proyectos",
+        "label": "Proyecto",
+        "foreignKey": "empresa_id",
+        "parentInput": "empresaId",
+        "metric": "horasEstimadas",
+        "metricLabel": "Dedicación",
+        "unit": "h",
+        "examples": [
+          {
+            "nombre": "Portal de reservas",
+            "horasEstimadas": 40
+          },
+          {
+            "nombre": "Catálogo interno",
+            "horasEstimadas": 120
+          },
+          {
+            "nombre": "Portal de reservas · nuevo",
+            "horasEstimadas": 160
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-16",
+      "title": "Tienda → Articulo",
+      "story": "Mantén el inventario de artículos de cada tienda.",
+      "parent": {
+        "entity": "Tienda",
+        "table": "tiendas",
+        "relation": "tienda",
+        "label": "Tienda",
+        "examples": [
+          "Tienda Esquina",
+          "Tienda Centro"
+        ]
+      },
+      "child": {
+        "entity": "Articulo",
+        "table": "articulos",
+        "label": "Articulo",
+        "foreignKey": "tienda_id",
+        "parentInput": "tiendaId",
+        "metric": "stock",
+        "metricLabel": "Existencias",
+        "unit": "unidades",
+        "examples": [
+          {
+            "nombre": "Cuaderno azul",
+            "stock": 12
+          },
+          {
+            "nombre": "Estuche verde",
+            "stock": 60
+          },
+          {
+            "nombre": "Cuaderno azul · nuevo",
+            "stock": 72
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-17",
+      "title": "Estudio → Escena",
+      "story": "Organiza las escenas producidas por cada estudio audiovisual.",
+      "parent": {
+        "entity": "Estudio",
+        "table": "estudios",
+        "relation": "estudio",
+        "label": "Estudio",
+        "examples": [
+          "Estudio Prisma",
+          "Estudio Lumen"
+        ]
+      },
+      "child": {
+        "entity": "Escena",
+        "table": "escenas",
+        "label": "Escena",
+        "foreignKey": "estudio_id",
+        "parentInput": "estudioId",
+        "metric": "duracionSegundos",
+        "metricLabel": "Duración",
+        "unit": "s",
+        "examples": [
+          {
+            "nombre": "Escena de apertura",
+            "duracionSegundos": 30
+          },
+          {
+            "nombre": "Escena del puente",
+            "duracionSegundos": 95
+          },
+          {
+            "nombre": "Escena de apertura · nuevo",
+            "duracionSegundos": 125
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-18",
+      "title": "Club → Actividad",
+      "story": "Gestiona las actividades de cada club juvenil.",
+      "parent": {
+        "entity": "Club",
+        "table": "clubes",
+        "relation": "club",
+        "label": "Club",
+        "examples": [
+          "Club Encuentro",
+          "Club Horizonte"
+        ]
+      },
+      "child": {
+        "entity": "Actividad",
+        "table": "actividades",
+        "label": "Actividad",
+        "foreignKey": "club_id",
+        "parentInput": "clubId",
+        "metric": "plazas",
+        "metricLabel": "Plazas",
+        "unit": "personas",
+        "examples": [
+          {
+            "nombre": "Taller de fotografía",
+            "plazas": 15
+          },
+          {
+            "nombre": "Ruta urbana",
+            "plazas": 35
+          },
+          {
+            "nombre": "Taller de fotografía · nuevo",
+            "plazas": 50
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-19",
+      "title": "Puerto → Embarcacion",
+      "story": "Inventaría las embarcaciones asignadas a cada puerto.",
+      "parent": {
+        "entity": "Puerto",
+        "table": "puertos",
+        "relation": "puerto",
+        "label": "Puerto",
+        "examples": [
+          "Puerto del Mar",
+          "Puerto del Faro"
+        ]
+      },
+      "child": {
+        "entity": "Embarcacion",
+        "table": "embarcaciones",
+        "label": "Embarcacion",
+        "foreignKey": "puerto_id",
+        "parentInput": "puertoId",
+        "metric": "esloraMetros",
+        "metricLabel": "Eslora",
+        "unit": "m",
+        "examples": [
+          {
+            "nombre": "Brisa",
+            "esloraMetros": 6
+          },
+          {
+            "nombre": "Albatros",
+            "esloraMetros": 14
+          },
+          {
+            "nombre": "Brisa · nuevo",
+            "esloraMetros": 20
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-20",
+      "title": "Estacion → Trayecto",
+      "story": "Consulta los trayectos que parten de cada estación.",
+      "parent": {
+        "entity": "Estacion",
+        "table": "estaciones",
+        "relation": "estacion",
+        "label": "Estacion",
+        "examples": [
+          "Estación Central",
+          "Estación Norte"
+        ]
+      },
+      "child": {
+        "entity": "Trayecto",
+        "table": "trayectos",
+        "label": "Trayecto",
+        "foreignKey": "estacion_id",
+        "parentInput": "estacionId",
+        "metric": "distanciaKm",
+        "metricLabel": "Distancia",
+        "unit": "km",
+        "examples": [
+          {
+            "nombre": "Ruta del valle",
+            "distanciaKm": 35
+          },
+          {
+            "nombre": "Ruta de la costa",
+            "distanciaKm": 180
+          },
+          {
+            "nombre": "Ruta del valle · nuevo",
+            "distanciaKm": 215
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-21",
+      "title": "Laboratorio → Muestra",
+      "story": "Organiza muestras ficticias por laboratorio.",
+      "parent": {
+        "entity": "Laboratorio",
+        "table": "laboratorios",
+        "relation": "laboratorio",
+        "label": "Laboratorio",
+        "examples": [
+          "Laboratorio Azul",
+          "Laboratorio Verde"
+        ]
+      },
+      "child": {
+        "entity": "Muestra",
+        "table": "muestras",
+        "label": "Muestra",
+        "foreignKey": "laboratorio_id",
+        "parentInput": "laboratorioId",
+        "metric": "cantidadMl",
+        "metricLabel": "Cantidad",
+        "unit": "ml",
+        "examples": [
+          {
+            "nombre": "Muestra M-01",
+            "cantidadMl": 15
+          },
+          {
+            "nombre": "Muestra M-02",
+            "cantidadMl": 60
+          },
+          {
+            "nombre": "Muestra M-01 · nuevo",
+            "cantidadMl": 75
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-22",
+      "title": "Ayuntamiento → Obra",
+      "story": "Gestiona obras municipales asociadas a cada ayuntamiento.",
+      "parent": {
+        "entity": "Ayuntamiento",
+        "table": "ayuntamientos",
+        "relation": "ayuntamiento",
+        "label": "Ayuntamiento",
+        "examples": [
+          "Ayuntamiento del Río",
+          "Ayuntamiento del Valle"
+        ]
+      },
+      "child": {
+        "entity": "Obra",
+        "table": "obras",
+        "label": "Obra",
+        "foreignKey": "ayuntamiento_id",
+        "parentInput": "ayuntamientoId",
+        "metric": "presupuestoEuros",
+        "metricLabel": "Presupuesto",
+        "unit": "€",
+        "examples": [
+          {
+            "nombre": "Mejora de acera",
+            "presupuestoEuros": 3000
+          },
+          {
+            "nombre": "Zona de sombra",
+            "presupuestoEuros": 12000
+          },
+          {
+            "nombre": "Mejora de acera · nuevo",
+            "presupuestoEuros": 15000
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-23",
+      "title": "Cafeteria → Comanda",
+      "story": "Registra comandas ficticias de cada cafetería.",
+      "parent": {
+        "entity": "Cafeteria",
+        "table": "cafeterias",
+        "relation": "cafeteria",
+        "label": "Cafeteria",
+        "examples": [
+          "Cafetería Plaza",
+          "Cafetería Jardín"
+        ]
+      },
+      "child": {
+        "entity": "Comanda",
+        "table": "comandas",
+        "label": "Comanda",
+        "foreignKey": "cafeteria_id",
+        "parentInput": "cafeteriaId",
+        "metric": "importeCentimos",
+        "metricLabel": "Importe",
+        "unit": "céntimos",
+        "examples": [
+          {
+            "nombre": "Comanda C-01",
+            "importeCentimos": 450
+          },
+          {
+            "nombre": "Comanda C-02",
+            "importeCentimos": 1250
+          },
+          {
+            "nombre": "Comanda C-01 · nuevo",
+            "importeCentimos": 1700
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-24",
+      "title": "Complejo → Pista",
+      "story": "Inventaría las pistas de cada complejo deportivo.",
+      "parent": {
+        "entity": "Complejo",
+        "table": "complejos",
+        "relation": "complejo",
+        "label": "Complejo",
+        "examples": [
+          "Complejo Municipal",
+          "Complejo del Barrio"
+        ]
+      },
+      "child": {
+        "entity": "Pista",
+        "table": "pistas",
+        "label": "Pista",
+        "foreignKey": "complejo_id",
+        "parentInput": "complejoId",
+        "metric": "superficieM2",
+        "metricLabel": "Superficie",
+        "unit": "m²",
+        "examples": [
+          {
+            "nombre": "Pista cubierta",
+            "superficieM2": 120
+          },
+          {
+            "nombre": "Pista exterior",
+            "superficieM2": 300
+          },
+          {
+            "nombre": "Pista cubierta · nuevo",
+            "superficieM2": 420
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-25",
+      "title": "Emisora → Programa",
+      "story": "Organiza los programas de cada emisora de radio.",
+      "parent": {
+        "entity": "Emisora",
+        "table": "emisoras",
+        "relation": "emisora",
+        "label": "Emisora",
+        "examples": [
+          "Radio Horizonte",
+          "Radio Barrio"
+        ]
+      },
+      "child": {
+        "entity": "Programa",
+        "table": "programas",
+        "label": "Programa",
+        "foreignKey": "emisora_id",
+        "parentInput": "emisoraId",
+        "metric": "duracionMinutos",
+        "metricLabel": "Duración",
+        "unit": "min",
+        "examples": [
+          {
+            "nombre": "Buenos días",
+            "duracionMinutos": 30
+          },
+          {
+            "nombre": "Tarde cultural",
+            "duracionMinutos": 90
+          },
+          {
+            "nombre": "Buenos días · nuevo",
+            "duracionMinutos": 120
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-26",
+      "title": "Escuela → Aula",
+      "story": "Inventaría las aulas de cada escuela de idiomas.",
+      "parent": {
+        "entity": "Escuela",
+        "table": "escuelas",
+        "relation": "escuela",
+        "label": "Escuela",
+        "examples": [
+          "Escuela Puente",
+          "Escuela Encuentro"
+        ]
+      },
+      "child": {
+        "entity": "Aula",
+        "table": "aulas",
+        "label": "Aula",
+        "foreignKey": "escuela_id",
+        "parentInput": "escuelaId",
+        "metric": "capacidad",
+        "metricLabel": "Capacidad",
+        "unit": "plazas",
+        "examples": [
+          {
+            "nombre": "Aula Olmo",
+            "capacidad": 12
+          },
+          {
+            "nombre": "Aula Pino",
+            "capacidad": 30
+          },
+          {
+            "nombre": "Aula Olmo · nuevo",
+            "capacidad": 42
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-27",
+      "title": "Urbanizacion → Plaza",
+      "story": "Gestiona las plazas de aparcamiento de cada urbanización.",
+      "parent": {
+        "entity": "Urbanizacion",
+        "table": "urbanizaciones",
+        "relation": "urbanizacion",
+        "label": "Urbanizacion",
+        "examples": [
+          "Urbanización Jardín",
+          "Urbanización Lago"
+        ]
+      },
+      "child": {
+        "entity": "Plaza",
+        "table": "plazas",
+        "label": "Plaza",
+        "foreignKey": "urbanizacion_id",
+        "parentInput": "urbanizacionId",
+        "metric": "superficieM2",
+        "metricLabel": "Superficie",
+        "unit": "m²",
+        "examples": [
+          {
+            "nombre": "Plaza P-01",
+            "superficieM2": 10
+          },
+          {
+            "nombre": "Plaza P-02",
+            "superficieM2": 18
+          },
+          {
+            "nombre": "Plaza P-01 · nuevo",
+            "superficieM2": 28
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-28",
+      "title": "Vivero → Planta",
+      "story": "Consulta las plantas disponibles en cada vivero.",
+      "parent": {
+        "entity": "Vivero",
+        "table": "viveros",
+        "relation": "vivero",
+        "label": "Vivero",
+        "examples": [
+          "Vivero Raíz",
+          "Vivero Hoja"
+        ]
+      },
+      "child": {
+        "entity": "Planta",
+        "table": "plantas",
+        "label": "Planta",
+        "foreignKey": "vivero_id",
+        "parentInput": "viveroId",
+        "metric": "alturaCm",
+        "metricLabel": "Altura",
+        "unit": "cm",
+        "examples": [
+          {
+            "nombre": "Lavanda",
+            "alturaCm": 25
+          },
+          {
+            "nombre": "Romero",
+            "alturaCm": 70
+          },
+          {
+            "nombre": "Lavanda · nuevo",
+            "alturaCm": 95
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-29",
+      "title": "Granja → Cosecha",
+      "story": "Registra las cosechas de cada granja.",
+      "parent": {
+        "entity": "Granja",
+        "table": "granjas",
+        "relation": "granja",
+        "label": "Granja",
+        "examples": [
+          "Granja del Sol",
+          "Granja del Monte"
+        ]
+      },
+      "child": {
+        "entity": "Cosecha",
+        "table": "cosechas",
+        "label": "Cosecha",
+        "foreignKey": "granja_id",
+        "parentInput": "granjaId",
+        "metric": "kilos",
+        "metricLabel": "Producción",
+        "unit": "kg",
+        "examples": [
+          {
+            "nombre": "Cosecha de tomate",
+            "kilos": 80
+          },
+          {
+            "nombre": "Cosecha de calabaza",
+            "kilos": 220
+          },
+          {
+            "nombre": "Cosecha de tomate · nuevo",
+            "kilos": 300
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-30",
+      "title": "Teatro → Funcion",
+      "story": "Organiza las funciones de cada teatro.",
+      "parent": {
+        "entity": "Teatro",
+        "table": "teatros",
+        "relation": "teatro",
+        "label": "Teatro",
+        "examples": [
+          "Teatro Aurora",
+          "Teatro del Barrio"
+        ]
+      },
+      "child": {
+        "entity": "Funcion",
+        "table": "funciones",
+        "label": "Funcion",
+        "foreignKey": "teatro_id",
+        "parentInput": "teatroId",
+        "metric": "aforo",
+        "metricLabel": "Aforo",
+        "unit": "personas",
+        "examples": [
+          {
+            "nombre": "La puerta azul",
+            "aforo": 100
+          },
+          {
+            "nombre": "Historias del andén",
+            "aforo": 250
+          },
+          {
+            "nombre": "La puerta azul · nuevo",
+            "aforo": 350
+          }
+        ]
+      },
+      "database": "control_databridge"
+    },
+    {
+      "id": "CH-31",
+      "title": "Archivo → Documento",
+      "story": "Cataloga los documentos ficticios de cada archivo histórico.",
+      "parent": {
+        "entity": "Archivo",
+        "table": "archivos",
+        "relation": "archivo",
+        "label": "Archivo",
+        "examples": [
+          "Archivo Municipal",
+          "Archivo del Centro"
+        ]
+      },
+      "child": {
+        "entity": "Documento",
+        "table": "documentos",
+        "label": "Documento",
+        "foreignKey": "archivo_id",
+        "parentInput": "archivoId",
+        "metric": "paginas",
+        "metricLabel": "Extensión",
+        "unit": "páginas",
+        "examples": [
+          {
+            "nombre": "Inventario antiguo",
+            "paginas": 20
+          },
+          {
+            "nombre": "Memoria del barrio",
+            "paginas": 75
+          },
+          {
+            "nombre": "Inventario antiguo · nuevo",
+            "paginas": 95
+          }
+        ]
+      },
+      "database": "control_databridge"
+    }
+  ],
+  "assignments": {
+    "e1fe9f7906d921b56bfb06792a8a289333bcdccd6998c50504cc0629309c1e67": "CH-09",
+    "755e99b6e79fde68e4747b983a235394736c54ee7aa02aa54f3bafecd5fc4d0c": "CH-02",
+    "71e74a254b12b4d208cb3f3fb96741adff9667c57146b2be825873754621011e": "CH-11",
+    "f37b7467fc9d5759c9505b58026c609f38670264c43d2aec9351be67944fe2dd": "CH-15",
+    "279f9c2d4acbab3b80f3550d9cff7d56a66d4aea8d470bc90c0f4359f2daf2ed": "CH-04",
+    "43294c22cdf048281fa497254dd4dd146b62d49514a657c5099a915f8c1709be": "CH-08",
+    "5359cb25122532883d7f46b730e2ff3c1b811ae6dd2f46094fd9f25cb51b05bf": "CH-05",
+    "bd909eea912c7f2b5080ed5b56813ea2ccdf2ee006eed3f762c600821dfa12d3": "CH-10",
+    "b62f87d5095edcc3ea65b6ec9ecf7b8216a8bc61e534a86b70a0ec40b38e2b0e": "CH-14",
+    "6de715987e91a97a2fa964b44965b7064f4338a2def3fcdd3b15efad3394857c": "CH-23",
+    "2a6fc567b1bba5bb4da4419a43f152a5935a2796819497463bb77f04900c50b9": "CH-20",
+    "16ba0439c29c99a06ac9967ae3d46649dfdec25e8c65af8287468782fada2120": "CH-24",
+    "cb860a85050719d663792f9ec8716dc7b3219fcb5a60f8a1b3df2d6f1b800f5e": "CH-22",
+    "a147aae6cf7ac0732630879a6b428c441f9020dc4fc5217d7b469c2ed33d17ee": "CH-27",
+    "c9ba7dfc8e08cf576badc83e9f47b67b5f8722a1ba58dd97fd5108ffd0b79f74": "CH-07",
+    "cefb0ee616bca0159ab41526b3eee4f67eb77d5bf3c0eb5ecf5e84b253e46a1f": "CH-21",
+    "4a90118b58b3b54018794e66091f8575089564feb9e26221580e050c367ea72f": "CH-30",
+    "f409ae4c356cb3579610f9f8dceb93d4566262dbf02d5652b792a1301634a332": "CH-01",
+    "9be648d8e130e13b4088b6ffea89a342a844d117985a9e92565c3d1571e512f7": "CH-03",
+    "bcfe4b554cbfe1fe34103cc5f07d419d2c781f3a8cad0fc65e411a119286b2fd": "CH-16",
+    "fa867408282c3726f6ae69e2826dd970a794504ee672bb7acd51da118b6290b9": "CH-29",
+    "37d2fb3382c5817f4b1f6a3583188f9c52099300c390ff3555298ce8aadffb1d": "CH-26",
+    "cd9614d4e7e59180dcbbceca3a8109787d49e0980ddf15256aa54a631d5a9586": "CH-28",
+    "d27a7e45cf218e77f440f7d03648b9f2f5c23b78e37d44dcae58eb9910e1a101": "CH-18",
+    "e98f8349107bcae9aa868ed20e9a718897283f245f9bcee7ecedb5c2bd451b7b": "CH-19",
+    "ebd73513f6b499e12077e73aacbf7e13d7360f04be7a7842361b918eddb27351": "CH-17",
+    "53bda63b9dcf1d1bdacfe92a4f0cb251c865fdb4623db6ac3742e8e5f4e91204": "CH-25",
+    "e8d31ef7e362281253fb8ba8009e5dae365309c77d0f55daa217de1d31c28195": "CH-12",
+    "38e3c95024567c19c521ef76370700526f81682b429544e7e639980fa6a8aae9": "CH-31",
+    "2cf646cf754f74adaf9b49de828bdfc6ec53e66bb20166e8ca33f516e0ef6746": "CH-06",
+    "5d3e1c5e5a12e8bf0abb46004f6c7418439f1fb5d94875bccf63aca5eb7f4500": "CH-13"
+  },
+  "version": "challenge-1ba777a52805",
+  "requirementsVersion": "1N-5-7-10-v2",
+  "viewVersion": "casos-pantalla-prueba-5-7-10-v3"
+}

@@ -1,0 +1,698 @@
+{
+  "schema": "databridge-bank-v1",
+  "version": "db30-a1e9b2c10a8a",
+  "count": 30,
+  "durationSeconds": 900,
+  "questions": [
+    {
+      "id": "DB30-01",
+      "prompt": "¿Qué tabla representa esta clase?",
+      "code": "@Entity(\"lecciones\")\nexport class Leccion {\n  @PrimaryGeneratedColumn() id: number;\n}",
+      "options": [
+        {
+          "id": "2472ffbeeef236be",
+          "text": "lecciones"
+        },
+        {
+          "id": "32b1d8ddddbd1e86",
+          "text": "LeccionController"
+        },
+        {
+          "id": "140f9a243f0d537c",
+          "text": "typeorm"
+        },
+        {
+          "id": "fa7b8ce85c031233",
+          "text": "No define ninguna tabla"
+        }
+      ]
+    },
+    {
+      "id": "DB30-02",
+      "prompt": "¿Qué columna genera su propio identificador?",
+      "code": "@PrimaryGeneratedColumn() id: number;\n@Column() titulo: string;",
+      "options": [
+        {
+          "id": "766c6e376d40a4f1",
+          "text": "titulo"
+        },
+        {
+          "id": "619cf058ba650d44",
+          "text": "id"
+        },
+        {
+          "id": "f5c7a59474e338db",
+          "text": "Ambas"
+        },
+        {
+          "id": "ca0a52125a38eaf8",
+          "text": "Ninguna"
+        }
+      ]
+    },
+    {
+      "id": "DB30-03",
+      "prompt": "¿Qué propiedad se guarda como columna?",
+      "code": "@Column() nombre: string;\nsaludo() { return \"Hola\"; }",
+      "options": [
+        {
+          "id": "e0d50a1fe9ff0c00",
+          "text": "saludo"
+        },
+        {
+          "id": "8c04bca877e0295c",
+          "text": "Ambas"
+        },
+        {
+          "id": "aa9b521d9aca1165",
+          "text": "nombre"
+        },
+        {
+          "id": "a44626ef95ea5031",
+          "text": "Ninguna"
+        }
+      ]
+    },
+    {
+      "id": "DB30-04",
+      "prompt": "¿Qué servicio debe estar activo para esta conexión?",
+      "code": "type: \"postgres\",\nhost: \"localhost\",\nport: 5432",
+      "options": [
+        {
+          "id": "baef0f4aac492ddd",
+          "text": "Expo en el móvil"
+        },
+        {
+          "id": "9a11ce6672756664",
+          "text": "GitHub Pages"
+        },
+        {
+          "id": "bb857dc1316429d3",
+          "text": "Un servidor remoto obligatorio"
+        },
+        {
+          "id": "5ccce22fedfb3a36",
+          "text": "PostgreSQL en el ordenador"
+        }
+      ]
+    },
+    {
+      "id": "DB30-05",
+      "prompt": "¿Qué registra este módulo?",
+      "code": "TypeOrmModule.forFeature([Curso, Leccion])",
+      "options": [
+        {
+          "id": "585b34355d5d504a",
+          "text": "Los repositorios de Curso y Leccion"
+        },
+        {
+          "id": "754341a472311049",
+          "text": "Las pantallas de Expo"
+        },
+        {
+          "id": "fad6caf1aab1216a",
+          "text": "Un usuario de GitHub"
+        },
+        {
+          "id": "12c0e278389efbd1",
+          "text": "Una base distinta por petición"
+        }
+      ]
+    },
+    {
+      "id": "DB30-06",
+      "prompt": "¿Qué recibe el Service por inyección?",
+      "code": "@InjectRepository(Curso)\nprivate readonly cursoRepo: Repository<Curso>;",
+      "options": [
+        {
+          "id": "850d5766aca97cd4",
+          "text": "Un array fijo"
+        },
+        {
+          "id": "2714d09b706c2eb2",
+          "text": "El Repository de Curso"
+        },
+        {
+          "id": "02e809c3070120e1",
+          "text": "Un Controller"
+        },
+        {
+          "id": "9f34f1d47fc5bc3a",
+          "text": "Un componente React"
+        }
+      ]
+    },
+    {
+      "id": "DB30-07",
+      "prompt": "¿Qué relación expresa este campo?",
+      "code": "@ManyToOne(() => Curso, curso => curso.lecciones)\ncurso: Curso;",
+      "options": [
+        {
+          "id": "1787cf1a59916c63",
+          "text": "Cada lección tiene muchos cursos"
+        },
+        {
+          "id": "1cb48accac2bbd82",
+          "text": "Una N:M con JoinTable"
+        },
+        {
+          "id": "d6ba198dec3ebce7",
+          "text": "Varias lecciones pertenecen a un curso"
+        },
+        {
+          "id": "08f2ebd7ae9e8691",
+          "text": "Una relación solo en memoria"
+        }
+      ]
+    },
+    {
+      "id": "DB30-08",
+      "prompt": "¿En qué tabla estará curso_id?",
+      "code": "// Dentro de Leccion:\n@ManyToOne(() => Curso)\n@JoinColumn({ name: \"curso_id\" })\ncurso: Curso;",
+      "options": [
+        {
+          "id": "77b8c0de7ac24b48",
+          "text": "cursos"
+        },
+        {
+          "id": "36077564b9bc79b3",
+          "text": "Una tabla nueva obligatoria"
+        },
+        {
+          "id": "b0d79d0656436b89",
+          "text": "Solo en React"
+        },
+        {
+          "id": "5965a08c9462d1a5",
+          "text": "lecciones"
+        }
+      ]
+    },
+    {
+      "id": "DB30-09",
+      "prompt": "¿Qué aporta el lado inverso?",
+      "code": "// Dentro de Curso:\n@OneToMany(() => Leccion, l => l.curso)\nlecciones: Leccion[];",
+      "options": [
+        {
+          "id": "526f0b297d945c77",
+          "text": "La colección de lecciones relacionadas"
+        },
+        {
+          "id": "13217795ba194983",
+          "text": "Una FK lecciones_id en cursos"
+        },
+        {
+          "id": "a857b4db78faf5ea",
+          "text": "Un usuario SQL"
+        },
+        {
+          "id": "af7b95a2ffe0c1a2",
+          "text": "Una tabla intermedia obligatoria"
+        }
+      ]
+    },
+    {
+      "id": "DB30-10",
+      "prompt": "¿Qué tabla une alumnos y talleres?",
+      "code": "@ManyToMany(() => Taller)\n@JoinTable({ name: \"alumno_taller\" })\ntalleres: Taller[];",
+      "options": [
+        {
+          "id": "b789f1099aa0fe38",
+          "text": "Una columna con todos los títulos"
+        },
+        {
+          "id": "052e9dd4edced63d",
+          "text": "alumno_taller"
+        },
+        {
+          "id": "7ea46ab050264e97",
+          "text": "alumnos.controller"
+        },
+        {
+          "id": "9a2859b0ca45a3de",
+          "text": "No existe relación SQL"
+        }
+      ]
+    },
+    {
+      "id": "DB30-11",
+      "prompt": "¿Dónde registra NestJS el Service de este módulo?",
+      "code": "@Module({\n  imports: [TypeOrmModule.forFeature([Curso])],\n  providers: [AulaService],\n  controllers: [AulaController]\n})",
+      "options": [
+        {
+          "id": "57810d8a5fd726da",
+          "text": "En controllers"
+        },
+        {
+          "id": "47e5f6d2eaa60d90",
+          "text": "En la Entity"
+        },
+        {
+          "id": "a81c0addd89b83ea",
+          "text": "En providers"
+        },
+        {
+          "id": "10d465013a5455e6",
+          "text": "En la pantalla de Expo"
+        }
+      ]
+    },
+    {
+      "id": "DB30-12",
+      "prompt": "¿Qué cláusula SQL representa select?",
+      "code": "this.leccionRepo.createQueryBuilder(\"leccion\")\n  .select(\"leccion\")\n  .getMany();",
+      "options": [
+        {
+          "id": "d0a24b6359dc0ee6",
+          "text": "DELETE"
+        },
+        {
+          "id": "449094328d9d0f42",
+          "text": "WHERE"
+        },
+        {
+          "id": "3c2765cae4f3470d",
+          "text": "ORDER BY"
+        },
+        {
+          "id": "834057e99ca4a4bd",
+          "text": "SELECT"
+        }
+      ]
+    },
+    {
+      "id": "DB30-13",
+      "prompt": "¿Qué representa leccion aquí?",
+      "code": "this.leccionRepo.createQueryBuilder(\"leccion\")",
+      "options": [
+        {
+          "id": "43ae6b80f037fcf6",
+          "text": "Un alias SQL de la tabla de Leccion"
+        },
+        {
+          "id": "bd23ff73f87bfc58",
+          "text": "El nombre de otra base"
+        },
+        {
+          "id": "98464353ab3d143b",
+          "text": "Un ID concreto"
+        },
+        {
+          "id": "530f40b259ac2001",
+          "text": "Una nueva Entity"
+        }
+      ]
+    },
+    {
+      "id": "DB30-14",
+      "prompt": "¿Qué expresa esta llamada?",
+      "code": ".leftJoinAndSelect(\"leccion.curso\", \"curso\")",
+      "options": [
+        {
+          "id": "99e8955493e2f5ea",
+          "text": "Borra los cursos sin lección"
+        },
+        {
+          "id": "b8900b907b9f190d",
+          "text": "LEFT JOIN y selección de datos del curso"
+        },
+        {
+          "id": "56f7e705ce94d44b",
+          "text": "Crea una tabla"
+        },
+        {
+          "id": "4b457ce811ee83d2",
+          "text": "Inserta un curso"
+        }
+      ]
+    },
+    {
+      "id": "DB30-15",
+      "prompt": "¿Qué SQL equivale a esta condición?",
+      "code": ".where(\"curso.id = :cursoId\", { cursoId: 8 })",
+      "options": [
+        {
+          "id": "ae2724dec70abbcd",
+          "text": "ORDER BY curso.id"
+        },
+        {
+          "id": "1c4d2e73d7ea7e2a",
+          "text": "SELECT cursoId"
+        },
+        {
+          "id": "dfc5564596df704c",
+          "text": "WHERE curso.id = 8"
+        },
+        {
+          "id": "8154288a2fefc497",
+          "text": "JOIN cursoId"
+        }
+      ]
+    },
+    {
+      "id": "DB30-16",
+      "prompt": "¿Qué condición se añade?",
+      "code": ".where(\"curso.id = :id\", { id: 8 })\n.andWhere(\"leccion.completada = :estado\", { estado: true })",
+      "options": [
+        {
+          "id": "3a9308a786789443",
+          "text": "OR completada = true"
+        },
+        {
+          "id": "529095fb64748029",
+          "text": "ORDER BY completada"
+        },
+        {
+          "id": "c7a315e5d4809042",
+          "text": "Sin ninguna condición"
+        },
+        {
+          "id": "923e8253aea92047",
+          "text": "AND leccion.completada = true"
+        }
+      ]
+    },
+    {
+      "id": "DB30-17",
+      "prompt": "¿Qué filas acepta esta consulta?",
+      "code": ".where(\"leccion.completada = :a\", { a: true })\n.orWhere(\"leccion.curso_id = :b\", { b: 8 })",
+      "options": [
+        {
+          "id": "c1a1a86e56c74bd2",
+          "text": "Las completadas o las que pertenecen al curso 8"
+        },
+        {
+          "id": "36b294db7f83ea57",
+          "text": "Solo las que cumplen ambas condiciones"
+        },
+        {
+          "id": "66fd03232b6e906b",
+          "text": "Ninguna"
+        },
+        {
+          "id": "2e13fe7a4b4938a6",
+          "text": "Solo la de ID 8"
+        }
+      ]
+    },
+    {
+      "id": "DB30-18",
+      "prompt": "¿En qué orden salen las lecciones?",
+      "code": ".orderBy(\"leccion.id\", \"DESC\")",
+      "options": [
+        {
+          "id": "25298a7826d50a0c",
+          "text": "Aleatorio"
+        },
+        {
+          "id": "aa458f790c90a7de",
+          "text": "De ID mayor a menor"
+        },
+        {
+          "id": "fa70e5de76c48021",
+          "text": "Por título ascendente"
+        },
+        {
+          "id": "9a79f6fda1218e6c",
+          "text": "De ID menor a mayor"
+        }
+      ]
+    },
+    {
+      "id": "DB30-19",
+      "prompt": "¿Qué devuelve esta consulta?",
+      "code": "return this.leccionRepo.createQueryBuilder(\"leccion\")\n  .select(\"leccion\")\n  .getMany();",
+      "options": [
+        {
+          "id": "91c49cf5d5360fbc",
+          "text": "Siempre una fila"
+        },
+        {
+          "id": "e1e1a00d0c9d70d9",
+          "text": "El SQL como texto"
+        },
+        {
+          "id": "945d1c5fa1768b03",
+          "text": "Un array de Entities"
+        },
+        {
+          "id": "72e4f1eb31e0d7d0",
+          "text": "Una promesa de guardar"
+        }
+      ]
+    },
+    {
+      "id": "DB30-20",
+      "prompt": "¿Qué método devuelve una Entity existente por ID?",
+      "code": ".where(\"leccion.id = :id\", { id })\n// Elegir ejecución",
+      "options": [
+        {
+          "id": "88118ac8c7ec457e",
+          "text": "create()"
+        },
+        {
+          "id": "43e1058f3fdf3d7a",
+          "text": "getMany()"
+        },
+        {
+          "id": "6c6c2c7d6a1761d6",
+          "text": "save()"
+        },
+        {
+          "id": "10339e55db974249",
+          "text": "getOneOrFail()"
+        }
+      ]
+    },
+    {
+      "id": "DB30-21",
+      "prompt": "¿Qué dato sustituye a :id?",
+      "code": ".where(\"leccion.id = :id\", { id: 12 })",
+      "options": [
+        {
+          "id": "e87003d00ee4cb75",
+          "text": "12"
+        },
+        {
+          "id": "9897a164e36d69b6",
+          "text": "El texto literal :id"
+        },
+        {
+          "id": "c657e0787a63f9cf",
+          "text": "El puerto PostgreSQL"
+        },
+        {
+          "id": "8f61641e4413c35d",
+          "text": "El nombre del curso"
+        }
+      ]
+    },
+    {
+      "id": "DB30-22",
+      "prompt": "¿Qué recibe el Controller desde esta URL?",
+      "code": "// GET /lecciones/12\n@Get(\"lecciones/:id\")\nleer(@Param(\"id\", ParseIntPipe) id: number) { ... }",
+      "options": [
+        {
+          "id": "a5d5ab40cc477db3",
+          "text": "El título"
+        },
+        {
+          "id": "e94e12bc86951207",
+          "text": "El número 12"
+        },
+        {
+          "id": "a3fc4ee307d90da3",
+          "text": "El array completo"
+        },
+        {
+          "id": "9e1ba0a7dd54c345",
+          "text": "La contraseña"
+        }
+      ]
+    },
+    {
+      "id": "DB30-23",
+      "prompt": "¿Qué capa se llama desde el Controller?",
+      "code": "@Get(\"lecciones\")\nleer() { return this.aula.lecciones(); }",
+      "options": [
+        {
+          "id": "a9612cd945ef0e6b",
+          "text": "PostgreSQL directamente"
+        },
+        {
+          "id": "82bb11d8c6b02f68",
+          "text": "React Native"
+        },
+        {
+          "id": "a80b760399dbcba3",
+          "text": "AulaService"
+        },
+        {
+          "id": "dc31aa7e55b649b2",
+          "text": "El archivo .env"
+        }
+      ]
+    },
+    {
+      "id": "DB30-24",
+      "prompt": "¿Qué operación falta para persistir?",
+      "code": "const curso = this.cursoRepo.create({ nombre: \"SQL\" });\n// Todavía solo existe la instancia",
+      "options": [
+        {
+          "id": "39e142c0501f8834",
+          "text": "find()"
+        },
+        {
+          "id": "4baec38350d94935",
+          "text": "getMany()"
+        },
+        {
+          "id": "3d80c8905d8d18b4",
+          "text": "select()"
+        },
+        {
+          "id": "56b3b570a2231905",
+          "text": "save(curso)"
+        }
+      ]
+    },
+    {
+      "id": "DB30-25",
+      "prompt": "¿Qué relación se guarda?",
+      "code": "const curso = await this.curso(8);\nconst l = this.leccionRepo.create({ titulo: \"JOIN\", curso });\nreturn this.leccionRepo.save(l);",
+      "options": [
+        {
+          "id": "e161dc10e26aac6a",
+          "text": "La lección referencia al curso 8"
+        },
+        {
+          "id": "975b99f0570fefbf",
+          "text": "El curso se borra"
+        },
+        {
+          "id": "6b2b0fd21860fbb0",
+          "text": "Se crea una N:M"
+        },
+        {
+          "id": "6f44951d04d591b0",
+          "text": "Solo se guarda el texto JOIN"
+        }
+      ]
+    },
+    {
+      "id": "DB30-26",
+      "prompt": "¿Qué conserva este cambio?",
+      "code": "const l = await this.leccion(id);\nl.completada = true;\nreturn this.leccionRepo.save(l);",
+      "options": [
+        {
+          "id": "133183261f2b0661",
+          "text": "Borra el título"
+        },
+        {
+          "id": "8d8989d6be7b9d81",
+          "text": "Conserva título y curso"
+        },
+        {
+          "id": "7e5d55750ec1ae9e",
+          "text": "Crea otra lección siempre"
+        },
+        {
+          "id": "5ab2b90be9c56f8c",
+          "text": "Elimina todas las relaciones"
+        }
+      ]
+    },
+    {
+      "id": "DB30-27",
+      "prompt": "¿Qué cursos conserva esta consulta?",
+      "code": "SELECT curso.*, leccion.*\nFROM cursos AS curso\nLEFT JOIN lecciones AS leccion\n  ON leccion.curso_id = curso.id;",
+      "options": [
+        {
+          "id": "b75e5871f465d277",
+          "text": "Solo los cursos con una lección"
+        },
+        {
+          "id": "1be3044f3da4e2af",
+          "text": "Solo las lecciones sin curso"
+        },
+        {
+          "id": "a3a7ea3ab53937b7",
+          "text": "Todos los cursos, también los que no tienen lecciones"
+        },
+        {
+          "id": "42840b84b2580f61",
+          "text": "Ninguno si una lección está vacía"
+        }
+      ]
+    },
+    {
+      "id": "DB30-28",
+      "prompt": "¿Qué hace esta operación?",
+      "code": "await this.leccionRepo.delete(id);",
+      "options": [
+        {
+          "id": "e92963ec3c90cc29",
+          "text": "Vacía todas las tablas"
+        },
+        {
+          "id": "0d0b6880e0dc047a",
+          "text": "Borra solo en React"
+        },
+        {
+          "id": "fba45cc577745b5f",
+          "text": "Desconecta PostgreSQL"
+        },
+        {
+          "id": "f4830c0b4f3664b2",
+          "text": "Elimina la fila identificada por id"
+        }
+      ]
+    },
+    {
+      "id": "DB30-29",
+      "prompt": "¿Qué falta para mostrar los datos?",
+      "code": "const r = await fetch(API + \"/lecciones\");\nconst datos = await r.json();\n// Estado: const [lecciones, setLecciones] = useState([])",
+      "options": [
+        {
+          "id": "07d5cf2824a4b320",
+          "text": "setLecciones(datos)"
+        },
+        {
+          "id": "d187f1ec7763b03a",
+          "text": "createQueryBuilder(datos)"
+        },
+        {
+          "id": "2c4fcd914bbf4c08",
+          "text": "TypeOrmModule.forRoot(datos)"
+        },
+        {
+          "id": "583596d5714cacf3",
+          "text": "Cambiar DB_PASSWORD"
+        }
+      ]
+    },
+    {
+      "id": "DB30-30",
+      "prompt": "¿Qué demuestra que el dato se ha conservado?",
+      "code": "// Crear desde API, reiniciar NestJS y volver a consultar.",
+      "options": [
+        {
+          "id": "9171633160264d2e",
+          "text": "Ver un título escrito a mano en JSX"
+        },
+        {
+          "id": "4b6070730f912d6c",
+          "text": "Recuperar de PostgreSQL el mismo ID y sus datos"
+        },
+        {
+          "id": "c3a0a183f188d808",
+          "text": "Que el servidor diga listening"
+        },
+        {
+          "id": "5db6843313280cb6",
+          "text": "Que npm termine sin mensajes"
+        }
+      ]
+    }
+  ]
+}
